@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-01-07T04:28:25.068055Z",
+    "generated_at": "2026-01-07T15:09:03.579891Z",
     "version": "3.3.0",
     "methodology": {
       "csd": "Scheffer et al. (2009) / Dakos et al. (2012)",
@@ -30222,25 +30222,25 @@
   "record_count": 2510,
   "execution_log": [
     {
-      "time": "2026-01-07T04:28:22.336405Z",
+      "time": "2026-01-07T15:09:01.027766Z",
       "level": "INFO",
       "message": "API key found",
       "data": null
     },
     {
-      "time": "2026-01-07T04:28:22.431905Z",
+      "time": "2026-01-07T15:09:01.109913Z",
       "level": "SUCCESS",
       "message": "FRED API initialized",
       "data": null
     },
     {
-      "time": "2026-01-07T04:28:22.431921Z",
+      "time": "2026-01-07T15:09:01.109934Z",
       "level": "INFO",
       "message": "Fetching FRED series: WALCL",
       "data": null
     },
     {
-      "time": "2026-01-07T04:28:22.966713Z",
+      "time": "2026-01-07T15:09:01.342664Z",
       "level": "SUCCESS",
       "message": "Fetched WALCL",
       "data": {
@@ -30250,13 +30250,13 @@
       }
     },
     {
-      "time": "2026-01-07T04:28:22.966731Z",
+      "time": "2026-01-07T15:09:01.342685Z",
       "level": "INFO",
       "message": "Fetching FRED series: RRPONTSYD",
       "data": null
     },
     {
-      "time": "2026-01-07T04:28:23.370315Z",
+      "time": "2026-01-07T15:09:01.738513Z",
       "level": "SUCCESS",
       "message": "Fetched RRPONTSYD",
       "data": {
@@ -30266,13 +30266,13 @@
       }
     },
     {
-      "time": "2026-01-07T04:28:23.370332Z",
+      "time": "2026-01-07T15:09:01.738535Z",
       "level": "INFO",
       "message": "Fetching FRED series: WTREGEN",
       "data": null
     },
     {
-      "time": "2026-01-07T04:28:23.578701Z",
+      "time": "2026-01-07T15:09:02.043485Z",
       "level": "SUCCESS",
       "message": "Fetched WTREGEN",
       "data": {
@@ -30282,13 +30282,13 @@
       }
     },
     {
-      "time": "2026-01-07T04:28:23.578718Z",
+      "time": "2026-01-07T15:09:02.043507Z",
       "level": "INFO",
       "message": "Fetching FRED series: WRESBAL",
       "data": null
     },
     {
-      "time": "2026-01-07T04:28:23.776160Z",
+      "time": "2026-01-07T15:09:02.286319Z",
       "level": "SUCCESS",
       "message": "Fetched WRESBAL",
       "data": {
@@ -30298,13 +30298,13 @@
       }
     },
     {
-      "time": "2026-01-07T04:28:23.776177Z",
+      "time": "2026-01-07T15:09:02.286339Z",
       "level": "INFO",
       "message": "Fetching FRED series: SP500",
       "data": null
     },
     {
-      "time": "2026-01-07T04:28:24.218541Z",
+      "time": "2026-01-07T15:09:02.653143Z",
       "level": "SUCCESS",
       "message": "Fetched SP500",
       "data": {
@@ -30314,13 +30314,13 @@
       }
     },
     {
-      "time": "2026-01-07T04:28:24.264799Z",
+      "time": "2026-01-07T15:09:02.696293Z",
       "level": "INFO",
       "message": "Fetching NOAA solar data",
       "data": null
     },
     {
-      "time": "2026-01-07T04:28:24.483135Z",
+      "time": "2026-01-07T15:09:02.987957Z",
       "level": "SUCCESS",
       "message": "Fetched NOAA solar data",
       "data": {
@@ -30328,7 +30328,7 @@
       }
     },
     {
-      "time": "2026-01-07T04:28:24.484298Z",
+      "time": "2026-01-07T15:09:02.989586Z",
       "level": "SUCCESS",
       "message": "Validated WALCL",
       "data": {
@@ -30336,7 +30336,7 @@
       }
     },
     {
-      "time": "2026-01-07T04:28:24.484324Z",
+      "time": "2026-01-07T15:09:02.989613Z",
       "level": "SUCCESS",
       "message": "Validated RRP",
       "data": {
@@ -30344,7 +30344,7 @@
       }
     },
     {
-      "time": "2026-01-07T04:28:24.484339Z",
+      "time": "2026-01-07T15:09:02.989629Z",
       "level": "SUCCESS",
       "message": "Validated TGA",
       "data": {
@@ -30352,7 +30352,7 @@
       }
     },
     {
-      "time": "2026-01-07T04:28:24.484352Z",
+      "time": "2026-01-07T15:09:02.989642Z",
       "level": "SUCCESS",
       "message": "Validated SP500",
       "data": {
@@ -30360,7 +30360,7 @@
       }
     },
     {
-      "time": "2026-01-07T04:28:24.492461Z",
+      "time": "2026-01-07T15:09:02.997770Z",
       "level": "SUCCESS",
       "message": "Time series built",
       "data": {
@@ -30368,13 +30368,13 @@
       }
     },
     {
-      "time": "2026-01-07T04:28:24.492661Z",
+      "time": "2026-01-07T15:09:02.997951Z",
       "level": "INFO",
       "message": "Computing CSD indicators",
       "data": null
     },
     {
-      "time": "2026-01-07T04:28:24.791692Z",
+      "time": "2026-01-07T15:09:03.303921Z",
       "level": "SUCCESS",
       "message": "CSD complete",
       "data": {
@@ -30383,13 +30383,13 @@
       }
     },
     {
-      "time": "2026-01-07T04:28:24.810940Z",
+      "time": "2026-01-07T15:09:03.323206Z",
       "level": "INFO",
       "message": "Computing LPPL bubble detection (manual implementation)",
       "data": null
     },
     {
-      "time": "2026-01-07T04:28:24.946744Z",
+      "time": "2026-01-07T15:09:03.459591Z",
       "level": "WARNING",
       "message": "BUBBLE SIGNATURE DETECTED",
       "data": {
@@ -30399,7 +30399,7 @@
       }
     },
     {
-      "time": "2026-01-07T04:28:24.946816Z",
+      "time": "2026-01-07T15:09:03.459681Z",
       "level": "SUCCESS",
       "message": "Regime calculated",
       "data": {
