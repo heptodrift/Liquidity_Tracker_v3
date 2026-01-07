@@ -1,15 +1,7 @@
-# FLR Tracker V3.2 - Python Dependencies
-# All from PyPI, tested versions
+# FLR Tracker V3.3 - Minimal Dependencies
+# LPPL is now implemented manually - no external library needed
 
-# Core data handling
 pandas>=2.0.0
 numpy>=1.24.0
-
-# FRED API access
 fredapi==0.5.2
-
-# HTTP requests (for NOAA)
 requests>=2.31.0
-
-# LPPL bubble detection (optional - script works without it)
-lppls>=0.6.5
