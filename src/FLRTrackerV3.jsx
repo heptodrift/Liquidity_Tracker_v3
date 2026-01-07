@@ -287,7 +287,7 @@ const FLRTrackerV3 = () => {
             </div>
             <div>
               <h1 className="text-base sm:text-lg font-semibold">Fractal Liquidity Regime Tracker</h1>
-              <p className="text-xs text-slate-500 font-mono">v3.1 • 100% Real Data • Hover for explanations</p>
+              <p className="text-xs text-slate-500 font-mono">v3.1 • Beta • Hover for explanations</p>
             </div>
           </div>
           
@@ -303,7 +303,7 @@ const FLRTrackerV3 = () => {
             </button>
             <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-950/50 border border-emerald-800">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span className="text-xs font-mono text-emerald-400">VERIFIED</span>
+              <span className="text-xs font-mono text-emerald-400">BETA</span>
             </div>
           </div>
         </header>
@@ -571,7 +571,7 @@ const FLRTrackerV3 = () => {
 
         {/* Footer */}
         <footer className="text-center text-xs text-slate-600 font-mono space-y-1">
-          <p>FLR Tracker v3.1 • 100% Real Data • Not Financial Advice</p>
+          <p>FLR Tracker v3.1 • Beta • Not Financial Advice</p>
           <p>Data: FRED & NOAA • Statistics: Dakos et al. (2012), Sornette (2003)</p>
         </footer>
       </div>
@@ -643,7 +643,7 @@ const FLRTrackerV3 = () => {
             </div>
             
             <div className="mt-4 p-3 bg-emerald-950/30 border border-emerald-800 rounded-lg">
-              <p className="text-xs text-emerald-300"><strong>100% Auditable.</strong> Every value is fetched from official government APIs. Check the Audit Log for complete provenance.</p>
+              <p className="text-xs text-emerald-300"><strong>In development</strong> Every value is fetched from official government APIs. Check the Audit Log for complete provenance.</p>
             </div>
           </div>
         </div>
