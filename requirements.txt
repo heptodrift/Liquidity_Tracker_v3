@@ -1,5 +1,5 @@
-# FRACTAL TERMINAL V6.0 - Dependencies
-# All data from free sources (FRED, NOAA)
+# FRACTAL TERMINAL V7.0 - Dependencies
+# All data from free sources
 
 pandas>=2.0.0
 numpy>=1.24.0
