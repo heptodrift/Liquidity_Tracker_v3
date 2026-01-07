@@ -1,8 +1,11 @@
 {
   "meta": {
-    "generated_at": "2026-01-07T00:03:04.482214Z",
-    "version": "3.2.0",
-    "validation_passed": true,
+    "generated_at": "2026-01-07T00:47:00.351016Z",
+    "version": "3.3.0",
+    "methodology": {
+      "csd": "Scheffer et al. (2009) / Dakos et al. (2012)",
+      "lppl": "Sornette (2003) - Manual grid search implementation"
+    },
     "data_sources": {
       "WALCL": {
         "series_id": "WALCL",
@@ -46,7 +49,6 @@
       },
       "SOLAR": {
         "records": 3324,
-        "first_date": "1749-01-01",
         "last_date": "2025-12-01",
         "latest_ssn": 124.0,
         "source_url": "https://services.swpc.noaa.gov/json/solar-cycle/observed-solar-cycle-indices.json"
@@ -54,13 +56,13 @@
     }
   },
   "regime": {
-    "composite": 54.1,
-    "status": "CAUTION",
-    "signal": "HOLD",
+    "composite": 76.6,
+    "status": "CRITICAL",
+    "signal": "STRONG SELL",
     "components": {
       "ar1_score": 100,
       "tau_score": 60.4,
-      "lppl_score": 0,
+      "lppl_score": 90,
       "liquidity_score": 35.2
     }
   },
@@ -71,9 +73,14 @@
     "status": "CRITICAL"
   },
   "lppl": {
-    "is_bubble": false,
-    "confidence": 0,
-    "status": "LIBRARY_NOT_AVAILABLE"
+    "is_bubble": true,
+    "confidence": 90,
+    "tc_days": 151,
+    "tc_date": "2026-06-07",
+    "r2": 0.9256,
+    "omega": 9,
+    "m": 0.2,
+    "status": "BUBBLE_DETECTED"
   },
   "latest": {
     "date": "2026-01-05",
@@ -30263,27 +30270,25 @@
   "record_count": 2514,
   "execution_log": [
     {
-      "time": "2026-01-07T00:03:00.276490Z",
+      "time": "2026-01-07T00:46:57.617808Z",
       "level": "INFO",
       "message": "API key found",
-      "data": {
-        "length": 32
-      }
+      "data": null
     },
     {
-      "time": "2026-01-07T00:03:00.305544Z",
+      "time": "2026-01-07T00:46:57.650309Z",
       "level": "SUCCESS",
       "message": "FRED API initialized",
       "data": null
     },
     {
-      "time": "2026-01-07T00:03:00.305556Z",
+      "time": "2026-01-07T00:46:57.650323Z",
       "level": "INFO",
       "message": "Fetching FRED series: WALCL",
       "data": null
     },
     {
-      "time": "2026-01-07T00:03:01.028728Z",
+      "time": "2026-01-07T00:46:57.930240Z",
       "level": "SUCCESS",
       "message": "Fetched WALCL",
       "data": {
@@ -30293,13 +30298,13 @@
       }
     },
     {
-      "time": "2026-01-07T00:03:01.028743Z",
+      "time": "2026-01-07T00:46:57.930259Z",
       "level": "INFO",
       "message": "Fetching FRED series: RRPONTSYD",
       "data": null
     },
     {
-      "time": "2026-01-07T00:03:01.520535Z",
+      "time": "2026-01-07T00:46:58.460182Z",
       "level": "SUCCESS",
       "message": "Fetched RRPONTSYD",
       "data": {
@@ -30309,13 +30314,13 @@
       }
     },
     {
-      "time": "2026-01-07T00:03:01.520548Z",
+      "time": "2026-01-07T00:46:58.460200Z",
       "level": "INFO",
       "message": "Fetching FRED series: WTREGEN",
       "data": null
     },
     {
-      "time": "2026-01-07T00:03:01.767513Z",
+      "time": "2026-01-07T00:46:58.698576Z",
       "level": "SUCCESS",
       "message": "Fetched WTREGEN",
       "data": {
@@ -30325,13 +30330,13 @@
       }
     },
     {
-      "time": "2026-01-07T00:03:01.767523Z",
+      "time": "2026-01-07T00:46:58.698594Z",
       "level": "INFO",
       "message": "Fetching FRED series: WRESBAL",
       "data": null
     },
     {
-      "time": "2026-01-07T00:03:02.013365Z",
+      "time": "2026-01-07T00:46:58.956339Z",
       "level": "SUCCESS",
       "message": "Fetched WRESBAL",
       "data": {
@@ -30341,13 +30346,13 @@
       }
     },
     {
-      "time": "2026-01-07T00:03:02.013376Z",
+      "time": "2026-01-07T00:46:58.956354Z",
       "level": "INFO",
       "message": "Fetching FRED series: SP500",
       "data": null
     },
     {
-      "time": "2026-01-07T00:03:02.443827Z",
+      "time": "2026-01-07T00:46:59.351667Z",
       "level": "SUCCESS",
       "message": "Fetched SP500",
       "data": {
@@ -30357,106 +30362,97 @@
       }
     },
     {
-      "time": "2026-01-07T00:03:02.476409Z",
+      "time": "2026-01-07T00:46:59.387478Z",
       "level": "INFO",
-      "message": "Fetching NOAA solar data from https://services.swpc.noaa.gov/json/solar-cycle/observed-solar-cycle-indices.json",
+      "message": "Fetching NOAA solar data",
       "data": null
     },
     {
-      "time": "2026-01-07T00:03:03.144945Z",
+      "time": "2026-01-07T00:46:59.772947Z",
       "level": "SUCCESS",
       "message": "Fetched NOAA solar data",
       "data": {
-        "records": 3324,
-        "latest_ssn": "124",
-        "date": "2025-12-01"
+        "latest_ssn": "124"
       }
     },
     {
-      "time": "2026-01-07T00:03:03.145939Z",
+      "time": "2026-01-07T00:46:59.774371Z",
       "level": "SUCCESS",
       "message": "Validated WALCL",
       "data": {
-        "value": "6,640.62 billions",
-        "within_range": "6,000 - 7,500"
+        "value": "6,640.62"
       }
     },
     {
-      "time": "2026-01-07T00:03:03.145972Z",
+      "time": "2026-01-07T00:46:59.774398Z",
       "level": "SUCCESS",
       "message": "Validated RRP",
       "data": {
-        "value": "2.58 billions",
-        "within_range": "0 - 100"
+        "value": "2.58"
       }
     },
     {
-      "time": "2026-01-07T00:03:03.145987Z",
+      "time": "2026-01-07T00:46:59.774412Z",
       "level": "SUCCESS",
       "message": "Validated TGA",
       "data": {
-        "value": "837.31 billions",
-        "within_range": "500 - 1,200"
+        "value": "837.31"
       }
     },
     {
-      "time": "2026-01-07T00:03:03.145999Z",
+      "time": "2026-01-07T00:46:59.774424Z",
       "level": "SUCCESS",
       "message": "Validated SP500",
       "data": {
-        "value": "6,902.05 index",
-        "within_range": "4,000 - 8,000"
+        "value": "6,902.05"
       }
     },
     {
-      "time": "2026-01-07T00:03:03.153077Z",
+      "time": "2026-01-07T00:46:59.782356Z",
       "level": "SUCCESS",
       "message": "Time series built",
       "data": {
-        "records": 2514,
-        "start": "2016-01-06",
-        "end": "2026-01-05"
+        "records": 2514
       }
     },
     {
-      "time": "2026-01-07T00:03:03.153217Z",
+      "time": "2026-01-07T00:46:59.782520Z",
       "level": "INFO",
       "message": "Computing CSD indicators",
-      "data": {
-        "bandwidth": 50,
-        "window": 250
-      }
+      "data": null
     },
     {
-      "time": "2026-01-07T00:03:03.435548Z",
+      "time": "2026-01-07T00:47:00.080761Z",
       "level": "SUCCESS",
-      "message": "CSD computation complete",
+      "message": "CSD complete",
       "data": {
-        "current_ar1": "0.9494",
-        "kendall_tau": "0.1038",
+        "ar1": "0.9494",
         "status": "CRITICAL"
       }
     },
     {
-      "time": "2026-01-07T00:03:03.453296Z",
+      "time": "2026-01-07T00:47:00.100124Z",
       "level": "INFO",
-      "message": "Attempting LPPL computation...",
+      "message": "Computing LPPL bubble detection (manual implementation)",
       "data": null
     },
     {
-      "time": "2026-01-07T00:03:04.371572Z",
+      "time": "2026-01-07T00:47:00.232712Z",
       "level": "WARNING",
-      "message": "lppls library not installed - skipping LPPL analysis",
-      "data": null
+      "message": "BUBBLE SIGNATURE DETECTED",
+      "data": {
+        "confidence": "90%",
+        "tc_days": 151,
+        "r2": "0.926"
+      }
     },
     {
-      "time": "2026-01-07T00:03:04.371694Z",
+      "time": "2026-01-07T00:47:00.232785Z",
       "level": "SUCCESS",
       "message": "Regime calculated",
       "data": {
-        "composite": "54.1",
-        "status": "CAUTION",
-        "signal": "HOLD"
+        "status": "CRITICAL",
+        "score": "76.6"
       }
     }
   ]
