@@ -12,9 +12,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          ref: main
-          fetch-depth: 0
       
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -29,11 +26,8 @@ jobs:
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
         run: python scripts/compute_flr.py
       
-      - name: Push results
-        run: |
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git config user.name "github-actions[bot]"
-          git pull --rebase origin main
-          git add public/flr-data.json
-          git commit -m "📊 Daily FLR data update" || echo "No changes"
-          git push
+      - name: Commit and push
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "📊 Daily FLR data update"
+          file_pattern: "public/flr-data.json"
