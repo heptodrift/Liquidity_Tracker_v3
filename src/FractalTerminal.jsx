@@ -1,17 +1,18 @@
 import React, { useState, useEffect, useMemo, useRef, useCallback } from 'react';
+import ReactDOM from 'react-dom';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Area, ComposedChart, ReferenceLine, ReferenceArea, Brush, Legend } from 'recharts';
 import { Activity, DollarSign, Shield, Database, AlertCircle, Layers, X, HelpCircle, TrendingUp, TrendingDown, ZoomIn, FileText, Clock, Info, Sliders, Download, Terminal, AlertTriangle, Sun, Globe, Coins, Command, Layout, GripVertical, ArrowUp, ArrowDown, Minus, ChevronUp, ChevronDown } from 'lucide-react';
 
 /**
- * FRACTAL TERMINAL V7.2 - BETA EDITION
+ * FRACTAL TERMINAL V7.3 - INSTITUTIONAL EDITION
  * =============================================
  * 
- * Fixes:
- * - Tooltip positioning: Always orients toward screen center
+ * V7.3 Fixes:
+ * - Tooltip positioning: NOW USES PORTAL with FIXED positioning
+ *   Tooltips render at document.body level, escaping all containers
  * - Complete explanations for ALL metrics
  * - Delta indicators showing direction and magnitude
  * - LPPL section with full parameter explanations
- * - High z-index for all overlays
  * 
  * ALL DATA IS REAL. ZERO SIMULATIONS.
  */
@@ -288,76 +289,57 @@ const EXPLANATIONS = {
   }
 };
 
+// ============ TOOLTIP PORTAL ============
+// Renders tooltip at document.body level to escape all container clipping
+const TooltipPortal = ({ children }) => {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => { setMounted(true); return () => setMounted(false); }, []);
+  if (!mounted || typeof document === 'undefined') return null;
+  return ReactDOM.createPortal(children, document.body);
+};
+
 // ============ SMART TOOLTIP COMPONENT ============
-// Always positions toward center of screen, high z-index
+// Uses FIXED positioning via portal - guaranteed visible everywhere
 const InfoTooltip = ({ id, children, className = '' }) => {
   const [show, setShow] = useState(false);
-  const [position, setPosition] = useState({ vertical: 'below', horizontal: 'center' });
+  const [coords, setCoords] = useState({ x: 0, y: 0 });
   const triggerRef = useRef(null);
-  const tooltipRef = useRef(null);
   const info = EXPLANATIONS[id];
   
   if (!info) return <span className={className}>{children}</span>;
 
-  const calculatePosition = () => {
+  const handleMouseEnter = () => {
     if (!triggerRef.current) return;
     
     const rect = triggerRef.current.getBoundingClientRect();
-    const viewportWidth = window.innerWidth;
-    const viewportHeight = window.innerHeight;
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
     
-    // Calculate center of viewport
-    const viewportCenterX = viewportWidth / 2;
-    const viewportCenterY = viewportHeight / 2;
+    // Tooltip dimensions
+    const tw = 400;
+    const th = 380;
     
-    // Calculate center of trigger element
-    const triggerCenterX = rect.left + rect.width / 2;
-    const triggerCenterY = rect.top + rect.height / 2;
-    
-    // Position tooltip TOWARD the center of the screen
-    const vertical = triggerCenterY > viewportCenterY ? 'above' : 'below';
-    
-    let horizontal = 'center';
-    if (triggerCenterX < viewportWidth * 0.25) {
-      horizontal = 'right'; // Trigger is on left, tooltip goes right
-    } else if (triggerCenterX > viewportWidth * 0.75) {
-      horizontal = 'left'; // Trigger is on right, tooltip goes left
+    // Position: prefer right of element, flip if no room
+    let x = rect.right + 12;
+    if (x + tw > vw - 20) {
+      x = rect.left - tw - 12;
+    }
+    // If still no room, center horizontally
+    if (x < 20) {
+      x = Math.max(20, (vw - tw) / 2);
     }
     
-    setPosition({ vertical, horizontal });
-  };
-
-  const handleMouseEnter = () => {
-    calculatePosition();
+    // Vertical: center on element, clamp to viewport
+    let y = rect.top + rect.height / 2 - th / 2;
+    y = Math.max(20, Math.min(y, vh - th - 20));
+    
+    setCoords({ x, y });
     setShow(true);
   };
 
-  // Position classes
-  const getPositionClasses = () => {
-    let classes = 'absolute z-[99999] ';
-    
-    // Vertical positioning
-    if (position.vertical === 'above') {
-      classes += 'bottom-full mb-3 ';
-    } else {
-      classes += 'top-full mt-3 ';
-    }
-    
-    // Horizontal positioning
-    if (position.horizontal === 'left') {
-      classes += 'right-0 ';
-    } else if (position.horizontal === 'right') {
-      classes += 'left-0 ';
-    } else {
-      classes += 'left-1/2 -translate-x-1/2 ';
-    }
-    
-    return classes;
-  };
-
   return (
-    <div className={`relative inline-flex items-center ${className}`}>
-      <div
+    <span className={`relative inline-flex items-center ${className}`}>
+      <span
         ref={triggerRef}
         className="cursor-help inline-flex items-center gap-1 group"
         onMouseEnter={handleMouseEnter}
@@ -365,56 +347,60 @@ const InfoTooltip = ({ id, children, className = '' }) => {
       >
         {children}
         <Info className="w-3.5 h-3.5 text-cyan-500/50 group-hover:text-cyan-400 transition-colors flex-shrink-0" />
-      </div>
+      </span>
       
       {show && (
-        <div 
-          ref={tooltipRef}
-          className={getPositionClasses()}
-          style={{ 
-            width: '380px',
-            maxWidth: '90vw',
-            pointerEvents: 'none'
-          }}
-        >
-          <div className="bg-slate-950 border border-cyan-500/40 rounded-xl shadow-2xl shadow-cyan-500/20 overflow-hidden">
-            {/* Header */}
-            <div className="bg-cyan-900/30 border-b border-cyan-500/30 px-4 py-2">
-              <h4 className="text-cyan-400 font-bold text-sm">{info.title}</h4>
-              <p className="text-slate-300 text-xs mt-0.5">{info.short}</p>
-            </div>
-            
-            {/* Body */}
-            <div className="p-4 space-y-3 max-h-[50vh] overflow-auto">
-              {/* Detail */}
-              <div>
-                <p className="text-[11px] text-slate-500 uppercase tracking-wider mb-1">Explanation</p>
-                <p className="text-slate-300 text-xs whitespace-pre-wrap leading-relaxed">{info.detail}</p>
+        <TooltipPortal>
+          <div 
+            style={{ 
+              position: 'fixed',
+              left: coords.x,
+              top: coords.y,
+              zIndex: 999999,
+              width: 400,
+              maxWidth: 'calc(100vw - 40px)',
+              pointerEvents: 'none'
+            }}
+          >
+            <div className="bg-slate-950 border-2 border-cyan-500/60 rounded-xl shadow-2xl shadow-cyan-500/30 overflow-hidden">
+              {/* Header */}
+              <div className="bg-gradient-to-r from-cyan-900/50 to-slate-900 border-b border-cyan-500/40 px-4 py-3">
+                <h4 className="text-cyan-400 font-bold text-sm">{info.title}</h4>
+                <p className="text-slate-300 text-xs mt-1">{info.short}</p>
               </div>
               
-              {/* Impact */}
-              <div className="bg-amber-950/30 border border-amber-500/30 rounded-lg p-3">
-                <p className="text-[11px] text-amber-500 uppercase tracking-wider mb-1">Impact & Interpretation</p>
-                <p className="text-amber-200/90 text-xs whitespace-pre-wrap font-mono leading-relaxed">{info.impact}</p>
-              </div>
-              
-              {/* Thresholds */}
-              {info.thresholds && (
-                <div className="bg-slate-800/50 rounded-lg p-3">
-                  <p className="text-[11px] text-slate-500 uppercase tracking-wider mb-1">Key Thresholds</p>
-                  <p className="text-slate-400 text-xs whitespace-pre-wrap font-mono">{info.thresholds}</p>
+              {/* Body */}
+              <div className="p-4 space-y-3 max-h-[55vh] overflow-auto">
+                {/* Detail */}
+                <div>
+                  <p className="text-[11px] text-cyan-500 uppercase tracking-wider mb-1 font-semibold">Explanation</p>
+                  <p className="text-slate-300 text-xs whitespace-pre-wrap leading-relaxed">{info.detail}</p>
                 </div>
-              )}
-              
-              {/* Source */}
-              <div className="pt-2 border-t border-slate-800">
-                <p className="text-[10px] text-slate-600 whitespace-pre-wrap">{info.source}</p>
+                
+                {/* Impact */}
+                <div className="bg-amber-950/40 border border-amber-500/40 rounded-lg p-3">
+                  <p className="text-[11px] text-amber-400 uppercase tracking-wider mb-1 font-semibold">Impact & Interpretation</p>
+                  <p className="text-amber-200 text-xs whitespace-pre-wrap font-mono leading-relaxed">{info.impact}</p>
+                </div>
+                
+                {/* Thresholds */}
+                {info.thresholds && (
+                  <div className="bg-slate-800/70 rounded-lg p-3">
+                    <p className="text-[11px] text-slate-400 uppercase tracking-wider mb-1 font-semibold">Key Thresholds</p>
+                    <p className="text-slate-300 text-xs whitespace-pre-wrap font-mono">{info.thresholds}</p>
+                  </div>
+                )}
+                
+                {/* Source */}
+                <div className="pt-2 border-t border-slate-700">
+                  <p className="text-[10px] text-slate-500 whitespace-pre-wrap">{info.source}</p>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </TooltipPortal>
       )}
-    </div>
+    </span>
   );
 };
 
@@ -726,7 +712,7 @@ const FractalTerminal = () => {
             </div>
             <div>
               <h1 className="text-2xl font-bold font-mono text-cyan-400">FRACTAL TERMINAL</h1>
-              <p className="text-xs text-cyan-500/60 font-mono">v7.2 • All Real Data • No Simulations</p>
+              <p className="text-xs text-cyan-500/60 font-mono">v7.3 • All Real Data • No Simulations</p>
             </div>
           </div>
           
@@ -1186,7 +1172,7 @@ const FractalTerminal = () => {
 
         {/* Footer */}
         <footer className="text-center text-xs text-slate-600 font-mono py-6 border-t border-slate-800">
-          <p className="text-cyan-500 mb-1">FRACTAL TERMINAL v7.2</p>
+          <p className="text-cyan-500 mb-1">FRACTAL TERMINAL v7.3</p>
           <p>Data: Daily Treasury Statement • NY Fed Markets • FRED • DefiLlama • NOAA</p>
           <p className="text-slate-700 mt-1">All data real. Zero simulations. Not financial advice.</p>
         </footer>
@@ -1197,7 +1183,7 @@ const FractalTerminal = () => {
         <div className="fixed inset-0 z-[99999] flex items-center justify-center p-4 bg-black/90 backdrop-blur" onClick={() => setShowHelp(false)}>
           <div className="bg-slate-900 border border-cyan-500/30 rounded-2xl max-w-2xl w-full max-h-[80vh] overflow-auto" onClick={e => e.stopPropagation()}>
             <div className="flex items-center justify-between p-4 border-b border-slate-800">
-              <h2 className="text-xl font-bold text-cyan-400">FRACTAL TERMINAL v7.2</h2>
+              <h2 className="text-xl font-bold text-cyan-400">FRACTAL TERMINAL v7.3</h2>
               <button onClick={() => setShowHelp(false)} className="p-2 hover:bg-slate-800 rounded-lg">
                 <X className="w-5 h-5" />
               </button>
