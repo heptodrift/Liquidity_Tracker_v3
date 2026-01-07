@@ -1,28 +1,23 @@
 #!/usr/bin/env python3
 """
-FRACTAL TERMINAL V6.0 - CLEAN EDITION
-======================================
+FRACTAL TERMINAL V7.0 - INSTITUTIONAL EDITION
+==============================================
+
+COMPLETE DATA ARCHITECTURE:
+- Daily Treasury Statement API (T-1 TGA)
+- NY Fed Markets API (Real-time RRP)
+- Global M2 Aggregation (US, EU, CN, JP)
+- Stablecoin Impulse (DefiLlama)
+- All FRED Credit Stress Indicators
 
 ALL DATA IS REAL. ZERO SIMULATIONS.
-
-Data Sources (All Free):
-- FRED: WALCL, WTREGEN, RRPONTSYD, WRESBAL, SP500
-- FRED: RIFSPPFAAD90NB, TB3MS (Credit Stress)
-- FRED: T10Y2Y (Yield Curve)
-- FRED: BAMLH0A0HYM2 (High Yield Spread)
-- FRED: VIXCLS (Volatility Index)
-- NOAA: Solar Cycle Data
-
-Removed (Required Paid APIs):
-- GEX (needs ThetaData ~$40/mo)
-- DIX (needs FINRA pipeline infrastructure)
 """
 
 import json
 import os
 import sys
 from datetime import datetime, timedelta
-from typing import Dict, Any, List, Tuple
+from typing import Dict, Any, List, Tuple, Optional
 import traceback
 
 # ============ CONFIGURATION ============
@@ -30,17 +25,26 @@ CONFIG = {
     "start_date": "2015-01-01",
     "fred_series": {
         # Core Liquidity
-        "WALCL": "Fed Balance Sheet (Total Assets)",
-        "WTREGEN": "Treasury General Account",
-        "RRPONTSYD": "Reverse Repo Facility",
+        "WALCL": "Fed Balance Sheet",
+        "WTREGEN": "Treasury General Account (Weekly Backup)",
+        "RRPONTSYD": "Reverse Repo (Daily Backup)",
         "WRESBAL": "Bank Reserves",
         "SP500": "S&P 500 Index",
-        # Credit Stress (NEW - ALL FREE)
-        "RIFSPPFAAD90NB": "3-Month AA Financial Commercial Paper Rate",
+        # Credit Stress
+        "RIFSPPFAAD90NB": "3-Month AA Financial CP Rate",
         "TB3MS": "3-Month Treasury Bill Rate",
-        "T10Y2Y": "10Y-2Y Treasury Spread (Yield Curve)",
+        "T10Y2Y": "10Y-2Y Treasury Spread",
         "BAMLH0A0HYM2": "ICE BofA High Yield Spread",
-        "VIXCLS": "CBOE Volatility Index (VIX)",
+        "VIXCLS": "CBOE VIX",
+        # Global M2 Components
+        "M2SL": "US M2 Money Supply",
+        "MYAGM2EZM196N": "Euro Area M2",
+        "MYAGM2JPM189N": "Japan M2", 
+        "MYAGM2CNM189N": "China M2",
+        # Exchange Rates for conversion
+        "DEXUSEU": "USD/EUR Exchange Rate",
+        "DEXJPUS": "JPY/USD Exchange Rate",
+        "DEXCHUS": "CNY/USD Exchange Rate",
     }
 }
 
@@ -71,9 +75,186 @@ class Logger:
 
 logger = Logger()
 
-# ============ DATA FETCHING ============
+# ============ DAILY TREASURY STATEMENT API ============
+def fetch_daily_tga() -> Tuple[Optional[float], Optional[str], dict]:
+    """
+    Fetch TGA from Daily Treasury Statement API (T-1 latency)
+    Source: https://fiscaldata.treasury.gov/datasets/daily-treasury-statement/
+    """
+    import requests
+    import pandas as pd
+    
+    logger.info("Fetching Daily Treasury Statement (TGA)")
+    
+    url = "https://api.fiscaldata.treasury.gov/services/api/fiscal_service/v1/accounting/dts/operating_cash_balance"
+    params = {
+        "sort": "-record_date",
+        "page[size]": 30,
+        "fields": "record_date,account_type,open_today_bal,open_month_bal"
+    }
+    
+    try:
+        response = requests.get(url, params=params, timeout=30)
+        response.raise_for_status()
+        data = response.json()
+        
+        if not data.get("data"):
+            raise ValueError("No data returned from Treasury API")
+        
+        # Find TGA Closing Balance entry
+        tga_value = None
+        tga_date = None
+        
+        for record in data["data"]:
+            if "TGA" in record.get("account_type", "") or "closing" in record.get("account_type", "").lower():
+                # The open_today_bal is actually previous day's closing
+                val = record.get("open_today_bal") or record.get("open_month_bal")
+                if val:
+                    tga_value = float(val) / 1000  # Convert millions to billions
+                    tga_date = record.get("record_date")
+                    break
+        
+        # Fallback: use first record's opening balance
+        if tga_value is None and data["data"]:
+            for record in data["data"]:
+                val = record.get("open_today_bal")
+                if val:
+                    tga_value = float(val) / 1000
+                    tga_date = record.get("record_date")
+                    break
+        
+        meta = {
+            "source": "Daily Treasury Statement API",
+            "source_url": "https://fiscaldata.treasury.gov/datasets/daily-treasury-statement/",
+            "latency": "T-1",
+            "last_date": tga_date,
+            "value": tga_value
+        }
+        
+        if tga_value:
+            logger.success(f"Daily TGA fetched", {"value": f"${tga_value:.1f}B", "date": tga_date})
+        else:
+            logger.warning("Could not extract TGA from Daily Treasury Statement")
+            
+        return tga_value, tga_date, meta
+        
+    except Exception as e:
+        logger.warning(f"Daily Treasury API failed: {e}")
+        return None, None, {"error": str(e)}
+
+# ============ NY FED RRP API ============
+def fetch_nyfed_rrp() -> Tuple[Optional[float], Optional[str], dict]:
+    """
+    Fetch RRP from NY Fed Markets Data API
+    Source: https://markets.newyorkfed.org/
+    Published daily at ~1:15 PM ET
+    """
+    import requests
+    
+    logger.info("Fetching NY Fed RRP data")
+    
+    # Try the JSON endpoint for reverse repo operations
+    url = "https://markets.newyorkfed.org/api/rp/reverserepo/propositions/search.json"
+    params = {
+        "startDate": (datetime.now() - timedelta(days=7)).strftime("%Y-%m-%d"),
+        "endDate": datetime.now().strftime("%Y-%m-%d")
+    }
+    
+    try:
+        response = requests.get(url, params=params, timeout=30)
+        response.raise_for_status()
+        data = response.json()
+        
+        rrp_value = None
+        rrp_date = None
+        
+        # Parse the response
+        if data.get("repo", {}).get("operations"):
+            operations = data["repo"]["operations"]
+            if operations:
+                latest = operations[0]
+                # Total submitted amount
+                if latest.get("totalAmtSubmitted"):
+                    rrp_value = float(latest["totalAmtSubmitted"]) / 1000  # Billions
+                    rrp_date = latest.get("operationDate")
+        
+        meta = {
+            "source": "NY Fed Markets Data API",
+            "source_url": "https://markets.newyorkfed.org/",
+            "latency": "Same-day (1:15 PM ET)",
+            "last_date": rrp_date,
+            "value": rrp_value
+        }
+        
+        if rrp_value is not None:
+            logger.success(f"NY Fed RRP fetched", {"value": f"${rrp_value:.1f}B", "date": rrp_date})
+        else:
+            logger.warning("Could not parse NY Fed RRP data")
+            
+        return rrp_value, rrp_date, meta
+        
+    except Exception as e:
+        logger.warning(f"NY Fed API failed: {e}")
+        return None, None, {"error": str(e)}
+
+# ============ STABLECOIN DATA (DefiLlama) ============
+def fetch_stablecoin_data() -> Tuple[Optional[dict], dict]:
+    """
+    Fetch stablecoin market caps from DefiLlama
+    Source: https://defillama.com/stablecoins
+    """
+    import requests
+    
+    logger.info("Fetching stablecoin data from DefiLlama")
+    
+    url = "https://stablecoins.llama.fi/stablecoins?includePrices=true"
+    
+    try:
+        response = requests.get(url, timeout=30)
+        response.raise_for_status()
+        data = response.json()
+        
+        stablecoins = data.get("peggedAssets", [])
+        
+        # Major stablecoins
+        target_symbols = ["USDT", "USDC", "DAI", "FDUSD", "TUSD", "USDP", "FRAX"]
+        
+        total_mcap = 0
+        breakdown = {}
+        
+        for coin in stablecoins:
+            symbol = coin.get("symbol", "")
+            if symbol in target_symbols:
+                mcap = coin.get("circulating", {}).get("peggedUSD", 0)
+                if mcap:
+                    breakdown[symbol] = mcap / 1e9  # Convert to billions
+                    total_mcap += mcap
+        
+        total_mcap_b = total_mcap / 1e9
+        
+        result = {
+            "total_mcap": round(total_mcap_b, 2),
+            "breakdown": {k: round(v, 2) for k, v in breakdown.items()},
+            "timestamp": datetime.utcnow().isoformat() + "Z"
+        }
+        
+        meta = {
+            "source": "DefiLlama Stablecoins API",
+            "source_url": "https://defillama.com/stablecoins",
+            "total_mcap": f"${total_mcap_b:.1f}B",
+            "coins_tracked": list(breakdown.keys())
+        }
+        
+        logger.success("Stablecoin data fetched", {"total": f"${total_mcap_b:.1f}B"})
+        return result, meta
+        
+    except Exception as e:
+        logger.warning(f"DefiLlama API failed: {e}")
+        return None, {"error": str(e)}
+
+# ============ FRED FETCHING ============
 def fetch_fred_series(fred, series_id: str, start_date: str) -> Tuple[Any, dict]:
-    """Fetch a FRED series with full metadata"""
+    """Fetch a FRED series with metadata"""
     import pandas as pd
     
     logger.info(f"Fetching FRED: {series_id}")
@@ -83,25 +264,22 @@ def fetch_fred_series(fred, series_id: str, start_date: str) -> Tuple[Any, dict]
         data = data.dropna()
         
         if len(data) == 0:
-            raise ValueError(f"No data returned for {series_id}")
-        
-        latest_date = str(data.index[-1].date())
-        latest_value = float(data.iloc[-1])
+            raise ValueError(f"No data for {series_id}")
         
         meta = {
             "series_id": series_id,
             "description": CONFIG["fred_series"].get(series_id, series_id),
             "records": len(data),
             "first_date": str(data.index[0].date()),
-            "last_date": latest_date,
-            "latest_value": latest_value,
+            "last_date": str(data.index[-1].date()),
+            "latest_value": float(data.iloc[-1]),
             "source_url": f"https://fred.stlouisfed.org/series/{series_id}"
         }
         
         logger.success(f"Fetched {series_id}", {
             "records": len(data),
-            "latest": f"{latest_value:,.2f}",
-            "date": latest_date
+            "latest": f"{float(data.iloc[-1]):,.2f}",
+            "date": str(data.index[-1].date())
         })
         
         return data, meta
@@ -110,6 +288,14 @@ def fetch_fred_series(fred, series_id: str, start_date: str) -> Tuple[Any, dict]
         logger.error(f"Failed to fetch {series_id}", {"error": str(e)})
         raise
 
+def fetch_fred_safe(fred, series_id: str, start_date: str):
+    """Fetch FRED series with graceful failure"""
+    try:
+        return fetch_fred_series(fred, series_id, start_date)
+    except:
+        return None, {"error": f"Failed to fetch {series_id}"}
+
+# ============ NOAA SOLAR ============
 def fetch_noaa_solar() -> Tuple[Any, dict]:
     """Fetch solar data from NOAA"""
     import pandas as pd
@@ -138,20 +324,104 @@ def fetch_noaa_solar() -> Tuple[Any, dict]:
         df['date'] = pd.to_datetime(df['date'])
         df = df.set_index('date').sort_index()
         
-        latest = df.iloc[-1]
         meta = {
             "records": len(df),
             "last_date": str(df.index[-1].date()),
-            "latest_ssn": float(latest['ssn']),
+            "latest_ssn": float(df.iloc[-1]['ssn']),
             "source_url": url
         }
         
-        logger.success("Fetched NOAA solar data", {"latest_ssn": f"{latest['ssn']:.0f}"})
+        logger.success("Fetched NOAA solar data", {"latest_ssn": f"{df.iloc[-1]['ssn']:.0f}"})
         return df, meta
         
     except Exception as e:
-        logger.error("Failed to fetch NOAA data", {"error": str(e)})
-        raise
+        logger.error(f"NOAA fetch failed: {e}")
+        return None, {"error": str(e)}
+
+# ============ GLOBAL M2 CALCULATION ============
+def calculate_global_m2(fred, start_date: str) -> Tuple[Optional[Any], dict]:
+    """
+    Calculate Global M2 = US M2 + (EU M2 × EUR/USD) + (JP M2 × JPY/USD) + (CN M2 × CNY/USD)
+    All from FRED
+    """
+    import pandas as pd
+    import numpy as np
+    
+    logger.info("Calculating Global M2")
+    
+    try:
+        # Fetch all components
+        us_m2, _ = fetch_fred_safe(fred, "M2SL", start_date)
+        eu_m2, _ = fetch_fred_safe(fred, "MYAGM2EZM196N", start_date)
+        jp_m2, _ = fetch_fred_safe(fred, "MYAGM2JPM189N", start_date)
+        cn_m2, _ = fetch_fred_safe(fred, "MYAGM2CNM189N", start_date)
+        
+        eur_usd, _ = fetch_fred_safe(fred, "DEXUSEU", start_date)
+        jpy_usd, _ = fetch_fred_safe(fred, "DEXJPUS", start_date)
+        cny_usd, _ = fetch_fred_safe(fred, "DEXCHUS", start_date)
+        
+        if us_m2 is None:
+            raise ValueError("US M2 is required")
+        
+        # Create aligned dataframe
+        df = pd.DataFrame(index=us_m2.index)
+        df['us_m2'] = us_m2
+        
+        # Add other components if available
+        if eu_m2 is not None and eur_usd is not None:
+            df['eu_m2'] = eu_m2
+            df['eur_usd'] = eur_usd
+            df = df.ffill()
+            df['eu_m2_usd'] = df['eu_m2'] * df['eur_usd']
+        else:
+            df['eu_m2_usd'] = 0
+            
+        if jp_m2 is not None and jpy_usd is not None:
+            df['jp_m2'] = jp_m2
+            df['jpy_usd'] = jpy_usd
+            df = df.ffill()
+            # JPY/USD is quoted as JPY per USD, so divide
+            df['jp_m2_usd'] = df['jp_m2'] / df['jpy_usd'] if df['jpy_usd'].mean() > 1 else df['jp_m2'] * df['jpy_usd']
+        else:
+            df['jp_m2_usd'] = 0
+            
+        if cn_m2 is not None and cny_usd is not None:
+            df['cn_m2'] = cn_m2
+            df['cny_usd'] = cny_usd
+            df = df.ffill()
+            # CNY/USD convert
+            df['cn_m2_usd'] = df['cn_m2'] / df['cny_usd'] if df['cny_usd'].mean() > 1 else df['cn_m2'] * df['cny_usd']
+        else:
+            df['cn_m2_usd'] = 0
+        
+        # Calculate Global M2 (in billions)
+        df['global_m2'] = (df['us_m2'] + df['eu_m2_usd'] + df['jp_m2_usd'] + df['cn_m2_usd']) / 1000
+        
+        # Calculate 30-day ROC
+        df['global_m2_roc'] = df['global_m2'].pct_change(periods=30) * 100
+        
+        df = df.dropna(subset=['global_m2'])
+        
+        latest = df.iloc[-1]
+        
+        meta = {
+            "source": "FRED (M2SL, MYAGM2EZM196N, MYAGM2JPM189N, MYAGM2CNM189N)",
+            "components": ["US M2", "Euro Area M2", "Japan M2", "China M2"],
+            "latest_global_m2": f"${latest['global_m2']:.1f}T",
+            "latest_roc_30d": f"{latest['global_m2_roc']:.2f}%",
+            "records": len(df)
+        }
+        
+        logger.success("Global M2 calculated", {
+            "global_m2": f"${latest['global_m2']:.1f}T",
+            "roc_30d": f"{latest['global_m2_roc']:.2f}%"
+        })
+        
+        return df[['global_m2', 'global_m2_roc']], meta
+        
+    except Exception as e:
+        logger.error(f"Global M2 calculation failed: {e}")
+        return None, {"error": str(e)}
 
 # ============ CSD ANALYSIS ============
 def compute_csd(prices: List[float], bandwidth: int = 50, window: int = 250) -> dict:
@@ -222,10 +492,10 @@ def compute_csd(prices: List[float], bandwidth: int = 50, window: int = 250) -> 
 
 # ============ LPPL ANALYSIS ============
 def compute_lppl(prices: List[float]) -> dict:
-    """Log-Periodic Power Law bubble detection (manual implementation)"""
+    """LPPL bubble detection"""
     import numpy as np
     
-    logger.info("Computing LPPL bubble detection")
+    logger.info("Computing LPPL")
     
     try:
         prices = np.array(prices)
@@ -242,16 +512,10 @@ def compute_lppl(prices: List[float]) -> dict:
         best_fit = None
         best_r2 = -np.inf
         
-        # Grid search
-        tc_range = range(lookback + 10, lookback + 250, 20)
-        m_range = [0.2, 0.33, 0.5, 0.67, 0.8]
-        omega_range = [6, 7, 8, 9, 10, 11, 12]
-        phi_range = [0, np.pi/2, np.pi, 3*np.pi/2]
-        
-        for tc in tc_range:
-            for m in m_range:
-                for omega in omega_range:
-                    for phi in phi_range:
+        for tc in range(lookback + 10, lookback + 250, 20):
+            for m in [0.2, 0.33, 0.5, 0.67, 0.8]:
+                for omega in [6, 7, 8, 9, 10, 11, 12]:
+                    for phi in [0, np.pi/2, np.pi, 3*np.pi/2]:
                         dt = tc - t
                         if np.any(dt <= 0):
                             continue
@@ -263,11 +527,9 @@ def compute_lppl(prices: List[float]) -> dict:
                         X = np.column_stack([np.ones(lookback), f_t, g_t])
                         
                         try:
-                            XtX = X.T @ X
-                            Xty = X.T @ log_prices
-                            coeffs = np.linalg.solve(XtX, Xty)
+                            coeffs = np.linalg.solve(X.T @ X, X.T @ log_prices)
                             A, B, C = coeffs
-                        except np.linalg.LinAlgError:
+                        except:
                             continue
                         
                         if B >= 0 or abs(C) > abs(B):
@@ -283,45 +545,25 @@ def compute_lppl(prices: List[float]) -> dict:
                             best_fit = {"tc": tc, "m": m, "omega": omega, "r2": r2}
         
         if best_fit is None or best_fit["r2"] < 0.7:
-            return _lppl_result(False, 0, None, None, None, None, None, "No bubble signature (R² < 0.7)")
+            return _lppl_result(False, 0, None, None, None, None, None, "No bubble signature")
         
         tc_days = best_fit["tc"] - lookback + 1
-        m_valid = 0.1 < best_fit["m"] < 0.9
-        omega_valid = 6 < best_fit["omega"] < 13
-        tc_valid = 5 < tc_days < 365
-        
-        is_bubble = all([m_valid, omega_valid, tc_valid])
+        is_bubble = all([0.1 < best_fit["m"] < 0.9, 6 < best_fit["omega"] < 13, 5 < tc_days < 365])
         confidence = int(min(100, max(0, (best_fit["r2"] - 0.7) / 0.25 * 100))) if is_bubble else 0
-        tc_date = (datetime.now() + timedelta(days=tc_days)).strftime('%Y-%m-%d') if tc_valid else None
+        tc_date = (datetime.now() + timedelta(days=tc_days)).strftime('%Y-%m-%d') if 5 < tc_days < 365 else None
         
-        status = "BUBBLE DETECTED" if is_bubble else "No bubble signature"
         logger.success("LPPL complete", {"is_bubble": is_bubble, "r2": f"{best_fit['r2']:.3f}"})
         
-        return _lppl_result(
-            is_bubble, confidence,
-            tc_days if tc_valid else None,
-            tc_date,
-            round(best_fit["r2"], 4),
-            round(best_fit["omega"], 2),
-            round(best_fit["m"], 3),
-            status
-        )
-        
+        return _lppl_result(is_bubble, confidence, tc_days if 5 < tc_days < 365 else None, tc_date,
+                          round(best_fit["r2"], 4), round(best_fit["omega"], 2), round(best_fit["m"], 3),
+                          "BUBBLE DETECTED" if is_bubble else "No bubble signature")
     except Exception as e:
         logger.error(f"LPPL error: {e}")
-        return _lppl_result(False, 0, None, None, None, None, None, f"Error: {str(e)}")
+        return _lppl_result(False, 0, None, None, None, None, None, f"Error: {e}")
 
 def _lppl_result(is_bubble, confidence, tc_days, tc_date, r2, omega, m, status):
-    return {
-        "is_bubble": is_bubble,
-        "confidence": confidence,
-        "tc_days": tc_days,
-        "tc_date": tc_date,
-        "r2": r2,
-        "omega": omega,
-        "m": m,
-        "status": status
-    }
+    return {"is_bubble": is_bubble, "confidence": confidence, "tc_days": tc_days, "tc_date": tc_date,
+            "r2": r2, "omega": omega, "m": m, "status": status}
 
 # ============ MAIN ============
 def main():
@@ -329,17 +571,15 @@ def main():
     import numpy as np
     
     print("=" * 70)
-    print("FRACTAL TERMINAL V6.0 - ALL REAL DATA")
+    print("FRACTAL TERMINAL V7.0 - INSTITUTIONAL EDITION")
     print(f"Execution: {datetime.utcnow().isoformat()}Z")
     print("=" * 70)
     
-    # Check API key
     fred_api_key = os.environ.get('FRED_API_KEY')
     if not fred_api_key:
         logger.critical("FRED_API_KEY not set!")
         sys.exit(1)
     
-    # Initialize FRED
     try:
         from fredapi import Fred
         fred = Fred(api_key=fred_api_key)
@@ -348,142 +588,101 @@ def main():
         logger.critical(f"FRED init failed: {e}")
         sys.exit(1)
     
-    # ========== FETCH ALL DATA ==========
-    print("\n" + "=" * 70)
-    print("PHASE 1: FETCHING ALL FRED SERIES")
-    print("=" * 70)
-    
     data_sources = {}
     
-    # Core liquidity series
-    try:
-        walcl, walcl_meta = fetch_fred_series(fred, "WALCL", CONFIG["start_date"])
-        data_sources["WALCL"] = walcl_meta
-    except: 
-        logger.critical("WALCL fetch failed")
-        sys.exit(1)
-    
-    try:
-        rrp, rrp_meta = fetch_fred_series(fred, "RRPONTSYD", CONFIG["start_date"])
-        data_sources["RRPONTSYD"] = rrp_meta
-    except:
-        logger.critical("RRP fetch failed")
-        sys.exit(1)
-    
-    try:
-        tga, tga_meta = fetch_fred_series(fred, "WTREGEN", CONFIG["start_date"])
-        data_sources["WTREGEN"] = tga_meta
-    except:
-        logger.critical("TGA fetch failed")
-        sys.exit(1)
-    
-    try:
-        reserves, reserves_meta = fetch_fred_series(fred, "WRESBAL", CONFIG["start_date"])
-        data_sources["WRESBAL"] = reserves_meta
-    except:
-        logger.critical("Reserves fetch failed")
-        sys.exit(1)
-    
-    try:
-        sp500, sp500_meta = fetch_fred_series(fred, "SP500", CONFIG["start_date"])
-        data_sources["SP500"] = sp500_meta
-    except:
-        logger.critical("SP500 fetch failed")
-        sys.exit(1)
-    
-    # Credit stress series (NEW)
-    try:
-        cp_rate, cp_meta = fetch_fred_series(fred, "RIFSPPFAAD90NB", CONFIG["start_date"])
-        data_sources["RIFSPPFAAD90NB"] = cp_meta
-    except Exception as e:
-        logger.warning(f"CP Rate fetch failed: {e}")
-        cp_rate = None
-    
-    try:
-        tbill_rate, tbill_meta = fetch_fred_series(fred, "TB3MS", CONFIG["start_date"])
-        data_sources["TB3MS"] = tbill_meta
-    except Exception as e:
-        logger.warning(f"TBill fetch failed: {e}")
-        tbill_rate = None
-    
-    try:
-        yield_curve, yc_meta = fetch_fred_series(fred, "T10Y2Y", CONFIG["start_date"])
-        data_sources["T10Y2Y"] = yc_meta
-    except Exception as e:
-        logger.warning(f"Yield curve fetch failed: {e}")
-        yield_curve = None
-    
-    try:
-        hy_spread, hy_meta = fetch_fred_series(fred, "BAMLH0A0HYM2", CONFIG["start_date"])
-        data_sources["BAMLH0A0HYM2"] = hy_meta
-    except Exception as e:
-        logger.warning(f"HY spread fetch failed: {e}")
-        hy_spread = None
-    
-    try:
-        vix, vix_meta = fetch_fred_series(fred, "VIXCLS", CONFIG["start_date"])
-        data_sources["VIXCLS"] = vix_meta
-    except Exception as e:
-        logger.warning(f"VIX fetch failed: {e}")
-        vix = None
-    
-    # Solar data
-    try:
-        solar, solar_meta = fetch_noaa_solar()
-        data_sources["SOLAR"] = solar_meta
-    except Exception as e:
-        logger.warning(f"Solar fetch failed: {e}")
-        solar = None
-    
-    # ========== BUILD TIME SERIES ==========
+    # ========== PHASE 1: HIGH-FREQUENCY DATA ==========
     print("\n" + "=" * 70)
-    print("PHASE 2: BUILDING UNIFIED TIME SERIES")
+    print("PHASE 1: HIGH-FREQUENCY DATA SOURCES")
+    print("=" * 70)
+    
+    # Daily Treasury Statement (T-1 TGA)
+    daily_tga_value, daily_tga_date, daily_tga_meta = fetch_daily_tga()
+    data_sources["DTS_TGA"] = daily_tga_meta
+    
+    # NY Fed RRP (Same-day)
+    nyfed_rrp_value, nyfed_rrp_date, nyfed_rrp_meta = fetch_nyfed_rrp()
+    data_sources["NYFED_RRP"] = nyfed_rrp_meta
+    
+    # Stablecoin Data
+    stablecoin_data, stablecoin_meta = fetch_stablecoin_data()
+    data_sources["STABLECOINS"] = stablecoin_meta
+    
+    # ========== PHASE 2: FRED DATA ==========
+    print("\n" + "=" * 70)
+    print("PHASE 2: FRED DATA SOURCES")
+    print("=" * 70)
+    
+    # Core liquidity (use as backup/history)
+    walcl, walcl_meta = fetch_fred_series(fred, "WALCL", CONFIG["start_date"])
+    data_sources["WALCL"] = walcl_meta
+    
+    rrp_fred, rrp_meta = fetch_fred_series(fred, "RRPONTSYD", CONFIG["start_date"])
+    data_sources["RRPONTSYD"] = rrp_meta
+    
+    tga_fred, tga_meta = fetch_fred_series(fred, "WTREGEN", CONFIG["start_date"])
+    data_sources["WTREGEN"] = tga_meta
+    
+    reserves, reserves_meta = fetch_fred_series(fred, "WRESBAL", CONFIG["start_date"])
+    data_sources["WRESBAL"] = reserves_meta
+    
+    sp500, sp500_meta = fetch_fred_series(fred, "SP500", CONFIG["start_date"])
+    data_sources["SP500"] = sp500_meta
+    
+    # Credit stress
+    cp_rate, _ = fetch_fred_safe(fred, "RIFSPPFAAD90NB", CONFIG["start_date"])
+    tbill_rate, _ = fetch_fred_safe(fred, "TB3MS", CONFIG["start_date"])
+    yield_curve, _ = fetch_fred_safe(fred, "T10Y2Y", CONFIG["start_date"])
+    hy_spread, _ = fetch_fred_safe(fred, "BAMLH0A0HYM2", CONFIG["start_date"])
+    vix, _ = fetch_fred_safe(fred, "VIXCLS", CONFIG["start_date"])
+    
+    # Solar
+    solar, solar_meta = fetch_noaa_solar()
+    if solar is not None:
+        data_sources["SOLAR"] = solar_meta
+    
+    # Global M2
+    global_m2_df, global_m2_meta = calculate_global_m2(fred, CONFIG["start_date"])
+    data_sources["GLOBAL_M2"] = global_m2_meta
+    
+    # ========== PHASE 3: BUILD TIME SERIES ==========
+    print("\n" + "=" * 70)
+    print("PHASE 3: BUILDING UNIFIED TIME SERIES")
     print("=" * 70)
     
     df = pd.DataFrame(index=sp500.index)
     df['spx'] = sp500
-    df['balance_sheet'] = walcl / 1000  # Millions → Billions
-    df['tga'] = tga / 1000
-    df['rrp'] = rrp
+    df['balance_sheet'] = walcl / 1000
+    df['tga'] = tga_fred / 1000
+    df['rrp'] = rrp_fred
     df['reserves'] = reserves / 1000
     
-    # Forward fill weekly data
     for col in ['balance_sheet', 'tga', 'reserves', 'rrp']:
         df[col] = df[col].ffill()
     
-    # Net liquidity
     df['net_liquidity'] = df['balance_sheet'] - df['tga'] - df['rrp']
     
-    # Credit stress indicators (NEW - ALL REAL)
+    # Credit stress
     if cp_rate is not None and tbill_rate is not None:
         df['cp_rate'] = cp_rate
         df['tbill_rate'] = tbill_rate
         df['cp_rate'] = df['cp_rate'].ffill()
         df['tbill_rate'] = df['tbill_rate'].ffill()
-        # CP-TBill spread in basis points
         df['cp_tbill_spread'] = (df['cp_rate'] - df['tbill_rate']) * 100
-    else:
-        df['cp_tbill_spread'] = None
     
     if yield_curve is not None:
-        df['yield_curve'] = yield_curve
-        df['yield_curve'] = df['yield_curve'].ffill()
-    else:
-        df['yield_curve'] = None
-    
+        df['yield_curve'] = yield_curve.ffill()
     if hy_spread is not None:
-        df['hy_spread'] = hy_spread
-        df['hy_spread'] = df['hy_spread'].ffill()
-    else:
-        df['hy_spread'] = None
-    
+        df['hy_spread'] = hy_spread.ffill()
     if vix is not None:
-        df['vix'] = vix
-        df['vix'] = df['vix'].ffill()
-    else:
-        df['vix'] = None
+        df['vix'] = vix.ffill()
     
-    # Solar data
+    # Global M2
+    if global_m2_df is not None:
+        df = df.join(global_m2_df, how='left')
+        df['global_m2'] = df['global_m2'].ffill()
+        df['global_m2_roc'] = df['global_m2_roc'].ffill()
+    
+    # Solar
     if solar is not None:
         df['year_month'] = df.index.to_period('M')
         solar['year_month'] = solar.index.to_period('M')
@@ -492,38 +691,42 @@ def main():
         df['ssn'] = df['ssn'].ffill()
         df['f10.7'] = df['f10.7'].ffill()
         df = df.drop(columns=['year_month'])
-    else:
-        df['ssn'] = None
-        df['f10.7'] = None
     
     df = df.dropna(subset=['spx', 'net_liquidity'])
     
-    logger.success("Time series built", {"records": len(df)})
+    # Update with high-frequency data
+    if daily_tga_value is not None:
+        logger.info(f"Overriding TGA with Daily Treasury Statement: ${daily_tga_value:.1f}B")
     
-    # Latest values
+    if nyfed_rrp_value is not None:
+        logger.info(f"NY Fed RRP available: ${nyfed_rrp_value:.1f}B")
+    
     latest = df.iloc[-1]
+    
+    # Use high-freq data for latest values if available
+    latest_tga = daily_tga_value if daily_tga_value else latest['tga']
+    latest_rrp = nyfed_rrp_value if nyfed_rrp_value else latest['rrp']
+    latest_net_liq = latest['balance_sheet'] - latest_tga - latest_rrp
+    
     print("\n" + "=" * 70)
-    print("🎯 LATEST VALUES (ALL REAL - VERIFY AT FRED)")
+    print("🎯 LATEST VALUES (HIGH-FREQUENCY WHERE AVAILABLE)")
     print("=" * 70)
     print(f"Date:           {latest.name.date()}")
     print(f"S&P 500:        {latest['spx']:,.2f}")
     print(f"Fed BS:         ${latest['balance_sheet']:,.1f}B")
-    print(f"TGA:            ${latest['tga']:,.1f}B")
-    print(f"RRP:            ${latest['rrp']:,.1f}B")
-    print(f"Net Liquidity:  ${latest['net_liquidity']:,.1f}B")
-    if pd.notna(latest.get('cp_tbill_spread')):
-        print(f"CP-TBill Spread: {latest['cp_tbill_spread']:.1f} bps")
-    if pd.notna(latest.get('yield_curve')):
-        print(f"10Y-2Y Spread:  {latest['yield_curve']:.2f}%")
-    if pd.notna(latest.get('hy_spread')):
-        print(f"HY Spread:      {latest['hy_spread']:.2f}%")
-    if pd.notna(latest.get('vix')):
-        print(f"VIX:            {latest['vix']:.2f}")
+    print(f"TGA:            ${latest_tga:,.1f}B {'(Daily Treasury)' if daily_tga_value else '(FRED Weekly)'}")
+    print(f"RRP:            ${latest_rrp:,.1f}B {'(NY Fed)' if nyfed_rrp_value else '(FRED)'}")
+    print(f"Net Liquidity:  ${latest_net_liq:,.1f}B")
+    if global_m2_df is not None:
+        print(f"Global M2:      ${latest.get('global_m2', 0):,.1f}T")
+        print(f"Global M2 ROC:  {latest.get('global_m2_roc', 0):.2f}%")
+    if stablecoin_data:
+        print(f"Stablecoins:    ${stablecoin_data['total_mcap']:.1f}B")
     print("=" * 70)
     
-    # ========== COMPUTE ANALYTICS ==========
+    # ========== PHASE 4: ANALYTICS ==========
     print("\n" + "=" * 70)
-    print("PHASE 3: COMPUTING ANALYTICS")
+    print("PHASE 4: COMPUTING ANALYTICS")
     print("=" * 70)
     
     prices = df['spx'].values
@@ -534,7 +737,7 @@ def main():
     ar1_score = min(100, max(0, (csd['current_ar1'] - 0.3) / 0.5 * 100))
     tau_score = min(100, max(0, (csd['kendall_tau'] + 0.5) / 1.0 * 100))
     lppl_score = lppl.get('confidence', 0) if lppl.get('is_bubble') else 0
-    liq_score = min(100, max(0, (6500 - latest['net_liquidity']) / 20))
+    liq_score = min(100, max(0, (6500 - latest_net_liq) / 20))
     
     composite = ar1_score * 0.35 + tau_score * 0.20 + lppl_score * 0.25 + liq_score * 0.20
     
@@ -556,32 +759,26 @@ def main():
         }
     }
     
-    # Credit stress assessment (REAL DATA)
+    # Credit stress
     credit_stress = None
-    if pd.notna(latest.get('cp_tbill_spread')):
-        spread = latest['cp_tbill_spread']
-        if spread > 50:
-            stress_status = "CRITICAL"
-        elif spread > 25:
-            stress_status = "STRESSED"
-        elif spread > 15:
-            stress_status = "ELEVATED"
-        else:
-            stress_status = "NORMAL"
+    cp_spread = latest.get('cp_tbill_spread')
+    if pd.notna(cp_spread):
+        if cp_spread > 50: stress_status = "CRITICAL"
+        elif cp_spread > 25: stress_status = "STRESSED"
+        elif cp_spread > 15: stress_status = "ELEVATED"
+        else: stress_status = "NORMAL"
         
         credit_stress = {
-            "cp_tbill_spread": round(spread, 1),
-            "yield_curve": round(latest['yield_curve'], 2) if pd.notna(latest.get('yield_curve')) else None,
-            "hy_spread": round(latest['hy_spread'], 2) if pd.notna(latest.get('hy_spread')) else None,
-            "vix": round(latest['vix'], 2) if pd.notna(latest.get('vix')) else None,
+            "cp_tbill_spread": round(float(cp_spread), 1),
+            "yield_curve": round(float(latest['yield_curve']), 2) if pd.notna(latest.get('yield_curve')) else None,
+            "hy_spread": round(float(latest['hy_spread']), 2) if pd.notna(latest.get('hy_spread')) else None,
+            "vix": round(float(latest['vix']), 2) if pd.notna(latest.get('vix')) else None,
             "status": stress_status
         }
     
-    logger.success("Analytics complete", {"regime": status, "score": f"{composite:.1f}"})
-    
-    # ========== BUILD OUTPUT ==========
+    # ========== PHASE 5: OUTPUT ==========
     print("\n" + "=" * 70)
-    print("PHASE 4: BUILDING OUTPUT")
+    print("PHASE 5: BUILDING OUTPUT")
     print("=" * 70)
     
     timeseries = []
@@ -593,35 +790,27 @@ def main():
             "balance_sheet": round(float(row['balance_sheet']), 1),
             "tga": round(float(row['tga']), 1),
             "rrp": round(float(row['rrp']), 1),
-            "reserves": round(float(row['reserves']), 1) if pd.notna(row['reserves']) else None,
+            "reserves": round(float(row['reserves']), 1) if pd.notna(row.get('reserves')) else None,
             "net_liquidity": round(float(row['net_liquidity']), 1),
             "trend": round(csd['trend'][i], 2) if i < len(csd['trend']) else None,
             "ar1": csd['ar1'][i] if i < len(csd['ar1']) else None,
             "variance": csd['variance'][i] if i < len(csd['variance']) else None,
         }
         
-        # Add credit stress data (REAL)
-        if pd.notna(row.get('cp_tbill_spread')):
-            entry["cp_tbill_spread"] = round(float(row['cp_tbill_spread']), 1)
-        if pd.notna(row.get('yield_curve')):
-            entry["yield_curve"] = round(float(row['yield_curve']), 2)
-        if pd.notna(row.get('hy_spread')):
-            entry["hy_spread"] = round(float(row['hy_spread']), 2)
-        if pd.notna(row.get('vix')):
-            entry["vix"] = round(float(row['vix']), 2)
-        if pd.notna(row.get('ssn')):
-            entry["ssn"] = round(float(row['ssn']), 0)
+        for field in ['cp_tbill_spread', 'yield_curve', 'hy_spread', 'vix', 'global_m2', 'global_m2_roc', 'ssn']:
+            if pd.notna(row.get(field)):
+                entry[field] = round(float(row[field]), 2 if field != 'ssn' else 0)
         
         timeseries.append(entry)
     
     output = {
         "meta": {
             "generated_at": datetime.utcnow().isoformat() + "Z",
-            "version": "6.0.0",
+            "version": "7.0.0",
             "data_integrity": "ALL_REAL_NO_SIMULATIONS",
-            "methodology": {
-                "csd": "Scheffer et al. (2009) / Dakos et al. (2012)",
-                "lppl": "Sornette (2003) - Grid search implementation"
+            "high_frequency_sources": {
+                "tga": "Daily Treasury Statement API (T-1)" if daily_tga_value else "FRED Weekly",
+                "rrp": "NY Fed Markets API (Same-day)" if nyfed_rrp_value else "FRED Daily"
             },
             "data_sources": data_sources
         },
@@ -634,30 +823,35 @@ def main():
         },
         "lppl": lppl,
         "credit_stress": credit_stress,
+        "global_m2": {
+            "current": round(float(latest.get('global_m2', 0)), 1) if pd.notna(latest.get('global_m2')) else None,
+            "roc_30d": round(float(latest.get('global_m2_roc', 0)), 2) if pd.notna(latest.get('global_m2_roc')) else None
+        },
+        "stablecoins": stablecoin_data,
         "latest": {
             "date": str(latest.name.date()),
             "spx": round(float(latest['spx']), 2),
             "balance_sheet": round(float(latest['balance_sheet']), 1),
-            "tga": round(float(latest['tga']), 1),
-            "rrp": round(float(latest['rrp']), 1),
-            "reserves": round(float(latest['reserves']), 1) if pd.notna(latest['reserves']) else None,
-            "net_liquidity": round(float(latest['net_liquidity']), 1),
-            "cp_tbill_spread": round(float(latest['cp_tbill_spread']), 1) if pd.notna(latest.get('cp_tbill_spread')) else None,
+            "tga": round(latest_tga, 1),
+            "tga_source": "DTS" if daily_tga_value else "FRED",
+            "rrp": round(latest_rrp, 1),
+            "rrp_source": "NYFED" if nyfed_rrp_value else "FRED",
+            "reserves": round(float(latest['reserves']), 1) if pd.notna(latest.get('reserves')) else None,
+            "net_liquidity": round(latest_net_liq, 1),
+            "global_m2": round(float(latest.get('global_m2', 0)), 1) if pd.notna(latest.get('global_m2')) else None,
+            "global_m2_roc": round(float(latest.get('global_m2_roc', 0)), 2) if pd.notna(latest.get('global_m2_roc')) else None,
+            "cp_tbill_spread": round(float(cp_spread), 1) if pd.notna(cp_spread) else None,
             "yield_curve": round(float(latest['yield_curve']), 2) if pd.notna(latest.get('yield_curve')) else None,
             "hy_spread": round(float(latest['hy_spread']), 2) if pd.notna(latest.get('hy_spread')) else None,
             "vix": round(float(latest['vix']), 2) if pd.notna(latest.get('vix')) else None,
             "ssn": round(float(latest['ssn']), 0) if pd.notna(latest.get('ssn')) else None,
         },
         "timeseries": timeseries,
-        "date_range": {
-            "start": str(df.index[0].date()),
-            "end": str(df.index[-1].date())
-        },
+        "date_range": {"start": str(df.index[0].date()), "end": str(df.index[-1].date())},
         "record_count": len(timeseries),
         "execution_log": logger.entries
     }
     
-    # Write
     output_path = os.path.join(os.path.dirname(__file__), '..', 'public', 'flr-data.json')
     with open(output_path, 'w') as f:
         json.dump(output, f, indent=2)
@@ -667,9 +861,7 @@ def main():
     print("=" * 70)
     print(f"Records: {len(timeseries)}")
     print(f"Regime: {status} ({composite:.1f})")
-    print(f"Credit Stress: {credit_stress['status'] if credit_stress else 'N/A'}")
     print("=" * 70)
-
 
 if __name__ == "__main__":
     main()
