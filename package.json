@@ -1,7 +1,7 @@
 {
-  "name": "flr-tracker-v4",
-  "version": "4.0.0",
-  "description": "Fractal Liquidity Regime Tracker - Institutional Edition",
+  "name": "fractal-terminal",
+  "version": "5.0.0",
+  "description": "Fractal Terminal - Institutional Liquidity Analysis",
   "private": true,
   "scripts": {
     "dev": "next dev",
