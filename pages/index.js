@@ -8,9 +8,8 @@ export default function Home() {
     <>
       <Head>
         <title>Fractal Terminal | Institutional Liquidity Analysis</title>
-        <meta name="description" content="Real-time liquidity regime tracking with GEX, DIX, credit stress, and LPPL bubble detection." />
+        <meta name="description" content="Real-time liquidity regime tracking with high-frequency data feeds, Global M2, stablecoin impulse, and credit stress indicators." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
       </Head>
       <FractalTerminal />
     </>
