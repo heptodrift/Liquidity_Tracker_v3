@@ -14,7 +14,7 @@ import { Activity, DollarSign, Shield, Database, AlertCircle, Layers, X, HelpCir
  * - Delta indicators showing direction and magnitude
  * - LPPL section with full parameter explanations
  * 
- * ALL DATA IS REAL. ZERO SIMULATIONS.
+ * BETA.
  */
 
 // ============ COMPLETE TOOLTIP EXPLANATIONS ============
