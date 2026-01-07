@@ -1,29 +1,46 @@
 #!/usr/bin/env python3
 """
-FLR Tracker V3.3 - FULLY SELF-CONTAINED
-========================================
+FRACTAL TERMINAL V6.0 - CLEAN EDITION
+======================================
 
-All statistical methods implemented manually - NO external dependencies that can fail.
+ALL DATA IS REAL. ZERO SIMULATIONS.
 
-LPPL is now implemented using grid search optimization (no lppls library needed).
+Data Sources (All Free):
+- FRED: WALCL, WTREGEN, RRPONTSYD, WRESBAL, SP500
+- FRED: RIFSPPFAAD90NB, TB3MS (Credit Stress)
+- FRED: T10Y2Y (Yield Curve)
+- FRED: BAMLH0A0HYM2 (High Yield Spread)
+- FRED: VIXCLS (Volatility Index)
+- NOAA: Solar Cycle Data
+
+Removed (Required Paid APIs):
+- GEX (needs ThetaData ~$40/mo)
+- DIX (needs FINRA pipeline infrastructure)
 """
 
 import json
 import os
 import sys
 from datetime import datetime, timedelta
-from typing import Dict, Any, Optional, List, Tuple
+from typing import Dict, Any, List, Tuple
 import traceback
-import math
 
 # ============ CONFIGURATION ============
 CONFIG = {
     "start_date": "2015-01-01",
-    "validation": {
-        "WALCL": {"min": 6000, "max": 7500, "unit": "billions"},
-        "RRP": {"min": 0, "max": 100, "unit": "billions"},
-        "TGA": {"min": 500, "max": 1200, "unit": "billions"},
-        "SP500": {"min": 4000, "max": 8000, "unit": "index"},
+    "fred_series": {
+        # Core Liquidity
+        "WALCL": "Fed Balance Sheet (Total Assets)",
+        "WTREGEN": "Treasury General Account",
+        "RRPONTSYD": "Reverse Repo Facility",
+        "WRESBAL": "Bank Reserves",
+        "SP500": "S&P 500 Index",
+        # Credit Stress (NEW - ALL FREE)
+        "RIFSPPFAAD90NB": "3-Month AA Financial Commercial Paper Rate",
+        "TB3MS": "3-Month Treasury Bill Rate",
+        "T10Y2Y": "10Y-2Y Treasury Spread (Yield Curve)",
+        "BAMLH0A0HYM2": "ICE BofA High Yield Spread",
+        "VIXCLS": "CBOE Volatility Index (VIX)",
     }
 }
 
@@ -59,7 +76,7 @@ def fetch_fred_series(fred, series_id: str, start_date: str) -> Tuple[Any, dict]
     """Fetch a FRED series with full metadata"""
     import pandas as pd
     
-    logger.info(f"Fetching FRED series: {series_id}")
+    logger.info(f"Fetching FRED: {series_id}")
     
     try:
         data = fred.get_series(series_id, observation_start=start_date)
@@ -73,6 +90,7 @@ def fetch_fred_series(fred, series_id: str, start_date: str) -> Tuple[Any, dict]
         
         meta = {
             "series_id": series_id,
+            "description": CONFIG["fred_series"].get(series_id, series_id),
             "records": len(data),
             "first_date": str(data.index[0].date()),
             "last_date": latest_date,
@@ -98,7 +116,7 @@ def fetch_noaa_solar() -> Tuple[Any, dict]:
     import requests
     
     url = "https://services.swpc.noaa.gov/json/solar-cycle/observed-solar-cycle-indices.json"
-    logger.info(f"Fetching NOAA solar data")
+    logger.info("Fetching NOAA solar data")
     
     try:
         response = requests.get(url, timeout=30)
@@ -134,33 +152,6 @@ def fetch_noaa_solar() -> Tuple[Any, dict]:
     except Exception as e:
         logger.error("Failed to fetch NOAA data", {"error": str(e)})
         raise
-
-# ============ VALIDATION ============
-def validate_data(series_id: str, value: float) -> bool:
-    """Validate that fetched data is within expected ranges"""
-    if series_id not in CONFIG["validation"]:
-        return True
-    
-    rule = CONFIG["validation"][series_id]
-    
-    if series_id == "WALCL":
-        value_b = value / 1000
-    elif series_id == "RRP":
-        value_b = value
-    elif series_id == "TGA":
-        value_b = value / 1000
-    else:
-        value_b = value
-    
-    if value_b < rule["min"] or value_b > rule["max"]:
-        logger.warning(f"Value outside expected range for {series_id}", {
-            "value": f"{value_b:,.2f}",
-            "expected": f"{rule['min']:,} - {rule['max']:,}"
-        })
-        return False
-    
-    logger.success(f"Validated {series_id}", {"value": f"{value_b:,.2f}"})
-    return True
 
 # ============ CSD ANALYSIS ============
 def compute_csd(prices: List[float], bandwidth: int = 50, window: int = 250) -> dict:
@@ -229,32 +220,20 @@ def compute_csd(prices: List[float], bandwidth: int = 50, window: int = 250) -> 
         "status": status
     }
 
-# ============ LPPL ANALYSIS (MANUAL IMPLEMENTATION) ============
+# ============ LPPL ANALYSIS ============
 def compute_lppl(prices: List[float]) -> dict:
-    """
-    Log-Periodic Power Law bubble detection.
-    
-    LPPL equation: ln(p(t)) = A + B(tc-t)^m + C(tc-t)^m * cos(ω*ln(tc-t) + φ)
-    
-    Uses grid search optimization - no external libraries needed.
-    
-    References:
-    - Sornette (2003) "Why Stock Markets Crash"
-    - Johansen & Sornette (1999) "Critical Crashes"
-    """
+    """Log-Periodic Power Law bubble detection (manual implementation)"""
     import numpy as np
     
-    logger.info("Computing LPPL bubble detection (manual implementation)")
+    logger.info("Computing LPPL bubble detection")
     
     try:
         prices = np.array(prices)
         n = len(prices)
         
         if n < 100:
-            logger.warning("Insufficient data for LPPL")
-            return _lppl_no_bubble("Insufficient data (need 100+ points)")
+            return _lppl_result(False, 0, None, None, None, None, None, "Insufficient data")
         
-        # Use last 500 days for bubble detection
         lookback = min(500, n)
         recent_prices = prices[-lookback:]
         log_prices = np.log(recent_prices)
@@ -263,13 +242,8 @@ def compute_lppl(prices: List[float]) -> dict:
         best_fit = None
         best_r2 = -np.inf
         
-        # Grid search over LPPL parameters
-        # tc: critical time (days from end of series)
-        # m: power law exponent (0.1-0.9 per Sornette)
-        # omega: log-periodic frequency (6-13 per Sornette)
-        # phi: phase (0-2π)
-        
-        tc_range = range(lookback + 10, lookback + 250, 20)  # 10-250 days out
+        # Grid search
+        tc_range = range(lookback + 10, lookback + 250, 20)
         m_range = [0.2, 0.33, 0.5, 0.67, 0.8]
         omega_range = [6, 7, 8, 9, 10, 11, 12]
         phi_range = [0, np.pi/2, np.pi, 3*np.pi/2]
@@ -278,10 +252,6 @@ def compute_lppl(prices: List[float]) -> dict:
             for m in m_range:
                 for omega in omega_range:
                     for phi in phi_range:
-                        # Build design matrix for linear regression
-                        # ln(p) = A + B*f(t) + C*g(t)
-                        # where f(t) = (tc-t)^m, g(t) = (tc-t)^m * cos(ω*ln(tc-t) + φ)
-                        
                         dt = tc - t
                         if np.any(dt <= 0):
                             continue
@@ -290,11 +260,9 @@ def compute_lppl(prices: List[float]) -> dict:
                         f_t = dtm
                         g_t = dtm * np.cos(omega * np.log(dt) + phi)
                         
-                        # Solve via OLS: [1, f_t, g_t] @ [A, B, C] = log_prices
                         X = np.column_stack([np.ones(lookback), f_t, g_t])
                         
                         try:
-                            # Normal equations: (X'X)^-1 X'y
                             XtX = X.T @ X
                             Xty = X.T @ log_prices
                             coeffs = np.linalg.solve(XtX, Xty)
@@ -302,13 +270,9 @@ def compute_lppl(prices: List[float]) -> dict:
                         except np.linalg.LinAlgError:
                             continue
                         
-                        # Sornette constraints:
-                        # B < 0 (finite-time singularity)
-                        # |C| < |B| (oscillations subordinate to trend)
                         if B >= 0 or abs(C) > abs(B):
                             continue
                         
-                        # Calculate R²
                         predicted = A + B * f_t + C * g_t
                         ss_res = np.sum((log_prices - predicted) ** 2)
                         ss_tot = np.sum((log_prices - np.mean(log_prices)) ** 2)
@@ -316,74 +280,47 @@ def compute_lppl(prices: List[float]) -> dict:
                         
                         if r2 > best_r2 and r2 > 0.7:
                             best_r2 = r2
-                            best_fit = {
-                                "tc": tc,
-                                "A": A,
-                                "B": B,
-                                "C": C,
-                                "m": m,
-                                "omega": omega,
-                                "phi": phi,
-                                "r2": r2
-                            }
+                            best_fit = {"tc": tc, "m": m, "omega": omega, "r2": r2}
         
         if best_fit is None or best_fit["r2"] < 0.7:
-            logger.info("No bubble signature detected")
-            return _lppl_no_bubble("No pattern matches LPPL criteria (R² < 0.7)")
+            return _lppl_result(False, 0, None, None, None, None, None, "No bubble signature (R² < 0.7)")
         
-        # Calculate days to critical time
         tc_days = best_fit["tc"] - lookback + 1
-        
-        # Determine if valid bubble
         m_valid = 0.1 < best_fit["m"] < 0.9
         omega_valid = 6 < best_fit["omega"] < 13
         tc_valid = 5 < tc_days < 365
         
         is_bubble = all([m_valid, omega_valid, tc_valid])
         confidence = int(min(100, max(0, (best_fit["r2"] - 0.7) / 0.25 * 100))) if is_bubble else 0
-        
-        # Calculate tc_date
-        from datetime import datetime, timedelta
         tc_date = (datetime.now() + timedelta(days=tc_days)).strftime('%Y-%m-%d') if tc_valid else None
         
-        result = {
-            "is_bubble": is_bubble,
-            "confidence": confidence,
-            "tc_days": tc_days if tc_valid else None,
-            "tc_date": tc_date,
-            "r2": round(best_fit["r2"], 4),
-            "omega": round(best_fit["omega"], 2),
-            "m": round(best_fit["m"], 3),
-            "status": "BUBBLE_DETECTED" if is_bubble else "NO_BUBBLE"
-        }
+        status = "BUBBLE DETECTED" if is_bubble else "No bubble signature"
+        logger.success("LPPL complete", {"is_bubble": is_bubble, "r2": f"{best_fit['r2']:.3f}"})
         
-        if is_bubble:
-            logger.warning("BUBBLE SIGNATURE DETECTED", {
-                "confidence": f"{confidence}%",
-                "tc_days": tc_days,
-                "r2": f"{best_fit['r2']:.3f}"
-            })
-        else:
-            logger.success("No bubble detected", {"best_r2": f"{best_fit['r2']:.3f}"})
-        
-        return result
+        return _lppl_result(
+            is_bubble, confidence,
+            tc_days if tc_valid else None,
+            tc_date,
+            round(best_fit["r2"], 4),
+            round(best_fit["omega"], 2),
+            round(best_fit["m"], 3),
+            status
+        )
         
     except Exception as e:
-        logger.error(f"LPPL computation error: {e}")
-        traceback.print_exc()
-        return _lppl_no_bubble(f"Computation error: {str(e)}")
+        logger.error(f"LPPL error: {e}")
+        return _lppl_result(False, 0, None, None, None, None, None, f"Error: {str(e)}")
 
-def _lppl_no_bubble(reason: str) -> dict:
-    """Return a no-bubble result with explanation"""
+def _lppl_result(is_bubble, confidence, tc_days, tc_date, r2, omega, m, status):
     return {
-        "is_bubble": False,
-        "confidence": 0,
-        "tc_days": None,
-        "tc_date": None,
-        "r2": None,
-        "omega": None,
-        "m": None,
-        "status": reason
+        "is_bubble": is_bubble,
+        "confidence": confidence,
+        "tc_days": tc_days,
+        "tc_date": tc_date,
+        "r2": r2,
+        "omega": omega,
+        "m": m,
+        "status": status
     }
 
 # ============ MAIN ============
@@ -392,8 +329,8 @@ def main():
     import numpy as np
     
     print("=" * 70)
-    print("FLR TRACKER V3.3 - FULLY SELF-CONTAINED")
-    print(f"Execution Time: {datetime.utcnow().isoformat()}Z")
+    print("FRACTAL TERMINAL V6.0 - ALL REAL DATA")
+    print(f"Execution: {datetime.utcnow().isoformat()}Z")
     print("=" * 70)
     
     # Check API key
@@ -402,69 +339,163 @@ def main():
         logger.critical("FRED_API_KEY not set!")
         sys.exit(1)
     
-    logger.info("API key found")
-    
     # Initialize FRED
     try:
         from fredapi import Fred
         fred = Fred(api_key=fred_api_key)
         logger.success("FRED API initialized")
     except Exception as e:
-        logger.critical(f"FRED API init failed: {e}")
+        logger.critical(f"FRED init failed: {e}")
         sys.exit(1)
     
-    # Fetch all series
+    # ========== FETCH ALL DATA ==========
     print("\n" + "=" * 70)
-    print("PHASE 1: DATA FETCHING")
+    print("PHASE 1: FETCHING ALL FRED SERIES")
     print("=" * 70)
     
+    data_sources = {}
+    
+    # Core liquidity series
     try:
         walcl, walcl_meta = fetch_fred_series(fred, "WALCL", CONFIG["start_date"])
-        rrp, rrp_meta = fetch_fred_series(fred, "RRPONTSYD", CONFIG["start_date"])
-        tga, tga_meta = fetch_fred_series(fred, "WTREGEN", CONFIG["start_date"])
-        reserves, reserves_meta = fetch_fred_series(fred, "WRESBAL", CONFIG["start_date"])
-        sp500, sp500_meta = fetch_fred_series(fred, "SP500", CONFIG["start_date"])
-        solar, solar_meta = fetch_noaa_solar()
-    except Exception as e:
-        logger.critical(f"Data fetching failed: {e}")
-        traceback.print_exc()
+        data_sources["WALCL"] = walcl_meta
+    except: 
+        logger.critical("WALCL fetch failed")
         sys.exit(1)
     
-    # Validate
-    print("\n" + "=" * 70)
-    print("PHASE 2: VALIDATION")
-    print("=" * 70)
+    try:
+        rrp, rrp_meta = fetch_fred_series(fred, "RRPONTSYD", CONFIG["start_date"])
+        data_sources["RRPONTSYD"] = rrp_meta
+    except:
+        logger.critical("RRP fetch failed")
+        sys.exit(1)
     
-    validate_data("WALCL", float(walcl.iloc[-1]))
-    validate_data("RRP", float(rrp.iloc[-1]))
-    validate_data("TGA", float(tga.iloc[-1]))
-    validate_data("SP500", float(sp500.iloc[-1]))
+    try:
+        tga, tga_meta = fetch_fred_series(fred, "WTREGEN", CONFIG["start_date"])
+        data_sources["WTREGEN"] = tga_meta
+    except:
+        logger.critical("TGA fetch failed")
+        sys.exit(1)
     
-    # Build time series
+    try:
+        reserves, reserves_meta = fetch_fred_series(fred, "WRESBAL", CONFIG["start_date"])
+        data_sources["WRESBAL"] = reserves_meta
+    except:
+        logger.critical("Reserves fetch failed")
+        sys.exit(1)
+    
+    try:
+        sp500, sp500_meta = fetch_fred_series(fred, "SP500", CONFIG["start_date"])
+        data_sources["SP500"] = sp500_meta
+    except:
+        logger.critical("SP500 fetch failed")
+        sys.exit(1)
+    
+    # Credit stress series (NEW)
+    try:
+        cp_rate, cp_meta = fetch_fred_series(fred, "RIFSPPFAAD90NB", CONFIG["start_date"])
+        data_sources["RIFSPPFAAD90NB"] = cp_meta
+    except Exception as e:
+        logger.warning(f"CP Rate fetch failed: {e}")
+        cp_rate = None
+    
+    try:
+        tbill_rate, tbill_meta = fetch_fred_series(fred, "TB3MS", CONFIG["start_date"])
+        data_sources["TB3MS"] = tbill_meta
+    except Exception as e:
+        logger.warning(f"TBill fetch failed: {e}")
+        tbill_rate = None
+    
+    try:
+        yield_curve, yc_meta = fetch_fred_series(fred, "T10Y2Y", CONFIG["start_date"])
+        data_sources["T10Y2Y"] = yc_meta
+    except Exception as e:
+        logger.warning(f"Yield curve fetch failed: {e}")
+        yield_curve = None
+    
+    try:
+        hy_spread, hy_meta = fetch_fred_series(fred, "BAMLH0A0HYM2", CONFIG["start_date"])
+        data_sources["BAMLH0A0HYM2"] = hy_meta
+    except Exception as e:
+        logger.warning(f"HY spread fetch failed: {e}")
+        hy_spread = None
+    
+    try:
+        vix, vix_meta = fetch_fred_series(fred, "VIXCLS", CONFIG["start_date"])
+        data_sources["VIXCLS"] = vix_meta
+    except Exception as e:
+        logger.warning(f"VIX fetch failed: {e}")
+        vix = None
+    
+    # Solar data
+    try:
+        solar, solar_meta = fetch_noaa_solar()
+        data_sources["SOLAR"] = solar_meta
+    except Exception as e:
+        logger.warning(f"Solar fetch failed: {e}")
+        solar = None
+    
+    # ========== BUILD TIME SERIES ==========
     print("\n" + "=" * 70)
-    print("PHASE 3: TIME SERIES")
+    print("PHASE 2: BUILDING UNIFIED TIME SERIES")
     print("=" * 70)
     
     df = pd.DataFrame(index=sp500.index)
     df['spx'] = sp500
-    df['balance_sheet'] = walcl / 1000
+    df['balance_sheet'] = walcl / 1000  # Millions → Billions
     df['tga'] = tga / 1000
     df['rrp'] = rrp
     df['reserves'] = reserves / 1000
     
+    # Forward fill weekly data
     for col in ['balance_sheet', 'tga', 'reserves', 'rrp']:
         df[col] = df[col].ffill()
     
+    # Net liquidity
     df['net_liquidity'] = df['balance_sheet'] - df['tga'] - df['rrp']
     
-    # Solar
-    df['year_month'] = df.index.to_period('M')
-    solar['year_month'] = solar.index.to_period('M')
-    solar_monthly = solar.groupby('year_month').last()
-    df = df.join(solar_monthly[['ssn', 'f10.7']], on='year_month')
-    df['ssn'] = df['ssn'].ffill()
-    df['f10.7'] = df['f10.7'].ffill()
-    df = df.drop(columns=['year_month'])
+    # Credit stress indicators (NEW - ALL REAL)
+    if cp_rate is not None and tbill_rate is not None:
+        df['cp_rate'] = cp_rate
+        df['tbill_rate'] = tbill_rate
+        df['cp_rate'] = df['cp_rate'].ffill()
+        df['tbill_rate'] = df['tbill_rate'].ffill()
+        # CP-TBill spread in basis points
+        df['cp_tbill_spread'] = (df['cp_rate'] - df['tbill_rate']) * 100
+    else:
+        df['cp_tbill_spread'] = None
+    
+    if yield_curve is not None:
+        df['yield_curve'] = yield_curve
+        df['yield_curve'] = df['yield_curve'].ffill()
+    else:
+        df['yield_curve'] = None
+    
+    if hy_spread is not None:
+        df['hy_spread'] = hy_spread
+        df['hy_spread'] = df['hy_spread'].ffill()
+    else:
+        df['hy_spread'] = None
+    
+    if vix is not None:
+        df['vix'] = vix
+        df['vix'] = df['vix'].ffill()
+    else:
+        df['vix'] = None
+    
+    # Solar data
+    if solar is not None:
+        df['year_month'] = df.index.to_period('M')
+        solar['year_month'] = solar.index.to_period('M')
+        solar_monthly = solar.groupby('year_month').last()
+        df = df.join(solar_monthly[['ssn', 'f10.7']], on='year_month')
+        df['ssn'] = df['ssn'].ffill()
+        df['f10.7'] = df['f10.7'].ffill()
+        df = df.drop(columns=['year_month'])
+    else:
+        df['ssn'] = None
+        df['f10.7'] = None
+    
     df = df.dropna(subset=['spx', 'net_liquidity'])
     
     logger.success("Time series built", {"records": len(df)})
@@ -472,29 +503,31 @@ def main():
     # Latest values
     latest = df.iloc[-1]
     print("\n" + "=" * 70)
-    print("🎯 LATEST VALUES")
+    print("🎯 LATEST VALUES (ALL REAL - VERIFY AT FRED)")
     print("=" * 70)
     print(f"Date:           {latest.name.date()}")
     print(f"S&P 500:        {latest['spx']:,.2f}")
-    print(f"Fed BS:         ${latest['balance_sheet']:,.1f}B (${latest['balance_sheet']/1000:.2f}T)")
+    print(f"Fed BS:         ${latest['balance_sheet']:,.1f}B")
     print(f"TGA:            ${latest['tga']:,.1f}B")
     print(f"RRP:            ${latest['rrp']:,.1f}B")
     print(f"Net Liquidity:  ${latest['net_liquidity']:,.1f}B")
+    if pd.notna(latest.get('cp_tbill_spread')):
+        print(f"CP-TBill Spread: {latest['cp_tbill_spread']:.1f} bps")
+    if pd.notna(latest.get('yield_curve')):
+        print(f"10Y-2Y Spread:  {latest['yield_curve']:.2f}%")
+    if pd.notna(latest.get('hy_spread')):
+        print(f"HY Spread:      {latest['hy_spread']:.2f}%")
+    if pd.notna(latest.get('vix')):
+        print(f"VIX:            {latest['vix']:.2f}")
     print("=" * 70)
     
-    # CSD
+    # ========== COMPUTE ANALYTICS ==========
     print("\n" + "=" * 70)
-    print("PHASE 4: CSD ANALYSIS")
+    print("PHASE 3: COMPUTING ANALYTICS")
     print("=" * 70)
     
     prices = df['spx'].values
     csd = compute_csd(prices.tolist())
-    
-    # LPPL
-    print("\n" + "=" * 70)
-    print("PHASE 5: LPPL ANALYSIS")
-    print("=" * 70)
-    
     lppl = compute_lppl(prices.tolist())
     
     # Regime score
@@ -523,41 +556,74 @@ def main():
         }
     }
     
-    logger.success("Regime calculated", {"status": status, "score": f"{composite:.1f}"})
+    # Credit stress assessment (REAL DATA)
+    credit_stress = None
+    if pd.notna(latest.get('cp_tbill_spread')):
+        spread = latest['cp_tbill_spread']
+        if spread > 50:
+            stress_status = "CRITICAL"
+        elif spread > 25:
+            stress_status = "STRESSED"
+        elif spread > 15:
+            stress_status = "ELEVATED"
+        else:
+            stress_status = "NORMAL"
+        
+        credit_stress = {
+            "cp_tbill_spread": round(spread, 1),
+            "yield_curve": round(latest['yield_curve'], 2) if pd.notna(latest.get('yield_curve')) else None,
+            "hy_spread": round(latest['hy_spread'], 2) if pd.notna(latest.get('hy_spread')) else None,
+            "vix": round(latest['vix'], 2) if pd.notna(latest.get('vix')) else None,
+            "status": stress_status
+        }
     
-    # Build output
+    logger.success("Analytics complete", {"regime": status, "score": f"{composite:.1f}"})
+    
+    # ========== BUILD OUTPUT ==========
+    print("\n" + "=" * 70)
+    print("PHASE 4: BUILDING OUTPUT")
+    print("=" * 70)
+    
     timeseries = []
     for idx, row in df.iterrows():
         i = df.index.get_loc(idx)
-        timeseries.append({
+        entry = {
             "date": str(idx.date()),
             "spx": round(float(row['spx']), 2),
             "balance_sheet": round(float(row['balance_sheet']), 1),
             "tga": round(float(row['tga']), 1),
             "rrp": round(float(row['rrp']), 1),
+            "reserves": round(float(row['reserves']), 1) if pd.notna(row['reserves']) else None,
             "net_liquidity": round(float(row['net_liquidity']), 1),
-            "ssn": round(float(row['ssn']), 0) if pd.notna(row['ssn']) else None,
             "trend": round(csd['trend'][i], 2) if i < len(csd['trend']) else None,
             "ar1": csd['ar1'][i] if i < len(csd['ar1']) else None,
-            "variance": csd['variance'][i] if i < len(csd['variance']) else None
-        })
+            "variance": csd['variance'][i] if i < len(csd['variance']) else None,
+        }
+        
+        # Add credit stress data (REAL)
+        if pd.notna(row.get('cp_tbill_spread')):
+            entry["cp_tbill_spread"] = round(float(row['cp_tbill_spread']), 1)
+        if pd.notna(row.get('yield_curve')):
+            entry["yield_curve"] = round(float(row['yield_curve']), 2)
+        if pd.notna(row.get('hy_spread')):
+            entry["hy_spread"] = round(float(row['hy_spread']), 2)
+        if pd.notna(row.get('vix')):
+            entry["vix"] = round(float(row['vix']), 2)
+        if pd.notna(row.get('ssn')):
+            entry["ssn"] = round(float(row['ssn']), 0)
+        
+        timeseries.append(entry)
     
     output = {
         "meta": {
             "generated_at": datetime.utcnow().isoformat() + "Z",
-            "version": "3.3.0",
+            "version": "6.0.0",
+            "data_integrity": "ALL_REAL_NO_SIMULATIONS",
             "methodology": {
                 "csd": "Scheffer et al. (2009) / Dakos et al. (2012)",
-                "lppl": "Sornette (2003) - Manual grid search implementation"
+                "lppl": "Sornette (2003) - Grid search implementation"
             },
-            "data_sources": {
-                "WALCL": walcl_meta,
-                "RRPONTSYD": rrp_meta,
-                "WTREGEN": tga_meta,
-                "WRESBAL": reserves_meta,
-                "SP500": sp500_meta,
-                "SOLAR": solar_meta
-            }
+            "data_sources": data_sources
         },
         "regime": regime,
         "csd": {
@@ -567,6 +633,7 @@ def main():
             "status": csd['status']
         },
         "lppl": lppl,
+        "credit_stress": credit_stress,
         "latest": {
             "date": str(latest.name.date()),
             "spx": round(float(latest['spx']), 2),
@@ -575,8 +642,11 @@ def main():
             "rrp": round(float(latest['rrp']), 1),
             "reserves": round(float(latest['reserves']), 1) if pd.notna(latest['reserves']) else None,
             "net_liquidity": round(float(latest['net_liquidity']), 1),
-            "ssn": round(float(latest['ssn']), 0) if pd.notna(latest['ssn']) else None,
-            "f10.7": round(float(latest['f10.7']), 1) if pd.notna(latest['f10.7']) else None
+            "cp_tbill_spread": round(float(latest['cp_tbill_spread']), 1) if pd.notna(latest.get('cp_tbill_spread')) else None,
+            "yield_curve": round(float(latest['yield_curve']), 2) if pd.notna(latest.get('yield_curve')) else None,
+            "hy_spread": round(float(latest['hy_spread']), 2) if pd.notna(latest.get('hy_spread')) else None,
+            "vix": round(float(latest['vix']), 2) if pd.notna(latest.get('vix')) else None,
+            "ssn": round(float(latest['ssn']), 0) if pd.notna(latest.get('ssn')) else None,
         },
         "timeseries": timeseries,
         "date_range": {
@@ -593,11 +663,11 @@ def main():
         json.dump(output, f, indent=2)
     
     print("\n" + "=" * 70)
-    print("✅ COMPLETE")
+    print("✅ COMPLETE - ALL DATA REAL")
     print("=" * 70)
     print(f"Records: {len(timeseries)}")
     print(f"Regime: {status} ({composite:.1f})")
-    print(f"LPPL: {'BUBBLE' if lppl['is_bubble'] else 'No bubble'} (R²={lppl['r2']})")
+    print(f"Credit Stress: {credit_stress['status'] if credit_stress else 'N/A'}")
     print("=" * 70)
 
 
