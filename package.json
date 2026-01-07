@@ -1,7 +1,7 @@
 {
-  "name": "flr-tracker-v3",
-  "version": "3.0.0",
-  "description": "Fractal Liquidity Regime Tracker - 100% Real Data",
+  "name": "flr-tracker-v4",
+  "version": "4.0.0",
+  "description": "Fractal Liquidity Regime Tracker - Institutional Edition",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -13,7 +13,8 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "recharts": "^2.12.7",
-    "lucide-react": "^0.263.1"
+    "lucide-react": "^0.263.1",
+    "pptxgenjs": "^3.12.0"
   },
   "devDependencies": {
     "tailwindcss": "^3.4.4",
