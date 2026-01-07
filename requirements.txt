@@ -1,17 +1,15 @@
-# FLR Tracker - Python Dependencies
-# All packages are from PyPI and are well-maintained
+# FLR Tracker V3.2 - Python Dependencies
+# All from PyPI, tested versions
 
-# Data fetching
-fredapi==0.5.2          # Official FRED API wrapper
-requests>=2.31.0        # HTTP client for NOAA
+# Core data handling
+pandas>=2.0.0
+numpy>=1.24.0
 
-# Data processing
-pandas>=2.0.0           # Time series handling
-numpy>=1.24.0           # Numerical operations
+# FRED API access
+fredapi==0.5.2
 
-# Statistical analysis - CSD
-# ewstools is optional (we implement manually if not available)
-# ewstools>=1.0.0       # Early Warning Signals toolkit
+# HTTP requests (for NOAA)
+requests>=2.31.0
 
-# LPPL bubble detection
-lppls>=0.6.5            # Log-Periodic Power Law Singularity
+# LPPL bubble detection (optional - script works without it)
+lppls>=0.6.5
