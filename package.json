@@ -1,7 +1,7 @@
 {
   "name": "fractal-terminal",
-  "version": "5.0.0",
-  "description": "Fractal Terminal - Institutional Liquidity Analysis",
+  "version": "6.0.0",
+  "description": "Fractal Terminal - All Real Data, No Simulations",
   "private": true,
   "scripts": {
     "dev": "next dev",
