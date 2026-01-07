@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-01-07T19:31:34.761990Z",
+    "generated_at": "2026-01-07T19:49:02.532292Z",
     "version": "7.0.0",
     "data_integrity": "ALL_REAL_NO_SIMULATIONS",
     "high_frequency_sources": {
@@ -150,7 +150,7 @@
       "FRAX": 0.21,
       "USDP": 0.0
     },
-    "timestamp": "2026-01-07T19:31:27.781807Z"
+    "timestamp": "2026-01-07T19:48:55.917973Z"
   },
   "latest": {
     "date": "2026-01-06",
@@ -47372,19 +47372,19 @@
   "record_count": 2510,
   "execution_log": [
     {
-      "time": "2026-01-07T19:31:26.634489Z",
+      "time": "2026-01-07T19:48:54.784775Z",
       "level": "SUCCESS",
       "message": "FRED API initialized",
       "data": null
     },
     {
-      "time": "2026-01-07T19:31:26.671049Z",
+      "time": "2026-01-07T19:48:54.822145Z",
       "level": "INFO",
       "message": "Fetching Daily Treasury Statement (TGA)",
       "data": null
     },
     {
-      "time": "2026-01-07T19:31:27.165194Z",
+      "time": "2026-01-07T19:48:55.320593Z",
       "level": "SUCCESS",
       "message": "Daily TGA fetched",
       "data": {
@@ -47393,25 +47393,25 @@
       }
     },
     {
-      "time": "2026-01-07T19:31:27.165990Z",
+      "time": "2026-01-07T19:48:55.321472Z",
       "level": "INFO",
       "message": "Fetching NY Fed RRP data",
       "data": null
     },
     {
-      "time": "2026-01-07T19:31:27.671474Z",
+      "time": "2026-01-07T19:48:55.736105Z",
       "level": "WARNING",
       "message": "Could not parse NY Fed RRP data",
       "data": null
     },
     {
-      "time": "2026-01-07T19:31:27.672399Z",
+      "time": "2026-01-07T19:48:55.736935Z",
       "level": "INFO",
       "message": "Fetching stablecoin data from DefiLlama",
       "data": null
     },
     {
-      "time": "2026-01-07T19:31:27.781821Z",
+      "time": "2026-01-07T19:48:55.917991Z",
       "level": "SUCCESS",
       "message": "Stablecoin data fetched",
       "data": {
@@ -47419,13 +47419,13 @@
       }
     },
     {
-      "time": "2026-01-07T19:31:27.783059Z",
+      "time": "2026-01-07T19:48:55.919364Z",
       "level": "INFO",
       "message": "Fetching FRED: WALCL",
       "data": null
     },
     {
-      "time": "2026-01-07T19:31:28.381575Z",
+      "time": "2026-01-07T19:48:56.361161Z",
       "level": "SUCCESS",
       "message": "Fetched WALCL",
       "data": {
@@ -47435,13 +47435,13 @@
       }
     },
     {
-      "time": "2026-01-07T19:31:28.381590Z",
+      "time": "2026-01-07T19:48:56.361177Z",
       "level": "INFO",
       "message": "Fetching FRED: RRPONTSYD",
       "data": null
     },
     {
-      "time": "2026-01-07T19:31:28.799264Z",
+      "time": "2026-01-07T19:48:56.815455Z",
       "level": "SUCCESS",
       "message": "Fetched RRPONTSYD",
       "data": {
@@ -47451,13 +47451,13 @@
       }
     },
     {
-      "time": "2026-01-07T19:31:28.799280Z",
+      "time": "2026-01-07T19:48:56.815472Z",
       "level": "INFO",
       "message": "Fetching FRED: WTREGEN",
       "data": null
     },
     {
-      "time": "2026-01-07T19:31:29.112258Z",
+      "time": "2026-01-07T19:48:57.077152Z",
       "level": "SUCCESS",
       "message": "Fetched WTREGEN",
       "data": {
@@ -47467,13 +47467,13 @@
       }
     },
     {
-      "time": "2026-01-07T19:31:29.112275Z",
+      "time": "2026-01-07T19:48:57.077169Z",
       "level": "INFO",
       "message": "Fetching FRED: WRESBAL",
       "data": null
     },
     {
-      "time": "2026-01-07T19:31:29.286392Z",
+      "time": "2026-01-07T19:48:57.288958Z",
       "level": "SUCCESS",
       "message": "Fetched WRESBAL",
       "data": {
@@ -47483,13 +47483,13 @@
       }
     },
     {
-      "time": "2026-01-07T19:31:29.286409Z",
+      "time": "2026-01-07T19:48:57.288976Z",
       "level": "INFO",
       "message": "Fetching FRED: SP500",
       "data": null
     },
     {
-      "time": "2026-01-07T19:31:29.639093Z",
+      "time": "2026-01-07T19:48:57.764700Z",
       "level": "SUCCESS",
       "message": "Fetched SP500",
       "data": {
@@ -47499,13 +47499,13 @@
       }
     },
     {
-      "time": "2026-01-07T19:31:29.639110Z",
+      "time": "2026-01-07T19:48:57.764718Z",
       "level": "INFO",
       "message": "Fetching FRED: RIFSPPFAAD90NB",
       "data": null
     },
     {
-      "time": "2026-01-07T19:31:30.200358Z",
+      "time": "2026-01-07T19:48:58.250892Z",
       "level": "SUCCESS",
       "message": "Fetched RIFSPPFAAD90NB",
       "data": {
@@ -47515,13 +47515,13 @@
       }
     },
     {
-      "time": "2026-01-07T19:31:30.200375Z",
+      "time": "2026-01-07T19:48:58.250911Z",
       "level": "INFO",
       "message": "Fetching FRED: TB3MS",
       "data": null
     },
     {
-      "time": "2026-01-07T19:31:30.385886Z",
+      "time": "2026-01-07T19:48:58.408445Z",
       "level": "SUCCESS",
       "message": "Fetched TB3MS",
       "data": {
@@ -47531,13 +47531,13 @@
       }
     },
     {
-      "time": "2026-01-07T19:31:30.385904Z",
+      "time": "2026-01-07T19:48:58.408464Z",
       "level": "INFO",
       "message": "Fetching FRED: T10Y2Y",
       "data": null
     },
     {
-      "time": "2026-01-07T19:31:30.927331Z",
+      "time": "2026-01-07T19:48:58.803745Z",
       "level": "SUCCESS",
       "message": "Fetched T10Y2Y",
       "data": {
@@ -47547,13 +47547,13 @@
       }
     },
     {
-      "time": "2026-01-07T19:31:30.927348Z",
+      "time": "2026-01-07T19:48:58.803762Z",
       "level": "INFO",
       "message": "Fetching FRED: BAMLH0A0HYM2",
       "data": null
     },
     {
-      "time": "2026-01-07T19:31:31.409005Z",
+      "time": "2026-01-07T19:48:59.218502Z",
       "level": "SUCCESS",
       "message": "Fetched BAMLH0A0HYM2",
       "data": {
@@ -47563,13 +47563,13 @@
       }
     },
     {
-      "time": "2026-01-07T19:31:31.409022Z",
+      "time": "2026-01-07T19:48:59.218522Z",
       "level": "INFO",
       "message": "Fetching FRED: VIXCLS",
       "data": null
     },
     {
-      "time": "2026-01-07T19:31:31.822885Z",
+      "time": "2026-01-07T19:48:59.733809Z",
       "level": "SUCCESS",
       "message": "Fetched VIXCLS",
       "data": {
@@ -47579,13 +47579,13 @@
       }
     },
     {
-      "time": "2026-01-07T19:31:31.822903Z",
+      "time": "2026-01-07T19:48:59.733844Z",
       "level": "INFO",
       "message": "Fetching NOAA solar data",
       "data": null
     },
     {
-      "time": "2026-01-07T19:31:32.170363Z",
+      "time": "2026-01-07T19:49:00.007440Z",
       "level": "SUCCESS",
       "message": "Fetched NOAA solar data",
       "data": {
@@ -47593,19 +47593,19 @@
       }
     },
     {
-      "time": "2026-01-07T19:31:32.171954Z",
+      "time": "2026-01-07T19:49:00.009034Z",
       "level": "INFO",
       "message": "Calculating Global M2",
       "data": null
     },
     {
-      "time": "2026-01-07T19:31:32.171964Z",
+      "time": "2026-01-07T19:49:00.009044Z",
       "level": "INFO",
       "message": "Fetching FRED: M2SL",
       "data": null
     },
     {
-      "time": "2026-01-07T19:31:32.288868Z",
+      "time": "2026-01-07T19:49:00.195506Z",
       "level": "SUCCESS",
       "message": "Fetched M2SL",
       "data": {
@@ -47615,13 +47615,13 @@
       }
     },
     {
-      "time": "2026-01-07T19:31:32.288883Z",
+      "time": "2026-01-07T19:49:00.195522Z",
       "level": "INFO",
       "message": "Fetching FRED: MYAGM2EZM196N",
       "data": null
     },
     {
-      "time": "2026-01-07T19:31:32.493719Z",
+      "time": "2026-01-07T19:49:00.287795Z",
       "level": "SUCCESS",
       "message": "Fetched MYAGM2EZM196N",
       "data": {
@@ -47631,13 +47631,13 @@
       }
     },
     {
-      "time": "2026-01-07T19:31:32.493736Z",
+      "time": "2026-01-07T19:49:00.287812Z",
       "level": "INFO",
       "message": "Fetching FRED: MYAGM2JPM189N",
       "data": null
     },
     {
-      "time": "2026-01-07T19:31:32.752371Z",
+      "time": "2026-01-07T19:49:00.488457Z",
       "level": "SUCCESS",
       "message": "Fetched MYAGM2JPM189N",
       "data": {
@@ -47647,13 +47647,13 @@
       }
     },
     {
-      "time": "2026-01-07T19:31:32.752387Z",
+      "time": "2026-01-07T19:49:00.488475Z",
       "level": "INFO",
       "message": "Fetching FRED: MYAGM2CNM189N",
       "data": null
     },
     {
-      "time": "2026-01-07T19:31:32.898322Z",
+      "time": "2026-01-07T19:49:00.694400Z",
       "level": "SUCCESS",
       "message": "Fetched MYAGM2CNM189N",
       "data": {
@@ -47663,13 +47663,13 @@
       }
     },
     {
-      "time": "2026-01-07T19:31:32.898336Z",
+      "time": "2026-01-07T19:49:00.694417Z",
       "level": "INFO",
       "message": "Fetching FRED: DEXUSEU",
       "data": null
     },
     {
-      "time": "2026-01-07T19:31:33.267389Z",
+      "time": "2026-01-07T19:49:01.088690Z",
       "level": "SUCCESS",
       "message": "Fetched DEXUSEU",
       "data": {
@@ -47679,13 +47679,13 @@
       }
     },
     {
-      "time": "2026-01-07T19:31:33.267405Z",
+      "time": "2026-01-07T19:49:01.088707Z",
       "level": "INFO",
       "message": "Fetching FRED: DEXJPUS",
       "data": null
     },
     {
-      "time": "2026-01-07T19:31:33.707232Z",
+      "time": "2026-01-07T19:49:01.451237Z",
       "level": "SUCCESS",
       "message": "Fetched DEXJPUS",
       "data": {
@@ -47695,13 +47695,13 @@
       }
     },
     {
-      "time": "2026-01-07T19:31:33.707249Z",
+      "time": "2026-01-07T19:49:01.451256Z",
       "level": "INFO",
       "message": "Fetching FRED: DEXCHUS",
       "data": null
     },
     {
-      "time": "2026-01-07T19:31:34.101752Z",
+      "time": "2026-01-07T19:49:01.858292Z",
       "level": "SUCCESS",
       "message": "Fetched DEXCHUS",
       "data": {
@@ -47711,7 +47711,7 @@
       }
     },
     {
-      "time": "2026-01-07T19:31:34.108267Z",
+      "time": "2026-01-07T19:49:01.865129Z",
       "level": "SUCCESS",
       "message": "Global M2 calculated",
       "data": {
@@ -47720,19 +47720,19 @@
       }
     },
     {
-      "time": "2026-01-07T19:31:34.119606Z",
+      "time": "2026-01-07T19:49:01.877055Z",
       "level": "INFO",
       "message": "Overriding TGA with Daily Treasury Statement: $781.2B",
       "data": null
     },
     {
-      "time": "2026-01-07T19:31:34.119768Z",
+      "time": "2026-01-07T19:49:01.877234Z",
       "level": "INFO",
       "message": "Computing CSD indicators",
       "data": null
     },
     {
-      "time": "2026-01-07T19:31:34.419158Z",
+      "time": "2026-01-07T19:49:02.179100Z",
       "level": "SUCCESS",
       "message": "CSD complete",
       "data": {
@@ -47741,13 +47741,13 @@
       }
     },
     {
-      "time": "2026-01-07T19:31:34.438268Z",
+      "time": "2026-01-07T19:49:02.198215Z",
       "level": "INFO",
       "message": "Computing LPPL",
       "data": null
     },
     {
-      "time": "2026-01-07T19:31:34.574086Z",
+      "time": "2026-01-07T19:49:02.334668Z",
       "level": "SUCCESS",
       "message": "LPPL complete",
       "data": {
