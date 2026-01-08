@@ -4,7 +4,7 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
 import { Activity, DollarSign, Shield, Database, AlertCircle, Layers, X, HelpCircle, TrendingUp, TrendingDown, ZoomIn, FileText, Clock, Info, Sliders, Download, Terminal, AlertTriangle, Sun, Globe, Coins, Command, Layout, GripVertical, ArrowUp, ArrowDown, Minus, ChevronUp, ChevronDown } from 'lucide-react';
 
 /**
- * FRACTAL TERMINAL V8.0 - BETA
+ * FRACTAL TERMINAL V8.0 - INSTITUTIONAL EDITION
  * =============================================
  * 
  * V8.0 Architecture:
@@ -932,7 +932,7 @@ const FractalTerminal = () => {
   const scenarioData = useMemo(() => {
     return filteredData.map(d => ({
       ...d,
-      projectedNetLiquidity: d.net_liquidity - scenarios.tgaDelta - scenarios.rrpDelta
+      projectedNetLiquidity: d.net_liquidity - (scenarios.tgaDelta * 1000) - (scenarios.rrpDelta * 1000)
     }));
   }, [filteredData, scenarios]);
 
@@ -1068,7 +1068,7 @@ const FractalTerminal = () => {
             </div>
             <div className="mt-4 p-3 rounded-lg bg-black/40 flex items-center justify-between border border-cyan-500/20">
               <span className="text-sm text-slate-400">Projected Net Liquidity:</span>
-              <span className="font-mono text-2xl text-cyan-400">${((latest?.net_liquidity - scenarios.tgaDelta - scenarios.rrpDelta) / 1000).toFixed(2)}T</span>
+              <span className="font-mono text-2xl text-cyan-400">${((latest?.net_liquidity - (scenarios.tgaDelta * 1000) - (scenarios.rrpDelta * 1000)) / 1000000).toFixed(2)}T</span>
             </div>
           </Panel>
         )}
@@ -1100,7 +1100,7 @@ const FractalTerminal = () => {
                 { id: 'ar1', label: 'AR(1)', value: csd?.current_ar1?.toFixed(3), warn: csd?.current_ar1 > 0.7 },
                 { id: 'kendallTau', label: 'Kendall τ', value: csd?.kendall_tau?.toFixed(3), warn: csd?.kendall_tau > 0.3 },
                 { id: 'lpplBubble', label: 'LPPL', value: lppl?.is_bubble ? `${lppl.confidence}%` : 'NO', warn: lppl?.is_bubble },
-                { id: 'netLiquidity', label: 'Net Liq', value: `$${((latest?.net_liquidity || 0) / 1000).toFixed(2)}T` },
+                { id: 'netLiquidity', label: 'Net Liq', value: `$${((latest?.net_liquidity || 0) / 1000000).toFixed(2)}T` },
                 { id: 'correlation', label: 'Corr 90d', value: correlations.day90?.toFixed(2) || '--', warn: correlations.day90 !== null && correlations.day90 < 0.3 },
                 { id: 'rrp', label: 'RRP Buffer', value: `$${(latest?.rrp || 0).toFixed(0)}B`, warn: true },
               ].map(m => (
@@ -1306,7 +1306,7 @@ const FractalTerminal = () => {
                 <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
                 <XAxis dataKey="date" tick={{ fill: '#64748b', fontSize: 10 }} tickFormatter={d => d?.slice(5)} />
                 <YAxis yAxisId="left" tick={{ fill: '#64748b', fontSize: 10 }} tickFormatter={v => `$${(v/1000000).toFixed(1)}T`} width={55} />
-                <YAxis yAxisId="right" orientation="right" tick={{ fill: '#64748b', fontSize: 10 }} tickFormatter={v => (v/1000).toFixed(0)+'k'} width={45} />
+                <YAxis yAxisId="right" orientation="right" tick={{ fill: '#64748b', fontSize: 10 }} tickFormatter={v => v.toLocaleString()} width={50} />
                 <Tooltip content={<CustomChartTooltip />} />
                 <Legend />
                 <Area yAxisId="left" type="monotone" dataKey="net_liquidity" fill="url(#liqGrad)" stroke="#8b5cf6" strokeWidth={2} name="Net Liquidity ($B)" />
@@ -1364,8 +1364,14 @@ const FractalTerminal = () => {
                 <ComposedChart data={filteredData}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
                   <XAxis dataKey="date" tick={{ fill: '#64748b', fontSize: 9 }} tickFormatter={d => d?.slice(5)} />
-                  <YAxis tick={{ fill: '#64748b', fontSize: 9 }} width={40} />
+                  <YAxis 
+                    tick={{ fill: '#64748b', fontSize: 9 }} 
+                    width={50} 
+                    tickFormatter={v => v?.toFixed(4)}
+                    domain={['auto', 'auto']}
+                  />
                   <Tooltip content={<CustomChartTooltip />} />
+                  <ReferenceLine y={0.002} stroke="#f59e0b" strokeDasharray="3 3" label={{ value: 'Baseline', fill: '#f59e0b', fontSize: 9 }} />
                   <Area type="monotone" dataKey="variance" fill="url(#varGrad)" stroke="#f59e0b" strokeWidth={2} name="Variance" connectNulls />
                   <defs>
                     <linearGradient id="varGrad" x1="0" y1="0" x2="0" y2="1">
