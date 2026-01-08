@@ -4,7 +4,7 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
 import { Activity, DollarSign, Shield, Database, AlertCircle, Layers, X, HelpCircle, TrendingUp, TrendingDown, ZoomIn, FileText, Clock, Info, Sliders, Download, Terminal, AlertTriangle, Sun, Globe, Coins, Command, Layout, GripVertical, ArrowUp, ArrowDown, Minus, ChevronUp, ChevronDown } from 'lucide-react';
 
 /**
- * FRACTAL TERMINAL V8.0 - INSTITUTIONAL EDITION
+ * FRACTAL TERMINAL V8.0 - BETA EDITION
  * =============================================
  * 
  * V8.0 Architecture:
@@ -806,6 +806,24 @@ const exportToPowerPoint = async (data, correlations) => {
 // ============ CHART TOOLTIP ============
 const CustomChartTooltip = ({ active, payload, label }) => {
   if (!active || !payload?.length) return null;
+  
+  const formatValue = (value, name) => {
+    if (typeof value !== 'number') return value;
+    // Format Net Liquidity as trillions
+    if (name?.toLowerCase().includes('liquidity') || name?.toLowerCase().includes('net')) {
+      return `$${(value / 1000000).toFixed(2)}T`;
+    }
+    // Format SPX with commas
+    if (name?.toLowerCase().includes('s&p') || name?.toLowerCase().includes('spx')) {
+      return value.toLocaleString(undefined, { maximumFractionDigits: 0 });
+    }
+    // Format small decimals (AR1, variance)
+    if (value < 1 && value > 0) {
+      return value.toFixed(4);
+    }
+    return value.toLocaleString(undefined, { maximumFractionDigits: 2 });
+  };
+  
   return (
     <div className="bg-slate-950 border border-cyan-500/40 rounded-lg p-3 shadow-xl z-[99999]">
       <p className="text-xs font-mono text-cyan-400 mb-2">{label}</p>
@@ -813,7 +831,7 @@ const CustomChartTooltip = ({ active, payload, label }) => {
         <div key={i} className="flex items-center gap-2 text-xs font-mono">
           <span className="w-2 h-2 rounded-full" style={{ backgroundColor: e.color }} />
           <span className="text-slate-400">{e.name}:</span>
-          <span className="text-white">{typeof e.value === 'number' ? e.value.toLocaleString(undefined, { maximumFractionDigits: 2 }) : e.value}</span>
+          <span className="text-white">{formatValue(e.value, e.name)}</span>
         </div>
       ))}
     </div>
@@ -1120,9 +1138,9 @@ const FractalTerminal = () => {
           <MetricCard
             id="balanceSheet"
             label="Fed Balance Sheet"
-            value={`$${((latest?.balance_sheet || 0) / 1000).toFixed(2)}`}
+            value={`$${((latest?.balance_sheet || 0) / 1000000).toFixed(2)}`}
             unit="T"
-            previousValue={previousValues.balance_sheet ? previousValues.balance_sheet / 1000 : undefined}
+            previousValue={previousValues.balance_sheet ? previousValues.balance_sheet / 1000000 : undefined}
             icon={Database}
             color="blue"
             source="FRED"
@@ -1153,9 +1171,9 @@ const FractalTerminal = () => {
           <MetricCard
             id="reserves"
             label="Bank Reserves"
-            value={latest?.reserves ? `$${(latest.reserves / 1000).toFixed(2)}` : '--'}
+            value={latest?.reserves ? `$${(latest.reserves / 1000000).toFixed(2)}` : '--'}
             unit="T"
-            previousValue={previousValues.reserves ? previousValues.reserves / 1000 : undefined}
+            previousValue={previousValues.reserves ? previousValues.reserves / 1000000 : undefined}
             icon={Shield}
             color="cyan"
           />
@@ -1309,9 +1327,9 @@ const FractalTerminal = () => {
                 <YAxis yAxisId="right" orientation="right" tick={{ fill: '#64748b', fontSize: 10 }} tickFormatter={v => v.toLocaleString()} width={50} />
                 <Tooltip content={<CustomChartTooltip />} />
                 <Legend />
-                <Area yAxisId="left" type="monotone" dataKey="net_liquidity" fill="url(#liqGrad)" stroke="#8b5cf6" strokeWidth={2} name="Net Liquidity ($B)" />
+                <Area yAxisId="left" type="monotone" dataKey="net_liquidity" fill="url(#liqGrad)" stroke="#8b5cf6" strokeWidth={2} name="Net Liquidity ($T)" />
                 {(scenarios.tgaDelta !== 0 || scenarios.rrpDelta !== 0) && (
-                  <Line yAxisId="left" type="monotone" dataKey="projectedNetLiquidity" stroke="#06b6d4" strokeWidth={2} strokeDasharray="5 5" dot={false} name="Projected ($B)" />
+                  <Line yAxisId="left" type="monotone" dataKey="projectedNetLiquidity" stroke="#06b6d4" strokeWidth={2} strokeDasharray="5 5" dot={false} name="Projected ($T)" />
                 )}
                 <Line yAxisId="right" type="monotone" dataKey="spx" stroke="#f59e0b" strokeWidth={2} dot={false} name="S&P 500" />
                 <Brush dataKey="date" height={25} stroke="#334155" fill="#0f172a" />
