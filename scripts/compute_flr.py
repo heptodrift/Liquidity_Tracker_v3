@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-FRACTAL TERMINAL V8 - DATA COMPUTATION ENGINE
+FRACTAL TERMINAL V8 BETA - DATA COMPUTATION ENGINE
 =============================================
 
 This script fetches live data from multiple sources:
