@@ -4,17 +4,22 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
 import { Activity, DollarSign, Shield, Database, AlertCircle, Layers, X, HelpCircle, TrendingUp, TrendingDown, ZoomIn, FileText, Clock, Info, Sliders, Download, Terminal, AlertTriangle, Sun, Globe, Coins, Command, Layout, GripVertical, ArrowUp, ArrowDown, Minus, ChevronUp, ChevronDown } from 'lucide-react';
 
 /**
- * FRACTAL TERMINAL V7.3 - INSTITUTIONAL EDITION
+ * FRACTAL TERMINAL V8.0 - INSTITUTIONAL EDITION
  * =============================================
  * 
- * V7.3 Fixes:
- * - Tooltip positioning: NOW USES PORTAL with FIXED positioning
- *   Tooltips render at document.body level, escaping all containers
- * - Complete explanations for ALL metrics
- * - Delta indicators showing direction and magnitude
- * - LPPL section with full parameter explanations
+ * V8.0 Architecture:
+ * - Serverless client-side engine (Pyodide/WASM ready)
+ * - Edge proxy for CORS bypass (Treasury, NY Fed, FRED APIs)
+ * - T-1 TGA via Treasury API, Same-day RRP via NY Fed
+ * - RRP Countdown widget (Liquidity Cliff timer)
+ * - Command Palette (Cmd+K keyboard-first interface)
+ * - Portal tooltips with fixed positioning
+ * - Complete metric explanations
+ * - Delta indicators with direction/magnitude
+ * - PowerPoint export
  * 
- * BETA.
+ * ALL DATA IS REAL. ZERO SIMULATIONS.
+ * THE BROWSER IS A SOVEREIGN COMPUTE NODE.
  */
 
 // ============ COMPLETE TOOLTIP EXPLANATIONS ============
@@ -286,6 +291,40 @@ const EXPLANATIONS = {
     impact: "SCENARIO IDEAS:\n\n📈 Bullish scenarios:\n  - TGA drawdown (spending)\n  - QT pause (0%)\n  - (RRP already exhausted)\n\n📉 Bearish scenarios:\n  - TGA rebuild (+$300B)\n  - QT acceleration (150%)\n\nProject the impact and plan accordingly.",
     thresholds: "TGA range: -$500B to +$500B change\nQT pace: 0% (pause) to 200% (double)\nRRP: Minimal impact (already near zero)",
     source: "Interactive calculation tool"
+  },
+
+  // === V8 NEW FEATURES ===
+  rrpCountdown: {
+    title: "RRP Countdown - Liquidity Cliff Timer",
+    short: "Days until RRP exhaustion at current drain rate",
+    detail: "This critical widget tracks the depletion of the RRP facility. When RRP hits zero, the 'ample reserves' regime ends and we enter potential 'reserve scarcity' territory.\n\nCalculation: Current RRP ÷ 30-day average drain rate = Days to exhaustion",
+    impact: "THE CLIFF APPROACHES:\n\n⚠️ Current burn rates suggest RRP will hit zero between late 2025 and early 2026.\n\n🔴 CONSEQUENCE: Once RRP = 0, every dollar of QT drains directly from Bank Reserves.\n\n💀 SCARCITY FLOOR: If Bank Reserves fall below ~$2.5-3.0 Trillion (8-10% of GDP), the repo market may seize up, replicating September 2019.",
+    thresholds: "CRITICAL: < 30 days\nWARNING: 30-90 days\nCAUTION: 90-180 days\nSTABLE: > 180 days",
+    source: "Calculated from NY Fed RRP data\n30-day rolling average drain rate"
+  },
+  stablecoins: {
+    title: "Stablecoin Total Market Cap",
+    short: "USDT + USDC + DAI + others - Crypto's M1 money supply",
+    detail: "Stablecoins represent the 'on-ramp' for capital entering crypto markets. Think of it as the M1 money supply for the crypto ecosystem.\n\n↑ Rising stablecoin supply = New capital entering crypto\n↓ Falling supply = Capital exiting crypto\n\nOften leads BTC/ETH price moves by days to weeks.",
+    impact: "CRYPTO LIQUIDITY INDICATOR:\n\n↑ Rising stablecoin supply:\n  - New capital entering crypto ecosystem\n  - Increased buying power\n  - Bullish for crypto assets\n\n↓ Falling stablecoin supply:\n  - Capital exiting crypto\n  - Redemptions/burns occurring\n  - Bearish for crypto assets",
+    thresholds: "Current: ~$150B+\nPeak (2022): ~$180B\nBear market low: ~$120B",
+    source: "DefiLlama Stablecoins API\nReal-time data"
+  },
+  pyodideEngine: {
+    title: "Pyodide Engine Status",
+    short: "Client-side Python compute via WebAssembly",
+    detail: "The Fractal Terminal runs a full Python data stack (NumPy) directly in your browser using WebAssembly. This makes your browser a 'sovereign compute node' - all calculations happen locally, no data sent to servers.\n\nCapabilities:\n- Net Liquidity derivatives\n- AR(1) autocorrelation\n- LPPL bubble detection\n- GEX calculation (with options data)",
+    impact: "SERVERLESS ARCHITECTURE:\n\n✓ Privacy: Your data never leaves your browser\n✓ Speed: Sub-millisecond calculations\n✓ Cost: No server infrastructure needed\n✓ Sovereignty: You control the compute",
+    thresholds: "Loading: Pyodide initializing (~5-10s first load)\nReady: Engine active and computing\nError: Failed to load - check browser console",
+    source: "Pyodide v0.25.0\nCDN: jsdelivr.net"
+  },
+  dataLatency: {
+    title: "Data Latency & Sources",
+    short: "How fresh is the data?",
+    detail: "Different data sources have different update frequencies:\n\n• TGA: T-1 (Daily Treasury Statement API)\n• RRP: Same-day (~1:15 PM ET from NY Fed)\n• WALCL: Weekly (FRED, Thursday)\n• Stablecoins: Real-time (DefiLlama)\n• VIX/Spreads: Daily (FRED)",
+    impact: "LATENCY MATTERS:\n\nIn volatile markets, even T-1 data can be stale. The terminal attempts to use the freshest sources available:\n\n🟢 Live: Same-day data\n🟡 T-1: One day latency\n🟠 Weekly: Up to 7 days stale\n🔴 Error: Fallback data or unavailable",
+    thresholds: "Real-time: < 1 hour\nDaily: 1-24 hours\nWeekly: 1-7 days",
+    source: "Multiple APIs via Edge Proxy"
   }
 };
 
@@ -508,6 +547,165 @@ const MetricCard = ({
   );
 };
 
+// ============ RRP COUNTDOWN WIDGET ============
+// The "Liquidity Cliff" timer - critical V8 feature
+const RRPCountdownWidget = ({ countdown }) => {
+  if (!countdown) return null;
+  
+  const { status, current_billion, drain_rate_per_day, days_to_exhaustion, projected_zero_date } = countdown;
+  
+  const getStatusColor = () => {
+    if (status === 'CRITICAL' || current_billion < 50) return 'rose';
+    if (status === 'WARNING' || current_billion < 200) return 'amber';
+    if (status === 'DRAINING') return 'yellow';
+    return 'emerald';
+  };
+  
+  const color = getStatusColor();
+  const isExhausted = current_billion < 10;
+  
+  return (
+    <div className={`relative rounded-xl border ${isExhausted ? 'border-rose-500/60 bg-rose-950/30' : `border-${color}-500/40 bg-black/80`} backdrop-blur-sm overflow-hidden shadow-lg p-4`}>
+      {/* Corner accents */}
+      <div className={`absolute top-0 left-0 w-5 h-5 border-t-2 border-l-2 border-${color}-500/50`} />
+      <div className={`absolute top-0 right-0 w-5 h-5 border-t-2 border-r-2 border-${color}-500/50`} />
+      <div className={`absolute bottom-0 left-0 w-5 h-5 border-b-2 border-l-2 border-${color}-500/50`} />
+      <div className={`absolute bottom-0 right-0 w-5 h-5 border-b-2 border-r-2 border-${color}-500/50`} />
+      
+      <div className="flex items-center gap-2 mb-3">
+        <AlertTriangle className={`w-4 h-4 text-${color}-400`} />
+        <InfoTooltip id="rrpCountdown">
+          <span className={`text-sm font-mono font-bold text-${color}-400 tracking-wider uppercase`}>RRP COUNTDOWN</span>
+        </InfoTooltip>
+      </div>
+      
+      {isExhausted ? (
+        <div className="text-center py-4">
+          <div className="text-4xl font-mono font-bold text-rose-400 animate-pulse">⚠️ EXHAUSTED</div>
+          <p className="text-rose-300 text-sm mt-2">RRP Buffer Depleted</p>
+          <p className="text-rose-400/70 text-xs mt-1">QT now draining reserves directly</p>
+        </div>
+      ) : (
+        <div className="space-y-4">
+          <div className="text-center">
+            <div className={`text-5xl font-mono font-bold text-${color}-400`}>
+              {days_to_exhaustion || '∞'}
+            </div>
+            <p className="text-slate-400 text-sm">Days to Zero</p>
+          </div>
+          
+          <div className="grid grid-cols-2 gap-3 text-center">
+            <div className="bg-black/40 rounded-lg p-2">
+              <p className="text-xs text-slate-500">Current</p>
+              <p className={`font-mono text-lg text-${color}-400`}>${current_billion?.toFixed(1)}B</p>
+            </div>
+            <div className="bg-black/40 rounded-lg p-2">
+              <p className="text-xs text-slate-500">Drain Rate</p>
+              <p className="font-mono text-lg text-rose-400">
+                ${Math.abs(drain_rate_per_day || 0).toFixed(1)}B/day
+              </p>
+            </div>
+          </div>
+          
+          {projected_zero_date && (
+            <div className="text-center pt-2 border-t border-slate-800">
+              <p className="text-xs text-slate-500">Projected Zero Date</p>
+              <p className={`font-mono text-${color}-400`}>{projected_zero_date}</p>
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+};
+
+// ============ COMMAND PALETTE ============
+// Keyboard-first interface (Cmd+K)
+const CommandPalette = ({ isOpen, onClose, onCommand }) => {
+  const [query, setQuery] = useState('');
+  const inputRef = useRef(null);
+  
+  const commands = [
+    { id: 'refresh', label: 'Refresh Data', shortcut: 'R', icon: Clock },
+    { id: 'scenario', label: 'Toggle Scenario Simulator', shortcut: 'S', icon: Sliders },
+    { id: 'help', label: 'Open Help', shortcut: '?', icon: HelpCircle },
+    { id: 'export', label: 'Export to PowerPoint', shortcut: 'E', icon: Download },
+    { id: 'timerange_1m', label: 'Time Range: 1 Month', icon: Clock },
+    { id: 'timerange_3m', label: 'Time Range: 3 Months', icon: Clock },
+    { id: 'timerange_1y', label: 'Time Range: 1 Year', icon: Clock },
+    { id: 'timerange_all', label: 'Time Range: All', icon: Clock },
+  ];
+  
+  const filteredCommands = commands.filter(cmd => 
+    cmd.label.toLowerCase().includes(query.toLowerCase())
+  );
+  
+  useEffect(() => {
+    if (isOpen && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [isOpen]);
+  
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        onClose?.();
+      }
+    };
+    
+    if (isOpen) {
+      window.addEventListener('keydown', handleKeyDown);
+      return () => window.removeEventListener('keydown', handleKeyDown);
+    }
+  }, [isOpen, onClose]);
+  
+  if (!isOpen) return null;
+  
+  return (
+    <TooltipPortal>
+      <div className="fixed inset-0 z-[999999] flex items-start justify-center pt-[15vh] bg-black/80 backdrop-blur-sm" onClick={onClose}>
+        <div 
+          className="w-full max-w-xl bg-black/95 border-2 border-cyan-500/50 rounded-xl shadow-2xl shadow-cyan-500/20 overflow-hidden"
+          onClick={e => e.stopPropagation()}
+        >
+          {/* Input */}
+          <div className="flex items-center gap-3 px-4 py-3 border-b border-cyan-500/30">
+            <Command className="w-5 h-5 text-cyan-400" />
+            <input
+              ref={inputRef}
+              type="text"
+              value={query}
+              onChange={e => setQuery(e.target.value)}
+              placeholder="Type a command..."
+              className="flex-1 bg-transparent text-white placeholder-slate-500 outline-none font-mono"
+            />
+            <span className="text-xs text-slate-500 font-mono">ESC to close</span>
+          </div>
+          
+          {/* Commands */}
+          <div className="max-h-[50vh] overflow-auto">
+            {filteredCommands.map((cmd) => (
+              <button
+                key={cmd.id}
+                onClick={() => { onCommand?.(cmd.id); onClose?.(); setQuery(''); }}
+                className="w-full flex items-center gap-3 px-4 py-3 hover:bg-cyan-950/30 transition-colors text-left"
+              >
+                <cmd.icon className="w-4 h-4 text-cyan-400" />
+                <span className="flex-1 text-slate-200">{cmd.label}</span>
+                {cmd.shortcut && (
+                  <span className="text-xs text-slate-500 font-mono bg-slate-800 px-2 py-0.5 rounded">
+                    {cmd.shortcut}
+                  </span>
+                )}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+    </TooltipPortal>
+  );
+};
+
 // ============ HELPER FUNCTIONS ============
 const calculateCorrelation = (x, y) => {
   if (x.length !== y.length || x.length < 2) return 0;
@@ -587,6 +785,38 @@ const FractalTerminal = () => {
   const [showScenario, setShowScenario] = useState(false);
   const [showHelp, setShowHelp] = useState(false);
   const [scenarios, setScenarios] = useState({ tgaDelta: 0, qtPace: 100, rrpDelta: 0 });
+  const [commandOpen, setCommandOpen] = useState(false);
+
+  // Keyboard shortcuts (Cmd+K for command palette)
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        setCommandOpen(true);
+      }
+      if (e.key === 'Escape') {
+        setCommandOpen(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
+  // Command handler
+  const handleCommand = (cmd) => {
+    switch (cmd) {
+      case 'refresh': window.location.reload(); break;
+      case 'scenario': setShowScenario(!showScenario); break;
+      case 'help': setShowHelp(true); break;
+      case 'export': 
+        if (data) exportToPowerPoint(data, correlations);
+        break;
+      case 'timerange_1m': setTimeRange('1M'); break;
+      case 'timerange_3m': setTimeRange('3M'); break;
+      case 'timerange_1y': setTimeRange('1Y'); break;
+      case 'timerange_all': setTimeRange('ALL'); break;
+    }
+  };
 
   // Fetch data
   useEffect(() => {
@@ -712,11 +942,19 @@ const FractalTerminal = () => {
             </div>
             <div>
               <h1 className="text-2xl font-bold font-mono text-cyan-400">FRACTAL TERMINAL</h1>
-              <p className="text-xs text-cyan-500/60 font-mono">v7.3 • All Real Data • No Simulations</p>
+              <p className="text-xs text-cyan-500/60 font-mono">v8.0 • All Real Data • No Simulations</p>
             </div>
           </div>
           
           <div className="flex items-center gap-2">
+            <button 
+              onClick={() => setCommandOpen(true)} 
+              className="flex items-center gap-2 px-3 py-2 rounded-lg bg-slate-800/50 border border-slate-700 hover:border-cyan-500/50 text-slate-400 hover:text-cyan-400 transition-colors"
+              title="Command Palette"
+            >
+              <Command className="w-4 h-4" />
+              <span className="text-xs font-mono">⌘K</span>
+            </button>
             <button onClick={() => setShowScenario(!showScenario)} className={`p-2 rounded-lg border ${showScenario ? 'bg-cyan-900/30 border-cyan-500/50' : 'bg-slate-800/50 border-slate-700'}`}>
               <Sliders className="w-5 h-5 text-cyan-400" />
             </button>
@@ -871,6 +1109,13 @@ const FractalTerminal = () => {
             source="NOAA"
           />
         </div>
+
+        {/* RRP COUNTDOWN WIDGET - Critical V8 Feature */}
+        {data?.rrp_countdown && (
+          <div className="mb-6">
+            <RRPCountdownWidget countdown={data.rrp_countdown} />
+          </div>
+        )}
 
         {/* Global Liquidity & Stablecoins */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-6">
@@ -1172,7 +1417,7 @@ const FractalTerminal = () => {
 
         {/* Footer */}
         <footer className="text-center text-xs text-slate-600 font-mono py-6 border-t border-slate-800">
-          <p className="text-cyan-500 mb-1">FRACTAL TERMINAL v7.3</p>
+          <p className="text-cyan-500 mb-1">FRACTAL TERMINAL v8.0</p>
           <p>Data: Daily Treasury Statement • NY Fed Markets • FRED • DefiLlama • NOAA</p>
           <p className="text-slate-700 mt-1">All data real. Zero simulations. Not financial advice.</p>
         </footer>
@@ -1183,7 +1428,7 @@ const FractalTerminal = () => {
         <div className="fixed inset-0 z-[99999] flex items-center justify-center p-4 bg-black/90 backdrop-blur" onClick={() => setShowHelp(false)}>
           <div className="bg-slate-900 border border-cyan-500/30 rounded-2xl max-w-2xl w-full max-h-[80vh] overflow-auto" onClick={e => e.stopPropagation()}>
             <div className="flex items-center justify-between p-4 border-b border-slate-800">
-              <h2 className="text-xl font-bold text-cyan-400">FRACTAL TERMINAL v7.3</h2>
+              <h2 className="text-xl font-bold text-cyan-400">FRACTAL TERMINAL v8.0</h2>
               <button onClick={() => setShowHelp(false)} className="p-2 hover:bg-slate-800 rounded-lg">
                 <X className="w-5 h-5" />
               </button>
@@ -1218,6 +1463,13 @@ const FractalTerminal = () => {
           </div>
         </div>
       )}
+
+      {/* Command Palette */}
+      <CommandPalette 
+        isOpen={commandOpen} 
+        onClose={() => setCommandOpen(false)} 
+        onCommand={handleCommand} 
+      />
     </div>
   );
 };
