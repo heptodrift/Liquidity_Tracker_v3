@@ -1,11 +1,11 @@
 {
   "meta": {
-    "generated_at": "2026-01-07T18:00:00.000Z",
+    "generated_at": "2026-01-08T04:26:40.640837",
     "version": "8.0.0",
-    "data_integrity": "SAMPLE_REALISTIC",
+    "data_integrity": "COMPLETE",
     "sources": {
       "walcl": "FRED WALCL",
-      "tga": "Treasury API (T-1)",
+      "tga": "FRED WTREGEN (Weekly)",
       "rrp": "NY Fed (Same-day)",
       "reserves": "FRED WRESBAL",
       "spx": "FRED SP500",
@@ -14,152 +14,4377 @@
     }
   },
   "latest": {
-    "date": "2026-01-07",
-    "balance_sheet": 6750000,
-    "tga": 725,
-    "tga_source": "Treasury API (T-1)",
-    "rrp": 3.2,
+    "date": "2026-01-08",
+    "balance_sheet": 6640618000.0,
+    "tga": 837306000.0,
+    "tga_source": "FRED WTREGEN (Weekly)",
+    "rrp": 4582000000.0,
     "rrp_source": "NY Fed (Same-day)",
-    "reserves": 3180000,
-    "net_liquidity": 6024997,
-    "spx": 6025,
-    "ssn": 145,
-    "vix": 14.5,
-    "yield_curve": 0.15,
-    "hy_spread": 3.2
+    "reserves": 2957410000.0,
+    "net_liquidity": -835247382000.0,
+    "spx": 6944.82,
+    "ssn": 121.8,
+    "vix": 14.75,
+    "yield_curve": 0.68,
+    "hy_spread": 2.79
   },
   "regime": {
-    "composite": 58,
+    "composite": 55.0,
     "status": "ELEVATED",
     "signal": "REDUCE RISK"
   },
   "csd": {
-    "current_ar1": 0.62,
-    "current_variance": 0.0028,
-    "kendall_tau": 0.18,
-    "status": "RISING"
+    "current_ar1": 0.993,
+    "current_variance": 366192.747,
+    "kendall_tau": null,
+    "status": "CRITICAL"
   },
   "lppl": {
-    "is_bubble": false,
-    "confidence": 42,
-    "status": "Monitoring - weak signature",
-    "tc_days": null,
-    "tc_date": null,
-    "r2": 0.58,
-    "omega": 8.2,
-    "m": 0.48
+    "is_bubble": true,
+    "confidence": 86,
+    "status": "BUBBLE DETECTED",
+    "tc_days": 30,
+    "tc_date": "2026-02-07",
+    "r2": 0.8663885154078653,
+    "omega": 9.5,
+    "m": 0.7999999999999998
   },
   "credit_stress": {
     "status": "NORMAL",
-    "score": 12,
-    "vix": 14.5,
-    "yield_curve": 0.15,
-    "hy_spread": 3.2,
-    "cp_tbill_spread": 8.5
+    "score": 0,
+    "vix": 14.75,
+    "yield_curve": 0.68,
+    "hy_spread": 2.79,
+    "cp_tbill_spread": 7.0
   },
   "rrp_countdown": {
     "status": "CRITICAL",
-    "current_billion": 3.2,
-    "drain_rate_per_day": 2.8,
-    "days_to_exhaustion": 1,
-    "projected_zero_date": "2026-01-08",
-    "history": [
-      {"date": "2024-01-02", "rrp": 1450},
-      {"date": "2024-02-01", "rrp": 1320},
-      {"date": "2024-03-01", "rrp": 1180},
-      {"date": "2024-04-01", "rrp": 1020},
-      {"date": "2024-05-01", "rrp": 890},
-      {"date": "2024-06-01", "rrp": 750},
-      {"date": "2024-07-01", "rrp": 620},
-      {"date": "2024-08-01", "rrp": 510},
-      {"date": "2024-09-01", "rrp": 420},
-      {"date": "2024-10-01", "rrp": 340},
-      {"date": "2024-11-01", "rrp": 270},
-      {"date": "2024-12-01", "rrp": 210},
-      {"date": "2025-01-02", "rrp": 165},
-      {"date": "2025-02-01", "rrp": 130},
-      {"date": "2025-03-01", "rrp": 105},
-      {"date": "2025-04-01", "rrp": 82},
-      {"date": "2025-05-01", "rrp": 64},
-      {"date": "2025-06-01", "rrp": 48},
-      {"date": "2025-07-01", "rrp": 35},
-      {"date": "2025-08-01", "rrp": 24},
-      {"date": "2025-09-01", "rrp": 16},
-      {"date": "2025-10-01", "rrp": 11},
-      {"date": "2025-11-01", "rrp": 7.5},
-      {"date": "2025-12-01", "rrp": 5.2},
-      {"date": "2026-01-07", "rrp": 3.2}
-    ]
+    "current_billion": 4.58,
+    "drain_rate_per_day": -0.14,
+    "days_to_exhaustion": null,
+    "projected_zero_date": null
   },
   "global_m2": {
-    "current": 89.5,
-    "roc_30d": 0.35,
-    "us": 21.2,
-    "eu": 16.8,
-    "jp": 10.5,
-    "cn": 41.0
+    "current": null,
+    "roc_30d": null
   },
   "stablecoins": {
-    "total_mcap": 152.3,
+    "total_mcap": 306.77,
     "breakdown": {
-      "USDT": 95.2,
-      "USDC": 35.8,
-      "DAI": 5.2,
-      "FDUSD": 3.1
+      "USDT": 186.9,
+      "USDC": 75.0,
+      "USDS": 6.8,
+      "USDe": 6.3,
+      "DAI": 4.5,
+      "PYUSD": 3.7,
+      "USD1": 3.5,
+      "USDf": 2.1,
+      "USYC": 1.5,
+      "RLUSD": 1.3
     },
-    "count": 85
+    "count": 322
   },
   "timeseries": [
-    {"date": "2024-01-02", "balance_sheet": 7750000, "tga": 680, "rrp": 1450, "net_liquidity": 5620000, "spx": 4742, "ar1": 0.42, "variance": 0.0012},
-    {"date": "2024-01-15", "balance_sheet": 7720000, "tga": 695, "rrp": 1380, "net_liquidity": 5645000, "spx": 4780, "ar1": 0.43, "variance": 0.0013},
-    {"date": "2024-02-01", "balance_sheet": 7700000, "tga": 710, "rrp": 1320, "net_liquidity": 5670000, "spx": 4925, "ar1": 0.44, "variance": 0.0014},
-    {"date": "2024-02-15", "balance_sheet": 7680000, "tga": 725, "rrp": 1250, "net_liquidity": 5705000, "spx": 4980, "ar1": 0.45, "variance": 0.0014},
-    {"date": "2024-03-01", "balance_sheet": 7650000, "tga": 700, "rrp": 1180, "net_liquidity": 5770000, "spx": 5150, "ar1": 0.46, "variance": 0.0015},
-    {"date": "2024-03-15", "balance_sheet": 7620000, "tga": 690, "rrp": 1100, "net_liquidity": 5830000, "spx": 5180, "ar1": 0.47, "variance": 0.0015},
-    {"date": "2024-04-01", "balance_sheet": 7600000, "tga": 720, "rrp": 1020, "net_liquidity": 5860000, "spx": 5243, "ar1": 0.48, "variance": 0.0016},
-    {"date": "2024-04-15", "balance_sheet": 7580000, "tga": 740, "rrp": 950, "net_liquidity": 5890000, "spx": 5210, "ar1": 0.47, "variance": 0.0017},
-    {"date": "2024-05-01", "balance_sheet": 7550000, "tga": 780, "rrp": 890, "net_liquidity": 5880000, "spx": 5277, "ar1": 0.48, "variance": 0.0016},
-    {"date": "2024-05-15", "balance_sheet": 7520000, "tga": 800, "rrp": 820, "net_liquidity": 5900000, "spx": 5310, "ar1": 0.49, "variance": 0.0017},
-    {"date": "2024-06-01", "balance_sheet": 7500000, "tga": 810, "rrp": 750, "net_liquidity": 5940000, "spx": 5450, "ar1": 0.50, "variance": 0.0018},
-    {"date": "2024-06-15", "balance_sheet": 7480000, "tga": 795, "rrp": 680, "net_liquidity": 6005000, "spx": 5480, "ar1": 0.51, "variance": 0.0018},
-    {"date": "2024-07-01", "balance_sheet": 7450000, "tga": 780, "rrp": 620, "net_liquidity": 6050000, "spx": 5522, "ar1": 0.52, "variance": 0.0019},
-    {"date": "2024-07-15", "balance_sheet": 7420000, "tga": 760, "rrp": 565, "net_liquidity": 6095000, "spx": 5490, "ar1": 0.51, "variance": 0.0020},
-    {"date": "2024-08-01", "balance_sheet": 7400000, "tga": 750, "rrp": 510, "net_liquidity": 6140000, "spx": 5432, "ar1": 0.53, "variance": 0.0022},
-    {"date": "2024-08-15", "balance_sheet": 7380000, "tga": 730, "rrp": 465, "net_liquidity": 6185000, "spx": 5510, "ar1": 0.52, "variance": 0.0021},
-    {"date": "2024-09-01", "balance_sheet": 7350000, "tga": 710, "rrp": 420, "net_liquidity": 6220000, "spx": 5648, "ar1": 0.54, "variance": 0.0020},
-    {"date": "2024-09-15", "balance_sheet": 7320000, "tga": 695, "rrp": 380, "net_liquidity": 6245000, "spx": 5700, "ar1": 0.55, "variance": 0.0021},
-    {"date": "2024-10-01", "balance_sheet": 7300000, "tga": 680, "rrp": 340, "net_liquidity": 6280000, "spx": 5762, "ar1": 0.54, "variance": 0.0022},
-    {"date": "2024-10-15", "balance_sheet": 7280000, "tga": 700, "rrp": 305, "net_liquidity": 6275000, "spx": 5820, "ar1": 0.55, "variance": 0.0023},
-    {"date": "2024-11-01", "balance_sheet": 7200000, "tga": 720, "rrp": 270, "net_liquidity": 6210000, "spx": 5890, "ar1": 0.56, "variance": 0.0024},
-    {"date": "2024-11-15", "balance_sheet": 7150000, "tga": 735, "rrp": 240, "net_liquidity": 6175000, "spx": 5920, "ar1": 0.57, "variance": 0.0023},
-    {"date": "2024-12-01", "balance_sheet": 7100000, "tga": 750, "rrp": 210, "net_liquidity": 6140000, "spx": 5950, "ar1": 0.56, "variance": 0.0024},
-    {"date": "2024-12-15", "balance_sheet": 7050000, "tga": 730, "rrp": 185, "net_liquidity": 6135000, "spx": 5980, "ar1": 0.57, "variance": 0.0025},
-    {"date": "2025-01-02", "balance_sheet": 7000000, "tga": 700, "rrp": 165, "net_liquidity": 6135000, "spx": 5875, "ar1": 0.58, "variance": 0.0026},
-    {"date": "2025-01-15", "balance_sheet": 6980000, "tga": 685, "rrp": 148, "net_liquidity": 6147000, "spx": 5910, "ar1": 0.57, "variance": 0.0025},
-    {"date": "2025-02-01", "balance_sheet": 6950000, "tga": 680, "rrp": 130, "net_liquidity": 6140000, "spx": 5920, "ar1": 0.58, "variance": 0.0024},
-    {"date": "2025-02-15", "balance_sheet": 6930000, "tga": 695, "rrp": 118, "net_liquidity": 6117000, "spx": 5890, "ar1": 0.59, "variance": 0.0025},
-    {"date": "2025-03-01", "balance_sheet": 6900000, "tga": 720, "rrp": 105, "net_liquidity": 6075000, "spx": 5750, "ar1": 0.60, "variance": 0.0027},
-    {"date": "2025-03-15", "balance_sheet": 6880000, "tga": 735, "rrp": 94, "net_liquidity": 6051000, "spx": 5720, "ar1": 0.59, "variance": 0.0028},
-    {"date": "2025-04-01", "balance_sheet": 6875000, "tga": 750, "rrp": 82, "net_liquidity": 6043000, "spx": 5680, "ar1": 0.60, "variance": 0.0029},
-    {"date": "2025-04-15", "balance_sheet": 6865000, "tga": 765, "rrp": 73, "net_liquidity": 6027000, "spx": 5710, "ar1": 0.58, "variance": 0.0027},
-    {"date": "2025-05-01", "balance_sheet": 6850000, "tga": 780, "rrp": 64, "net_liquidity": 6006000, "spx": 5720, "ar1": 0.59, "variance": 0.0026},
-    {"date": "2025-05-15", "balance_sheet": 6840000, "tga": 795, "rrp": 56, "net_liquidity": 5989000, "spx": 5760, "ar1": 0.58, "variance": 0.0025},
-    {"date": "2025-06-01", "balance_sheet": 6825000, "tga": 800, "rrp": 48, "net_liquidity": 5977000, "spx": 5810, "ar1": 0.59, "variance": 0.0026},
-    {"date": "2025-06-15", "balance_sheet": 6815000, "tga": 785, "rrp": 42, "net_liquidity": 5988000, "spx": 5850, "ar1": 0.58, "variance": 0.0025},
-    {"date": "2025-07-01", "balance_sheet": 6800000, "tga": 770, "rrp": 35, "net_liquidity": 5995000, "spx": 5890, "ar1": 0.59, "variance": 0.0024},
-    {"date": "2025-07-15", "balance_sheet": 6790000, "tga": 755, "rrp": 30, "net_liquidity": 6005000, "spx": 5920, "ar1": 0.58, "variance": 0.0025},
-    {"date": "2025-08-01", "balance_sheet": 6780000, "tga": 740, "rrp": 24, "net_liquidity": 6016000, "spx": 5950, "ar1": 0.59, "variance": 0.0026},
-    {"date": "2025-08-15", "balance_sheet": 6775000, "tga": 725, "rrp": 20, "net_liquidity": 6030000, "spx": 5910, "ar1": 0.60, "variance": 0.0027},
-    {"date": "2025-09-01", "balance_sheet": 6770000, "tga": 710, "rrp": 16, "net_liquidity": 6044000, "spx": 5875, "ar1": 0.61, "variance": 0.0028},
-    {"date": "2025-09-15", "balance_sheet": 6765000, "tga": 695, "rrp": 14, "net_liquidity": 6056000, "spx": 5900, "ar1": 0.60, "variance": 0.0027},
-    {"date": "2025-10-01", "balance_sheet": 6760000, "tga": 680, "rrp": 11, "net_liquidity": 6069000, "spx": 5920, "ar1": 0.61, "variance": 0.0028},
-    {"date": "2025-10-15", "balance_sheet": 6757000, "tga": 690, "rrp": 9, "net_liquidity": 6058000, "spx": 5950, "ar1": 0.60, "variance": 0.0027},
-    {"date": "2025-11-01", "balance_sheet": 6755000, "tga": 700, "rrp": 8, "net_liquidity": 6047000, "spx": 5980, "ar1": 0.61, "variance": 0.0028},
-    {"date": "2025-11-15", "balance_sheet": 6753000, "tga": 708, "rrp": 6, "net_liquidity": 6039000, "spx": 5995, "ar1": 0.62, "variance": 0.0029},
-    {"date": "2025-12-01", "balance_sheet": 6752000, "tga": 715, "rrp": 5, "net_liquidity": 6032000, "spx": 6010, "ar1": 0.61, "variance": 0.0028},
-    {"date": "2025-12-15", "balance_sheet": 6751000, "tga": 720, "rrp": 4, "net_liquidity": 6027000, "spx": 6015, "ar1": 0.62, "variance": 0.0029},
-    {"date": "2026-01-02", "balance_sheet": 6750500, "tga": 722, "rrp": 4, "net_liquidity": 6025000, "spx": 6020, "ar1": 0.61, "variance": 0.0028},
-    {"date": "2026-01-07", "balance_sheet": 6750000, "tga": 725, "rrp": 3, "net_liquidity": 6022000, "spx": 6025, "ar1": 0.62, "variance": 0.0028}
+    {
+      "date": "2024-02-08",
+      "balance_sheet": 7631300000.0,
+      "tga": 802135.0,
+      "rrp": 535.705,
+      "net_liquidity": 6829164464.295,
+      "spx": 4997.91
+    },
+    {
+      "date": "2024-02-09",
+      "balance_sheet": 7631300000.0,
+      "tga": 802135.0,
+      "rrp": 569.175,
+      "net_liquidity": 6829164430.825,
+      "spx": 5026.61
+    },
+    {
+      "date": "2024-02-12",
+      "balance_sheet": 7631300000.0,
+      "tga": 802135.0,
+      "rrp": 581.568,
+      "net_liquidity": 6829164418.432,
+      "spx": 5021.84
+    },
+    {
+      "date": "2024-02-13",
+      "balance_sheet": 7631300000.0,
+      "tga": 802135.0,
+      "rrp": 553.684,
+      "net_liquidity": 6829164446.316,
+      "spx": 4953.17
+    },
+    {
+      "date": "2024-02-14",
+      "balance_sheet": 7633874000.0,
+      "tga": 838005.0,
+      "rrp": 575.332,
+      "net_liquidity": 6795868424.668,
+      "spx": 5000.62
+    },
+    {
+      "date": "2024-02-15",
+      "balance_sheet": 7633874000.0,
+      "tga": 838005.0,
+      "rrp": 493.065,
+      "net_liquidity": 6795868506.935,
+      "spx": 5029.73
+    },
+    {
+      "date": "2024-02-16",
+      "balance_sheet": 7633874000.0,
+      "tga": 838005.0,
+      "rrp": 532.125,
+      "net_liquidity": 6795868467.875,
+      "spx": 5005.57
+    },
+    {
+      "date": "2024-02-20",
+      "balance_sheet": 7633874000.0,
+      "tga": 838005.0,
+      "rrp": 530.879,
+      "net_liquidity": 6795868469.121,
+      "spx": 4975.51
+    },
+    {
+      "date": "2024-02-21",
+      "balance_sheet": 7581683000.0,
+      "tga": 785465.0,
+      "rrp": 574.882,
+      "net_liquidity": 6796217425.118,
+      "spx": 4981.8
+    },
+    {
+      "date": "2024-02-22",
+      "balance_sheet": 7581683000.0,
+      "tga": 785465.0,
+      "rrp": 553.245,
+      "net_liquidity": 6796217446.755,
+      "spx": 5087.03
+    },
+    {
+      "date": "2024-02-23",
+      "balance_sheet": 7581683000.0,
+      "tga": 785465.0,
+      "rrp": 520.107,
+      "net_liquidity": 6796217479.893,
+      "spx": 5088.8
+    },
+    {
+      "date": "2024-02-26",
+      "balance_sheet": 7581683000.0,
+      "tga": 785465.0,
+      "rrp": 524.959,
+      "net_liquidity": 6796217475.041,
+      "spx": 5069.53
+    },
+    {
+      "date": "2024-02-27",
+      "balance_sheet": 7581683000.0,
+      "tga": 785465.0,
+      "rrp": 519.725,
+      "net_liquidity": 6796217480.275,
+      "spx": 5078.18
+    },
+    {
+      "date": "2024-02-28",
+      "balance_sheet": 7567807000.0,
+      "tga": 785821.0,
+      "rrp": 569.855,
+      "net_liquidity": 6781985430.145,
+      "spx": 5069.76
+    },
+    {
+      "date": "2024-02-29",
+      "balance_sheet": 7567807000.0,
+      "tga": 785821.0,
+      "rrp": 502.074,
+      "net_liquidity": 6781985497.926,
+      "spx": 5096.27
+    },
+    {
+      "date": "2024-03-01",
+      "balance_sheet": 7567807000.0,
+      "tga": 785821.0,
+      "rrp": 441.265,
+      "net_liquidity": 6781985558.735,
+      "spx": 5137.08
+    },
+    {
+      "date": "2024-03-04",
+      "balance_sheet": 7567807000.0,
+      "tga": 785821.0,
+      "rrp": 439.793,
+      "net_liquidity": 6781985560.207,
+      "spx": 5130.95
+    },
+    {
+      "date": "2024-03-05",
+      "balance_sheet": 7567807000.0,
+      "tga": 785821.0,
+      "rrp": 444.474,
+      "net_liquidity": 6781985555.526,
+      "spx": 5078.65
+    },
+    {
+      "date": "2024-03-06",
+      "balance_sheet": 7538857000.0,
+      "tga": 767733.0,
+      "rrp": 456.847,
+      "net_liquidity": 6771123543.153,
+      "spx": 5104.76
+    },
+    {
+      "date": "2024-03-07",
+      "balance_sheet": 7538857000.0,
+      "tga": 767733.0,
+      "rrp": 436.754,
+      "net_liquidity": 6771123563.246,
+      "spx": 5157.36
+    },
+    {
+      "date": "2024-03-08",
+      "balance_sheet": 7538857000.0,
+      "tga": 767733.0,
+      "rrp": 444.803,
+      "net_liquidity": 6771123555.197,
+      "spx": 5123.69
+    },
+    {
+      "date": "2024-03-11",
+      "balance_sheet": 7538857000.0,
+      "tga": 767733.0,
+      "rrp": 478.728,
+      "net_liquidity": 6771123521.272,
+      "spx": 5117.94
+    },
+    {
+      "date": "2024-03-12",
+      "balance_sheet": 7538857000.0,
+      "tga": 767733.0,
+      "rrp": 476.862,
+      "net_liquidity": 6771123523.138,
+      "spx": 5175.27
+    },
+    {
+      "date": "2024-03-13",
+      "balance_sheet": 7541969000.0,
+      "tga": 768369.0,
+      "rrp": 521.738,
+      "net_liquidity": 6773599478.262,
+      "spx": 5165.31
+    },
+    {
+      "date": "2024-03-14",
+      "balance_sheet": 7541969000.0,
+      "tga": 768369.0,
+      "rrp": 483.573,
+      "net_liquidity": 6773599516.427,
+      "spx": 5150.48
+    },
+    {
+      "date": "2024-03-15",
+      "balance_sheet": 7541969000.0,
+      "tga": 768369.0,
+      "rrp": 413.877,
+      "net_liquidity": 6773599586.123,
+      "spx": 5117.09
+    },
+    {
+      "date": "2024-03-18",
+      "balance_sheet": 7541969000.0,
+      "tga": 768369.0,
+      "rrp": 440.596,
+      "net_liquidity": 6773599559.404,
+      "spx": 5149.42
+    },
+    {
+      "date": "2024-03-19",
+      "balance_sheet": 7541969000.0,
+      "tga": 768369.0,
+      "rrp": 446.978,
+      "net_liquidity": 6773599553.022,
+      "spx": 5178.51
+    },
+    {
+      "date": "2024-03-20",
+      "balance_sheet": 7514348000.0,
+      "tga": 809298.0,
+      "rrp": 496.245,
+      "net_liquidity": 6705049503.755,
+      "spx": 5224.62
+    },
+    {
+      "date": "2024-03-21",
+      "balance_sheet": 7514348000.0,
+      "tga": 809298.0,
+      "rrp": 460.631,
+      "net_liquidity": 6705049539.369,
+      "spx": 5241.53
+    },
+    {
+      "date": "2024-03-22",
+      "balance_sheet": 7514348000.0,
+      "tga": 809298.0,
+      "rrp": 478.531,
+      "net_liquidity": 6705049521.469,
+      "spx": 5234.18
+    },
+    {
+      "date": "2024-03-25",
+      "balance_sheet": 7514348000.0,
+      "tga": 809298.0,
+      "rrp": 473.787,
+      "net_liquidity": 6705049526.213,
+      "spx": 5218.19
+    },
+    {
+      "date": "2024-03-26",
+      "balance_sheet": 7514348000.0,
+      "tga": 809298.0,
+      "rrp": 496.062,
+      "net_liquidity": 6705049503.938,
+      "spx": 5203.58
+    },
+    {
+      "date": "2024-03-27",
+      "balance_sheet": 7484739000.0,
+      "tga": 802233.0,
+      "rrp": 518.357,
+      "net_liquidity": 6682505481.643,
+      "spx": 5248.49
+    },
+    {
+      "date": "2024-03-28",
+      "balance_sheet": 7484739000.0,
+      "tga": 802233.0,
+      "rrp": 594.428,
+      "net_liquidity": 6682505405.572,
+      "spx": 5254.35
+    },
+    {
+      "date": "2024-04-01",
+      "balance_sheet": 7484739000.0,
+      "tga": 802233.0,
+      "rrp": 441.903,
+      "net_liquidity": 6682505558.097,
+      "spx": 5243.77
+    },
+    {
+      "date": "2024-04-02",
+      "balance_sheet": 7484739000.0,
+      "tga": 802233.0,
+      "rrp": 448.424,
+      "net_liquidity": 6682505551.576,
+      "spx": 5205.81
+    },
+    {
+      "date": "2024-04-03",
+      "balance_sheet": 7439558000.0,
+      "tga": 768651.0,
+      "rrp": 436.631,
+      "net_liquidity": 6670906563.369,
+      "spx": 5211.49
+    },
+    {
+      "date": "2024-04-04",
+      "balance_sheet": 7439558000.0,
+      "tga": 768651.0,
+      "rrp": 438.764,
+      "net_liquidity": 6670906561.236,
+      "spx": 5147.21
+    },
+    {
+      "date": "2024-04-05",
+      "balance_sheet": 7439558000.0,
+      "tga": 768651.0,
+      "rrp": 438.319,
+      "net_liquidity": 6670906561.681,
+      "spx": 5204.34
+    },
+    {
+      "date": "2024-04-08",
+      "balance_sheet": 7439558000.0,
+      "tga": 768651.0,
+      "rrp": 448.597,
+      "net_liquidity": 6670906551.403,
+      "spx": 5202.39
+    },
+    {
+      "date": "2024-04-09",
+      "balance_sheet": 7439558000.0,
+      "tga": 768651.0,
+      "rrp": 441.792,
+      "net_liquidity": 6670906558.208,
+      "spx": 5209.91
+    },
+    {
+      "date": "2024-04-10",
+      "balance_sheet": 7438176000.0,
+      "tga": 704971.0,
+      "rrp": 445.816,
+      "net_liquidity": 6733204554.184,
+      "spx": 5160.64
+    },
+    {
+      "date": "2024-04-11",
+      "balance_sheet": 7438176000.0,
+      "tga": 704971.0,
+      "rrp": 455.361,
+      "net_liquidity": 6733204544.639,
+      "spx": 5199.06
+    },
+    {
+      "date": "2024-04-12",
+      "balance_sheet": 7438176000.0,
+      "tga": 704971.0,
+      "rrp": 407.322,
+      "net_liquidity": 6733204592.678,
+      "spx": 5123.41
+    },
+    {
+      "date": "2024-04-15",
+      "balance_sheet": 7438176000.0,
+      "tga": 704971.0,
+      "rrp": 327.066,
+      "net_liquidity": 6733204672.934,
+      "spx": 5061.82
+    },
+    {
+      "date": "2024-04-16",
+      "balance_sheet": 7438176000.0,
+      "tga": 704971.0,
+      "rrp": 371.554,
+      "net_liquidity": 6733204628.446,
+      "spx": 5051.41
+    },
+    {
+      "date": "2024-04-17",
+      "balance_sheet": 7405506000.0,
+      "tga": 796535.0,
+      "rrp": 440.508,
+      "net_liquidity": 6608970559.492,
+      "spx": 5022.21
+    },
+    {
+      "date": "2024-04-18",
+      "balance_sheet": 7405506000.0,
+      "tga": 796535.0,
+      "rrp": 433.006,
+      "net_liquidity": 6608970566.994,
+      "spx": 5011.12
+    },
+    {
+      "date": "2024-04-19",
+      "balance_sheet": 7405506000.0,
+      "tga": 796535.0,
+      "rrp": 397.234,
+      "net_liquidity": 6608970602.766,
+      "spx": 4967.23
+    },
+    {
+      "date": "2024-04-22",
+      "balance_sheet": 7405506000.0,
+      "tga": 796535.0,
+      "rrp": 409.816,
+      "net_liquidity": 6608970590.184,
+      "spx": 5010.6
+    },
+    {
+      "date": "2024-04-23",
+      "balance_sheet": 7405506000.0,
+      "tga": 796535.0,
+      "rrp": 435.88,
+      "net_liquidity": 6608970564.12,
+      "spx": 5070.55
+    },
+    {
+      "date": "2024-04-24",
+      "balance_sheet": 7402434000.0,
+      "tga": 941430.0,
+      "rrp": 441.215,
+      "net_liquidity": 6461003558.785,
+      "spx": 5071.63
+    },
+    {
+      "date": "2024-04-25",
+      "balance_sheet": 7402434000.0,
+      "tga": 941430.0,
+      "rrp": 443.928,
+      "net_liquidity": 6461003556.072,
+      "spx": 5048.42
+    },
+    {
+      "date": "2024-04-26",
+      "balance_sheet": 7402434000.0,
+      "tga": 941430.0,
+      "rrp": 464.912,
+      "net_liquidity": 6461003535.088,
+      "spx": 5099.96
+    },
+    {
+      "date": "2024-04-29",
+      "balance_sheet": 7402434000.0,
+      "tga": 941430.0,
+      "rrp": 505.53,
+      "net_liquidity": 6461003494.47,
+      "spx": 5116.17
+    },
+    {
+      "date": "2024-04-30",
+      "balance_sheet": 7402434000.0,
+      "tga": 941430.0,
+      "rrp": 534.234,
+      "net_liquidity": 6461003465.766,
+      "spx": 5035.69
+    },
+    {
+      "date": "2024-05-01",
+      "balance_sheet": 7362474000.0,
+      "tga": 917177.0,
+      "rrp": 438.148,
+      "net_liquidity": 6445296561.852,
+      "spx": 5018.39
+    },
+    {
+      "date": "2024-05-02",
+      "balance_sheet": 7362474000.0,
+      "tga": 917177.0,
+      "rrp": 428.68,
+      "net_liquidity": 6445296571.32,
+      "spx": 5064.2
+    },
+    {
+      "date": "2024-05-03",
+      "balance_sheet": 7362474000.0,
+      "tga": 917177.0,
+      "rrp": 450.165,
+      "net_liquidity": 6445296549.835,
+      "spx": 5127.79
+    },
+    {
+      "date": "2024-05-06",
+      "balance_sheet": 7362474000.0,
+      "tga": 917177.0,
+      "rrp": 468.97,
+      "net_liquidity": 6445296531.03,
+      "spx": 5180.74
+    },
+    {
+      "date": "2024-05-07",
+      "balance_sheet": 7362474000.0,
+      "tga": 917177.0,
+      "rrp": 475.325,
+      "net_liquidity": 6445296524.675,
+      "spx": 5187.7
+    },
+    {
+      "date": "2024-05-08",
+      "balance_sheet": 7353408000.0,
+      "tga": 851591.0,
+      "rrp": 493.427,
+      "net_liquidity": 6501816506.573,
+      "spx": 5187.67
+    },
+    {
+      "date": "2024-05-09",
+      "balance_sheet": 7353408000.0,
+      "tga": 851591.0,
+      "rrp": 458.55,
+      "net_liquidity": 6501816541.45,
+      "spx": 5214.08
+    },
+    {
+      "date": "2024-05-10",
+      "balance_sheet": 7353408000.0,
+      "tga": 851591.0,
+      "rrp": 486.434,
+      "net_liquidity": 6501816513.566,
+      "spx": 5222.68
+    },
+    {
+      "date": "2024-05-13",
+      "balance_sheet": 7353408000.0,
+      "tga": 851591.0,
+      "rrp": 492.068,
+      "net_liquidity": 6501816507.932,
+      "spx": 5221.42
+    },
+    {
+      "date": "2024-05-14",
+      "balance_sheet": 7353408000.0,
+      "tga": 851591.0,
+      "rrp": 468.344,
+      "net_liquidity": 6501816531.656,
+      "spx": 5246.68
+    },
+    {
+      "date": "2024-05-15",
+      "balance_sheet": 7304272000.0,
+      "tga": 787133.0,
+      "rrp": 443.779,
+      "net_liquidity": 6517138556.221,
+      "spx": 5308.15
+    },
+    {
+      "date": "2024-05-16",
+      "balance_sheet": 7304272000.0,
+      "tga": 787133.0,
+      "rrp": 410.121,
+      "net_liquidity": 6517138589.879,
+      "spx": 5297.1
+    },
+    {
+      "date": "2024-05-17",
+      "balance_sheet": 7304272000.0,
+      "tga": 787133.0,
+      "rrp": 449.373,
+      "net_liquidity": 6517138550.627,
+      "spx": 5303.27
+    },
+    {
+      "date": "2024-05-20",
+      "balance_sheet": 7304272000.0,
+      "tga": 787133.0,
+      "rrp": 489.728,
+      "net_liquidity": 6517138510.272,
+      "spx": 5308.13
+    },
+    {
+      "date": "2024-05-21",
+      "balance_sheet": 7304272000.0,
+      "tga": 787133.0,
+      "rrp": 491.72,
+      "net_liquidity": 6517138508.28,
+      "spx": 5321.41
+    },
+    {
+      "date": "2024-05-22",
+      "balance_sheet": 7299566000.0,
+      "tga": 725376.0,
+      "rrp": 496.382,
+      "net_liquidity": 6574189503.618,
+      "spx": 5307.01
+    },
+    {
+      "date": "2024-05-23",
+      "balance_sheet": 7299566000.0,
+      "tga": 725376.0,
+      "rrp": 467.398,
+      "net_liquidity": 6574189532.602,
+      "spx": 5267.84
+    },
+    {
+      "date": "2024-05-24",
+      "balance_sheet": 7299566000.0,
+      "tga": 725376.0,
+      "rrp": 431.239,
+      "net_liquidity": 6574189568.761,
+      "spx": 5304.72
+    },
+    {
+      "date": "2024-05-28",
+      "balance_sheet": 7299566000.0,
+      "tga": 725376.0,
+      "rrp": 417.836,
+      "net_liquidity": 6574189582.164,
+      "spx": 5306.04
+    },
+    {
+      "date": "2024-05-29",
+      "balance_sheet": 7284319000.0,
+      "tga": 704335.0,
+      "rrp": 459.314,
+      "net_liquidity": 6579983540.686,
+      "spx": 5266.95
+    },
+    {
+      "date": "2024-05-30",
+      "balance_sheet": 7284319000.0,
+      "tga": 704335.0,
+      "rrp": 452.034,
+      "net_liquidity": 6579983547.966,
+      "spx": 5235.48
+    },
+    {
+      "date": "2024-05-31",
+      "balance_sheet": 7284319000.0,
+      "tga": 704335.0,
+      "rrp": 439.806,
+      "net_liquidity": 6579983560.194,
+      "spx": 5277.51
+    },
+    {
+      "date": "2024-06-03",
+      "balance_sheet": 7284319000.0,
+      "tga": 704335.0,
+      "rrp": 387.069,
+      "net_liquidity": 6579983612.931,
+      "spx": 5283.4
+    },
+    {
+      "date": "2024-06-04",
+      "balance_sheet": 7284319000.0,
+      "tga": 704335.0,
+      "rrp": 377.825,
+      "net_liquidity": 6579983622.175,
+      "spx": 5291.34
+    },
+    {
+      "date": "2024-06-05",
+      "balance_sheet": 7255687000.0,
+      "tga": 710309.0,
+      "rrp": 371.841,
+      "net_liquidity": 6545377628.159,
+      "spx": 5354.03
+    },
+    {
+      "date": "2024-06-06",
+      "balance_sheet": 7255687000.0,
+      "tga": 710309.0,
+      "rrp": 378.125,
+      "net_liquidity": 6545377621.875,
+      "spx": 5352.96
+    },
+    {
+      "date": "2024-06-07",
+      "balance_sheet": 7255687000.0,
+      "tga": 710309.0,
+      "rrp": 395.462,
+      "net_liquidity": 6545377604.538,
+      "spx": 5346.99
+    },
+    {
+      "date": "2024-06-10",
+      "balance_sheet": 7255687000.0,
+      "tga": 710309.0,
+      "rrp": 416.481,
+      "net_liquidity": 6545377583.519,
+      "spx": 5360.79
+    },
+    {
+      "date": "2024-06-11",
+      "balance_sheet": 7255687000.0,
+      "tga": 710309.0,
+      "rrp": 410.449,
+      "net_liquidity": 6545377589.551,
+      "spx": 5375.32
+    },
+    {
+      "date": "2024-06-12",
+      "balance_sheet": 7258974000.0,
+      "tga": 673573.0,
+      "rrp": 447.574,
+      "net_liquidity": 6585400552.426,
+      "spx": 5421.03
+    },
+    {
+      "date": "2024-06-13",
+      "balance_sheet": 7258974000.0,
+      "tga": 673573.0,
+      "rrp": 429.864,
+      "net_liquidity": 6585400570.136,
+      "spx": 5433.74
+    },
+    {
+      "date": "2024-06-14",
+      "balance_sheet": 7258974000.0,
+      "tga": 673573.0,
+      "rrp": 386.885,
+      "net_liquidity": 6585400613.115,
+      "spx": 5431.6
+    },
+    {
+      "date": "2024-06-17",
+      "balance_sheet": 7258974000.0,
+      "tga": 673573.0,
+      "rrp": 333.429,
+      "net_liquidity": 6585400666.571,
+      "spx": 5473.23
+    },
+    {
+      "date": "2024-06-18",
+      "balance_sheet": 7258974000.0,
+      "tga": 673573.0,
+      "rrp": 375.542,
+      "net_liquidity": 6585400624.458,
+      "spx": 5487.03
+    },
+    {
+      "date": "2024-06-19",
+      "balance_sheet": 7252542000.0,
+      "tga": 723410.0,
+      "rrp": 375.542,
+      "net_liquidity": 6529131624.458,
+      "spx": 5487.03
+    },
+    {
+      "date": "2024-06-20",
+      "balance_sheet": 7252542000.0,
+      "tga": 723410.0,
+      "rrp": 388.841,
+      "net_liquidity": 6529131611.159,
+      "spx": 5473.17
+    },
+    {
+      "date": "2024-06-21",
+      "balance_sheet": 7252542000.0,
+      "tga": 723410.0,
+      "rrp": 421.04,
+      "net_liquidity": 6529131578.96,
+      "spx": 5464.62
+    },
+    {
+      "date": "2024-06-24",
+      "balance_sheet": 7252542000.0,
+      "tga": 723410.0,
+      "rrp": 435.916,
+      "net_liquidity": 6529131564.084,
+      "spx": 5447.87
+    },
+    {
+      "date": "2024-06-25",
+      "balance_sheet": 7252542000.0,
+      "tga": 723410.0,
+      "rrp": 466.31,
+      "net_liquidity": 6529131533.69,
+      "spx": 5469.3
+    },
+    {
+      "date": "2024-06-26",
+      "balance_sheet": 7231163000.0,
+      "tga": 765417.0,
+      "rrp": 490.156,
+      "net_liquidity": 6465745509.844,
+      "spx": 5477.9
+    },
+    {
+      "date": "2024-06-27",
+      "balance_sheet": 7231163000.0,
+      "tga": 765417.0,
+      "rrp": 531.692,
+      "net_liquidity": 6465745468.308,
+      "spx": 5482.87
+    },
+    {
+      "date": "2024-06-28",
+      "balance_sheet": 7231163000.0,
+      "tga": 765417.0,
+      "rrp": 664.57,
+      "net_liquidity": 6465745335.43,
+      "spx": 5460.48
+    },
+    {
+      "date": "2024-07-01",
+      "balance_sheet": 7231163000.0,
+      "tga": 765417.0,
+      "rrp": 451.783,
+      "net_liquidity": 6465745548.217,
+      "spx": 5475.09
+    },
+    {
+      "date": "2024-07-02",
+      "balance_sheet": 7231163000.0,
+      "tga": 765417.0,
+      "rrp": 443.369,
+      "net_liquidity": 6465745556.631,
+      "spx": 5509.01
+    },
+    {
+      "date": "2024-07-03",
+      "balance_sheet": 7221520000.0,
+      "tga": 761373.0,
+      "rrp": 425.898,
+      "net_liquidity": 6460146574.102,
+      "spx": 5537.02
+    },
+    {
+      "date": "2024-07-05",
+      "balance_sheet": 7221520000.0,
+      "tga": 761373.0,
+      "rrp": 390.632,
+      "net_liquidity": 6460146609.368,
+      "spx": 5567.19
+    },
+    {
+      "date": "2024-07-08",
+      "balance_sheet": 7221520000.0,
+      "tga": 761373.0,
+      "rrp": 415.257,
+      "net_liquidity": 6460146584.743,
+      "spx": 5572.85
+    },
+    {
+      "date": "2024-07-09",
+      "balance_sheet": 7221520000.0,
+      "tga": 761373.0,
+      "rrp": 423.152,
+      "net_liquidity": 6460146576.848,
+      "spx": 5576.98
+    },
+    {
+      "date": "2024-07-10",
+      "balance_sheet": 7224079000.0,
+      "tga": 736402.0,
+      "rrp": 422.147,
+      "net_liquidity": 6487676577.853,
+      "spx": 5633.91
+    },
+    {
+      "date": "2024-07-11",
+      "balance_sheet": 7224079000.0,
+      "tga": 736402.0,
+      "rrp": 403.708,
+      "net_liquidity": 6487676596.292,
+      "spx": 5584.54
+    },
+    {
+      "date": "2024-07-12",
+      "balance_sheet": 7224079000.0,
+      "tga": 736402.0,
+      "rrp": 406.59,
+      "net_liquidity": 6487676593.41,
+      "spx": 5615.35
+    },
+    {
+      "date": "2024-07-15",
+      "balance_sheet": 7224079000.0,
+      "tga": 736402.0,
+      "rrp": 413.28,
+      "net_liquidity": 6487676586.72,
+      "spx": 5631.22
+    },
+    {
+      "date": "2024-07-16",
+      "balance_sheet": 7224079000.0,
+      "tga": 736402.0,
+      "rrp": 409.594,
+      "net_liquidity": 6487676590.406,
+      "spx": 5667.2
+    },
+    {
+      "date": "2024-07-17",
+      "balance_sheet": 7208247000.0,
+      "tga": 751593.0,
+      "rrp": 399.401,
+      "net_liquidity": 6456653600.599,
+      "spx": 5588.27
+    },
+    {
+      "date": "2024-07-18",
+      "balance_sheet": 7208247000.0,
+      "tga": 751593.0,
+      "rrp": 391.652,
+      "net_liquidity": 6456653608.348,
+      "spx": 5544.59
+    },
+    {
+      "date": "2024-07-19",
+      "balance_sheet": 7208247000.0,
+      "tga": 751593.0,
+      "rrp": 379.801,
+      "net_liquidity": 6456653620.199,
+      "spx": 5505.0
+    },
+    {
+      "date": "2024-07-22",
+      "balance_sheet": 7208247000.0,
+      "tga": 751593.0,
+      "rrp": 395.901,
+      "net_liquidity": 6456653604.099,
+      "spx": 5564.41
+    },
+    {
+      "date": "2024-07-23",
+      "balance_sheet": 7208247000.0,
+      "tga": 751593.0,
+      "rrp": 389.837,
+      "net_liquidity": 6456653610.163,
+      "spx": 5555.74
+    },
+    {
+      "date": "2024-07-24",
+      "balance_sheet": 7205455000.0,
+      "tga": 774315.0,
+      "rrp": 399.121,
+      "net_liquidity": 6431139600.879,
+      "spx": 5427.13
+    },
+    {
+      "date": "2024-07-25",
+      "balance_sheet": 7205455000.0,
+      "tga": 774315.0,
+      "rrp": 377.433,
+      "net_liquidity": 6431139622.567,
+      "spx": 5399.22
+    },
+    {
+      "date": "2024-07-26",
+      "balance_sheet": 7205455000.0,
+      "tga": 774315.0,
+      "rrp": 381.257,
+      "net_liquidity": 6431139618.743,
+      "spx": 5459.1
+    },
+    {
+      "date": "2024-07-29",
+      "balance_sheet": 7205455000.0,
+      "tga": 774315.0,
+      "rrp": 385.281,
+      "net_liquidity": 6431139614.719,
+      "spx": 5463.54
+    },
+    {
+      "date": "2024-07-30",
+      "balance_sheet": 7205455000.0,
+      "tga": 774315.0,
+      "rrp": 367.054,
+      "net_liquidity": 6431139632.946,
+      "spx": 5436.44
+    },
+    {
+      "date": "2024-07-31",
+      "balance_sheet": 7178391000.0,
+      "tga": 786486.0,
+      "rrp": 413.2,
+      "net_liquidity": 6391904586.8,
+      "spx": 5522.3
+    },
+    {
+      "date": "2024-08-01",
+      "balance_sheet": 7178391000.0,
+      "tga": 786486.0,
+      "rrp": 348.885,
+      "net_liquidity": 6391904651.115,
+      "spx": 5446.68
+    },
+    {
+      "date": "2024-08-02",
+      "balance_sheet": 7178391000.0,
+      "tga": 786486.0,
+      "rrp": 338.473,
+      "net_liquidity": 6391904661.527,
+      "spx": 5346.56
+    },
+    {
+      "date": "2024-08-05",
+      "balance_sheet": 7178391000.0,
+      "tga": 786486.0,
+      "rrp": 316.246,
+      "net_liquidity": 6391904683.754,
+      "spx": 5186.33
+    },
+    {
+      "date": "2024-08-06",
+      "balance_sheet": 7178391000.0,
+      "tga": 786486.0,
+      "rrp": 291.958,
+      "net_liquidity": 6391904708.042,
+      "spx": 5240.03
+    },
+    {
+      "date": "2024-08-07",
+      "balance_sheet": 7175256000.0,
+      "tga": 770931.0,
+      "rrp": 286.66,
+      "net_liquidity": 6404324713.34,
+      "spx": 5199.5
+    },
+    {
+      "date": "2024-08-08",
+      "balance_sheet": 7175256000.0,
+      "tga": 770931.0,
+      "rrp": 303.159,
+      "net_liquidity": 6404324696.841,
+      "spx": 5319.31
+    },
+    {
+      "date": "2024-08-09",
+      "balance_sheet": 7175256000.0,
+      "tga": 770931.0,
+      "rrp": 312.198,
+      "net_liquidity": 6404324687.802,
+      "spx": 5344.16
+    },
+    {
+      "date": "2024-08-12",
+      "balance_sheet": 7175256000.0,
+      "tga": 770931.0,
+      "rrp": 328.641,
+      "net_liquidity": 6404324671.359,
+      "spx": 5344.39
+    },
+    {
+      "date": "2024-08-13",
+      "balance_sheet": 7175256000.0,
+      "tga": 770931.0,
+      "rrp": 324.494,
+      "net_liquidity": 6404324675.506,
+      "spx": 5434.43
+    },
+    {
+      "date": "2024-08-14",
+      "balance_sheet": 7177688000.0,
+      "tga": 794120.0,
+      "rrp": 328.472,
+      "net_liquidity": 6383567671.528,
+      "spx": 5455.21
+    },
+    {
+      "date": "2024-08-15",
+      "balance_sheet": 7177688000.0,
+      "tga": 794120.0,
+      "rrp": 307.141,
+      "net_liquidity": 6383567692.859,
+      "spx": 5543.22
+    },
+    {
+      "date": "2024-08-16",
+      "balance_sheet": 7177688000.0,
+      "tga": 794120.0,
+      "rrp": 330.317,
+      "net_liquidity": 6383567669.683,
+      "spx": 5554.25
+    },
+    {
+      "date": "2024-08-19",
+      "balance_sheet": 7177688000.0,
+      "tga": 794120.0,
+      "rrp": 333.583,
+      "net_liquidity": 6383567666.417,
+      "spx": 5608.25
+    },
+    {
+      "date": "2024-08-20",
+      "balance_sheet": 7177688000.0,
+      "tga": 794120.0,
+      "rrp": 310.819,
+      "net_liquidity": 6383567689.181,
+      "spx": 5597.12
+    },
+    {
+      "date": "2024-08-21",
+      "balance_sheet": 7139952000.0,
+      "tga": 736494.0,
+      "rrp": 321.329,
+      "net_liquidity": 6403457678.671,
+      "spx": 5620.85
+    },
+    {
+      "date": "2024-08-22",
+      "balance_sheet": 7139952000.0,
+      "tga": 736494.0,
+      "rrp": 316.777,
+      "net_liquidity": 6403457683.223,
+      "spx": 5570.64
+    },
+    {
+      "date": "2024-08-23",
+      "balance_sheet": 7139952000.0,
+      "tga": 736494.0,
+      "rrp": 312.896,
+      "net_liquidity": 6403457687.104,
+      "spx": 5634.61
+    },
+    {
+      "date": "2024-08-26",
+      "balance_sheet": 7139952000.0,
+      "tga": 736494.0,
+      "rrp": 353.557,
+      "net_liquidity": 6403457646.443,
+      "spx": 5616.84
+    },
+    {
+      "date": "2024-08-27",
+      "balance_sheet": 7139952000.0,
+      "tga": 736494.0,
+      "rrp": 344.045,
+      "net_liquidity": 6403457655.955,
+      "spx": 5625.8
+    },
+    {
+      "date": "2024-08-28",
+      "balance_sheet": 7123238000.0,
+      "tga": 745851.0,
+      "rrp": 388.89,
+      "net_liquidity": 6377386611.11,
+      "spx": 5592.18
+    },
+    {
+      "date": "2024-08-29",
+      "balance_sheet": 7123238000.0,
+      "tga": 745851.0,
+      "rrp": 383.434,
+      "net_liquidity": 6377386616.566,
+      "spx": 5591.96
+    },
+    {
+      "date": "2024-08-30",
+      "balance_sheet": 7123238000.0,
+      "tga": 745851.0,
+      "rrp": 433.13,
+      "net_liquidity": 6377386566.87,
+      "spx": 5648.4
+    },
+    {
+      "date": "2024-09-03",
+      "balance_sheet": 7123238000.0,
+      "tga": 745851.0,
+      "rrp": 349.808,
+      "net_liquidity": 6377386650.192,
+      "spx": 5528.93
+    },
+    {
+      "date": "2024-09-04",
+      "balance_sheet": 7112567000.0,
+      "tga": 733959.0,
+      "rrp": 337.312,
+      "net_liquidity": 6378607662.688,
+      "spx": 5520.07
+    },
+    {
+      "date": "2024-09-05",
+      "balance_sheet": 7112567000.0,
+      "tga": 733959.0,
+      "rrp": 291.091,
+      "net_liquidity": 6378607708.909,
+      "spx": 5503.41
+    },
+    {
+      "date": "2024-09-06",
+      "balance_sheet": 7112567000.0,
+      "tga": 733959.0,
+      "rrp": 299.271,
+      "net_liquidity": 6378607700.729,
+      "spx": 5408.42
+    },
+    {
+      "date": "2024-09-09",
+      "balance_sheet": 7112567000.0,
+      "tga": 733959.0,
+      "rrp": 292.158,
+      "net_liquidity": 6378607707.842,
+      "spx": 5471.05
+    },
+    {
+      "date": "2024-09-10",
+      "balance_sheet": 7112567000.0,
+      "tga": 733959.0,
+      "rrp": 281.392,
+      "net_liquidity": 6378607718.608,
+      "spx": 5495.52
+    },
+    {
+      "date": "2024-09-11",
+      "balance_sheet": 7115001000.0,
+      "tga": 755958.0,
+      "rrp": 279.215,
+      "net_liquidity": 6359042720.785,
+      "spx": 5554.13
+    },
+    {
+      "date": "2024-09-12",
+      "balance_sheet": 7115001000.0,
+      "tga": 755958.0,
+      "rrp": 294.464,
+      "net_liquidity": 6359042705.536,
+      "spx": 5595.76
+    },
+    {
+      "date": "2024-09-13",
+      "balance_sheet": 7115001000.0,
+      "tga": 755958.0,
+      "rrp": 284.951,
+      "net_liquidity": 6359042715.049,
+      "spx": 5626.02
+    },
+    {
+      "date": "2024-09-16",
+      "balance_sheet": 7115001000.0,
+      "tga": 755958.0,
+      "rrp": 239.386,
+      "net_liquidity": 6359042760.614,
+      "spx": 5633.09
+    },
+    {
+      "date": "2024-09-17",
+      "balance_sheet": 7115001000.0,
+      "tga": 755958.0,
+      "rrp": 256.337,
+      "net_liquidity": 6359042743.663,
+      "spx": 5634.58
+    },
+    {
+      "date": "2024-09-18",
+      "balance_sheet": 7109137000.0,
+      "tga": 771194.0,
+      "rrp": 305.831,
+      "net_liquidity": 6337942694.169,
+      "spx": 5618.26
+    },
+    {
+      "date": "2024-09-19",
+      "balance_sheet": 7109137000.0,
+      "tga": 771194.0,
+      "rrp": 311.777,
+      "net_liquidity": 6337942688.223,
+      "spx": 5713.64
+    },
+    {
+      "date": "2024-09-20",
+      "balance_sheet": 7109137000.0,
+      "tga": 771194.0,
+      "rrp": 339.316,
+      "net_liquidity": 6337942660.684,
+      "spx": 5702.55
+    },
+    {
+      "date": "2024-09-23",
+      "balance_sheet": 7109137000.0,
+      "tga": 771194.0,
+      "rrp": 380.372,
+      "net_liquidity": 6337942619.628,
+      "spx": 5718.57
+    },
+    {
+      "date": "2024-09-24",
+      "balance_sheet": 7109137000.0,
+      "tga": 771194.0,
+      "rrp": 388.977,
+      "net_liquidity": 6337942611.023,
+      "spx": 5732.93
+    },
+    {
+      "date": "2024-09-25",
+      "balance_sheet": 7080059000.0,
+      "tga": 806771.0,
+      "rrp": 416.193,
+      "net_liquidity": 6273287583.807,
+      "spx": 5722.26
+    },
+    {
+      "date": "2024-09-26",
+      "balance_sheet": 7080059000.0,
+      "tga": 806771.0,
+      "rrp": 424.916,
+      "net_liquidity": 6273287575.084,
+      "spx": 5745.37
+    },
+    {
+      "date": "2024-09-27",
+      "balance_sheet": 7080059000.0,
+      "tga": 806771.0,
+      "rrp": 436.518,
+      "net_liquidity": 6273287563.482,
+      "spx": 5738.17
+    },
+    {
+      "date": "2024-09-30",
+      "balance_sheet": 7080059000.0,
+      "tga": 806771.0,
+      "rrp": 465.638,
+      "net_liquidity": 6273287534.362,
+      "spx": 5762.48
+    },
+    {
+      "date": "2024-10-01",
+      "balance_sheet": 7080059000.0,
+      "tga": 806771.0,
+      "rrp": 375.221,
+      "net_liquidity": 6273287624.779,
+      "spx": 5708.75
+    },
+    {
+      "date": "2024-10-02",
+      "balance_sheet": 7046925000.0,
+      "tga": 798277.0,
+      "rrp": 383.398,
+      "net_liquidity": 6248647616.602,
+      "spx": 5709.54
+    },
+    {
+      "date": "2024-10-03",
+      "balance_sheet": 7046925000.0,
+      "tga": 798277.0,
+      "rrp": 341.248,
+      "net_liquidity": 6248647658.752,
+      "spx": 5699.94
+    },
+    {
+      "date": "2024-10-04",
+      "balance_sheet": 7046925000.0,
+      "tga": 798277.0,
+      "rrp": 330.012,
+      "net_liquidity": 6248647669.988,
+      "spx": 5751.07
+    },
+    {
+      "date": "2024-10-07",
+      "balance_sheet": 7046925000.0,
+      "tga": 798277.0,
+      "rrp": 322.948,
+      "net_liquidity": 6248647677.052,
+      "spx": 5695.94
+    },
+    {
+      "date": "2024-10-08",
+      "balance_sheet": 7046925000.0,
+      "tga": 798277.0,
+      "rrp": 325.355,
+      "net_liquidity": 6248647674.645,
+      "spx": 5751.13
+    },
+    {
+      "date": "2024-10-09",
+      "balance_sheet": 7046840000.0,
+      "tga": 802115.0,
+      "rrp": 343.448,
+      "net_liquidity": 6244724656.552,
+      "spx": 5792.04
+    },
+    {
+      "date": "2024-10-10",
+      "balance_sheet": 7046840000.0,
+      "tga": 802115.0,
+      "rrp": 322.587,
+      "net_liquidity": 6244724677.413,
+      "spx": 5780.05
+    },
+    {
+      "date": "2024-10-11",
+      "balance_sheet": 7046840000.0,
+      "tga": 802115.0,
+      "rrp": 331.735,
+      "net_liquidity": 6244724668.265,
+      "spx": 5815.03
+    },
+    {
+      "date": "2024-10-15",
+      "balance_sheet": 7046840000.0,
+      "tga": 802115.0,
+      "rrp": 286.398,
+      "net_liquidity": 6244724713.602,
+      "spx": 5815.26
+    },
+    {
+      "date": "2024-10-16",
+      "balance_sheet": 7039284000.0,
+      "tga": 791792.0,
+      "rrp": 272.028,
+      "net_liquidity": 6247491727.972,
+      "spx": 5842.47
+    },
+    {
+      "date": "2024-10-17",
+      "balance_sheet": 7039284000.0,
+      "tga": 791792.0,
+      "rrp": 262.21,
+      "net_liquidity": 6247491737.79,
+      "spx": 5841.47
+    },
+    {
+      "date": "2024-10-18",
+      "balance_sheet": 7039284000.0,
+      "tga": 791792.0,
+      "rrp": 259.892,
+      "net_liquidity": 6247491740.108,
+      "spx": 5864.67
+    },
+    {
+      "date": "2024-10-21",
+      "balance_sheet": 7039284000.0,
+      "tga": 791792.0,
+      "rrp": 261.044,
+      "net_liquidity": 6247491738.956,
+      "spx": 5853.98
+    },
+    {
+      "date": "2024-10-22",
+      "balance_sheet": 7039284000.0,
+      "tga": 791792.0,
+      "rrp": 237.76,
+      "net_liquidity": 6247491762.24,
+      "spx": 5851.2
+    },
+    {
+      "date": "2024-10-23",
+      "balance_sheet": 7029408000.0,
+      "tga": 829991.0,
+      "rrp": 270.839,
+      "net_liquidity": 6199416729.161,
+      "spx": 5797.42
+    },
+    {
+      "date": "2024-10-24",
+      "balance_sheet": 7029408000.0,
+      "tga": 829991.0,
+      "rrp": 202.798,
+      "net_liquidity": 6199416797.202,
+      "spx": 5809.86
+    },
+    {
+      "date": "2024-10-25",
+      "balance_sheet": 7029408000.0,
+      "tga": 829991.0,
+      "rrp": 227.0,
+      "net_liquidity": 6199416773.0,
+      "spx": 5808.12
+    },
+    {
+      "date": "2024-10-28",
+      "balance_sheet": 7029408000.0,
+      "tga": 829991.0,
+      "rrp": 251.032,
+      "net_liquidity": 6199416748.968,
+      "spx": 5823.52
+    },
+    {
+      "date": "2024-10-29",
+      "balance_sheet": 7029408000.0,
+      "tga": 829991.0,
+      "rrp": 244.841,
+      "net_liquidity": 6199416755.159,
+      "spx": 5832.92
+    },
+    {
+      "date": "2024-10-30",
+      "balance_sheet": 7013490000.0,
+      "tga": 835237.0,
+      "rrp": 228.946,
+      "net_liquidity": 6178252771.054,
+      "spx": 5813.67
+    },
+    {
+      "date": "2024-10-31",
+      "balance_sheet": 7013490000.0,
+      "tga": 835237.0,
+      "rrp": 201.278,
+      "net_liquidity": 6178252798.722,
+      "spx": 5705.45
+    },
+    {
+      "date": "2024-11-01",
+      "balance_sheet": 7013490000.0,
+      "tga": 835237.0,
+      "rrp": 155.476,
+      "net_liquidity": 6178252844.524,
+      "spx": 5728.8
+    },
+    {
+      "date": "2024-11-04",
+      "balance_sheet": 7013490000.0,
+      "tga": 835237.0,
+      "rrp": 171.885,
+      "net_liquidity": 6178252828.115,
+      "spx": 5712.69
+    },
+    {
+      "date": "2024-11-05",
+      "balance_sheet": 7013490000.0,
+      "tga": 835237.0,
+      "rrp": 144.243,
+      "net_liquidity": 6178252855.757,
+      "spx": 5782.76
+    },
+    {
+      "date": "2024-11-06",
+      "balance_sheet": 6994299000.0,
+      "tga": 842051.0,
+      "rrp": 177.871,
+      "net_liquidity": 6152247822.129,
+      "spx": 5929.04
+    },
+    {
+      "date": "2024-11-07",
+      "balance_sheet": 6994299000.0,
+      "tga": 842051.0,
+      "rrp": 159.002,
+      "net_liquidity": 6152247840.998,
+      "spx": 5973.1
+    },
+    {
+      "date": "2024-11-08",
+      "balance_sheet": 6994299000.0,
+      "tga": 842051.0,
+      "rrp": 163.621,
+      "net_liquidity": 6152247836.379,
+      "spx": 5995.54
+    },
+    {
+      "date": "2024-11-12",
+      "balance_sheet": 6994299000.0,
+      "tga": 842051.0,
+      "rrp": 178.814,
+      "net_liquidity": 6152247821.186,
+      "spx": 5983.99
+    },
+    {
+      "date": "2024-11-13",
+      "balance_sheet": 6967108000.0,
+      "tga": 832186.0,
+      "rrp": 238.106,
+      "net_liquidity": 6134921761.894,
+      "spx": 5985.38
+    },
+    {
+      "date": "2024-11-14",
+      "balance_sheet": 6967108000.0,
+      "tga": 832186.0,
+      "rrp": 214.509,
+      "net_liquidity": 6134921785.491,
+      "spx": 5949.17
+    },
+    {
+      "date": "2024-11-15",
+      "balance_sheet": 6967108000.0,
+      "tga": 832186.0,
+      "rrp": 172.4,
+      "net_liquidity": 6134921827.6,
+      "spx": 5870.62
+    },
+    {
+      "date": "2024-11-18",
+      "balance_sheet": 6967108000.0,
+      "tga": 832186.0,
+      "rrp": 200.03,
+      "net_liquidity": 6134921799.97,
+      "spx": 5893.62
+    },
+    {
+      "date": "2024-11-19",
+      "balance_sheet": 6967108000.0,
+      "tga": 832186.0,
+      "rrp": 200.664,
+      "net_liquidity": 6134921799.336,
+      "spx": 5916.98
+    },
+    {
+      "date": "2024-11-20",
+      "balance_sheet": 6923731000.0,
+      "tga": 751873.0,
+      "rrp": 217.793,
+      "net_liquidity": 6171857782.207,
+      "spx": 5917.11
+    },
+    {
+      "date": "2024-11-21",
+      "balance_sheet": 6923731000.0,
+      "tga": 751873.0,
+      "rrp": 188.567,
+      "net_liquidity": 6171857811.433,
+      "spx": 5948.71
+    },
+    {
+      "date": "2024-11-22",
+      "balance_sheet": 6923731000.0,
+      "tga": 751873.0,
+      "rrp": 204.254,
+      "net_liquidity": 6171857795.746,
+      "spx": 5969.34
+    },
+    {
+      "date": "2024-11-25",
+      "balance_sheet": 6923731000.0,
+      "tga": 751873.0,
+      "rrp": 186.749,
+      "net_liquidity": 6171857813.251,
+      "spx": 5987.37
+    },
+    {
+      "date": "2024-11-26",
+      "balance_sheet": 6923731000.0,
+      "tga": 751873.0,
+      "rrp": 148.823,
+      "net_liquidity": 6171857851.177,
+      "spx": 6021.63
+    },
+    {
+      "date": "2024-11-27",
+      "balance_sheet": 6905140000.0,
+      "tga": 775250.0,
+      "rrp": 169.815,
+      "net_liquidity": 6129889830.185,
+      "spx": 5998.74
+    },
+    {
+      "date": "2024-11-29",
+      "balance_sheet": 6905140000.0,
+      "tga": 775250.0,
+      "rrp": 197.627,
+      "net_liquidity": 6129889802.373,
+      "spx": 6032.38
+    },
+    {
+      "date": "2024-12-02",
+      "balance_sheet": 6905140000.0,
+      "tga": 775250.0,
+      "rrp": 135.858,
+      "net_liquidity": 6129889864.142,
+      "spx": 6047.15
+    },
+    {
+      "date": "2024-12-03",
+      "balance_sheet": 6905140000.0,
+      "tga": 775250.0,
+      "rrp": 161.572,
+      "net_liquidity": 6129889838.428,
+      "spx": 6049.88
+    },
+    {
+      "date": "2024-12-04",
+      "balance_sheet": 6895827000.0,
+      "tga": 789516.0,
+      "rrp": 162.866,
+      "net_liquidity": 6106310837.134,
+      "spx": 6086.49
+    },
+    {
+      "date": "2024-12-05",
+      "balance_sheet": 6895827000.0,
+      "tga": 789516.0,
+      "rrp": 131.964,
+      "net_liquidity": 6106310868.036,
+      "spx": 6075.11
+    },
+    {
+      "date": "2024-12-06",
+      "balance_sheet": 6895827000.0,
+      "tga": 789516.0,
+      "rrp": 130.014,
+      "net_liquidity": 6106310869.986,
+      "spx": 6090.27
+    },
+    {
+      "date": "2024-12-09",
+      "balance_sheet": 6895827000.0,
+      "tga": 789516.0,
+      "rrp": 153.029,
+      "net_liquidity": 6106310846.971,
+      "spx": 6052.85
+    },
+    {
+      "date": "2024-12-10",
+      "balance_sheet": 6895827000.0,
+      "tga": 789516.0,
+      "rrp": 174.842,
+      "net_liquidity": 6106310825.158,
+      "spx": 6034.91
+    },
+    {
+      "date": "2024-12-11",
+      "balance_sheet": 6897485000.0,
+      "tga": 775067.0,
+      "rrp": 180.12,
+      "net_liquidity": 6122417819.88,
+      "spx": 6084.19
+    },
+    {
+      "date": "2024-12-12",
+      "balance_sheet": 6897485000.0,
+      "tga": 775067.0,
+      "rrp": 165.025,
+      "net_liquidity": 6122417834.975,
+      "spx": 6051.25
+    },
+    {
+      "date": "2024-12-13",
+      "balance_sheet": 6897485000.0,
+      "tga": 775067.0,
+      "rrp": 135.777,
+      "net_liquidity": 6122417864.223,
+      "spx": 6051.09
+    },
+    {
+      "date": "2024-12-16",
+      "balance_sheet": 6897485000.0,
+      "tga": 775067.0,
+      "rrp": 110.753,
+      "net_liquidity": 6122417889.247,
+      "spx": 6074.08
+    },
+    {
+      "date": "2024-12-17",
+      "balance_sheet": 6897485000.0,
+      "tga": 775067.0,
+      "rrp": 118.093,
+      "net_liquidity": 6122417881.907,
+      "spx": 6050.61
+    },
+    {
+      "date": "2024-12-18",
+      "balance_sheet": 6889332000.0,
+      "tga": 767932.0,
+      "rrp": 131.651,
+      "net_liquidity": 6121399868.349,
+      "spx": 5872.16
+    },
+    {
+      "date": "2024-12-19",
+      "balance_sheet": 6889332000.0,
+      "tga": 767932.0,
+      "rrp": 112.417,
+      "net_liquidity": 6121399887.583,
+      "spx": 5867.08
+    },
+    {
+      "date": "2024-12-20",
+      "balance_sheet": 6889332000.0,
+      "tga": 767932.0,
+      "rrp": 98.356,
+      "net_liquidity": 6121399901.644,
+      "spx": 5930.85
+    },
+    {
+      "date": "2024-12-23",
+      "balance_sheet": 6889332000.0,
+      "tga": 767932.0,
+      "rrp": 116.004,
+      "net_liquidity": 6121399883.996,
+      "spx": 5974.07
+    },
+    {
+      "date": "2024-12-24",
+      "balance_sheet": 6889332000.0,
+      "tga": 767932.0,
+      "rrp": 180.989,
+      "net_liquidity": 6121399819.011,
+      "spx": 6040.04
+    },
+    {
+      "date": "2024-12-25",
+      "balance_sheet": 6885963000.0,
+      "tga": 764770.0,
+      "rrp": 180.989,
+      "net_liquidity": 6121192819.011,
+      "spx": 6040.04
+    },
+    {
+      "date": "2024-12-26",
+      "balance_sheet": 6885963000.0,
+      "tga": 764770.0,
+      "rrp": 196.818,
+      "net_liquidity": 6121192803.182,
+      "spx": 6037.59
+    },
+    {
+      "date": "2024-12-27",
+      "balance_sheet": 6885963000.0,
+      "tga": 764770.0,
+      "rrp": 268.739,
+      "net_liquidity": 6121192731.261,
+      "spx": 5970.84
+    },
+    {
+      "date": "2024-12-30",
+      "balance_sheet": 6885963000.0,
+      "tga": 764770.0,
+      "rrp": 260.743,
+      "net_liquidity": 6121192739.257,
+      "spx": 5906.94
+    },
+    {
+      "date": "2024-12-31",
+      "balance_sheet": 6885963000.0,
+      "tga": 764770.0,
+      "rrp": 473.46,
+      "net_liquidity": 6121192526.54,
+      "spx": 5881.63
+    },
+    {
+      "date": "2025-01-01",
+      "balance_sheet": 6852491000.0,
+      "tga": 719873.0,
+      "rrp": 473.46,
+      "net_liquidity": 6132617526.54,
+      "spx": 5881.63
+    },
+    {
+      "date": "2025-01-02",
+      "balance_sheet": 6852491000.0,
+      "tga": 719873.0,
+      "rrp": 239.858,
+      "net_liquidity": 6132617760.142,
+      "spx": 5868.55
+    },
+    {
+      "date": "2025-01-03",
+      "balance_sheet": 6852491000.0,
+      "tga": 719873.0,
+      "rrp": 237.377,
+      "net_liquidity": 6132617762.623,
+      "spx": 5942.47
+    },
+    {
+      "date": "2025-01-06",
+      "balance_sheet": 6852491000.0,
+      "tga": 719873.0,
+      "rrp": 231.926,
+      "net_liquidity": 6132617768.074,
+      "spx": 5975.38
+    },
+    {
+      "date": "2025-01-07",
+      "balance_sheet": 6852491000.0,
+      "tga": 719873.0,
+      "rrp": 208.296,
+      "net_liquidity": 6132617791.704,
+      "spx": 5909.03
+    },
+    {
+      "date": "2025-01-08",
+      "balance_sheet": 6853554000.0,
+      "tga": 652636.0,
+      "rrp": 185.144,
+      "net_liquidity": 6200917814.856,
+      "spx": 5918.25
+    },
+    {
+      "date": "2025-01-09",
+      "balance_sheet": 6853554000.0,
+      "tga": 652636.0,
+      "rrp": 168.225,
+      "net_liquidity": 6200917831.775,
+      "spx": 5918.25
+    },
+    {
+      "date": "2025-01-10",
+      "balance_sheet": 6853554000.0,
+      "tga": 652636.0,
+      "rrp": 178.8,
+      "net_liquidity": 6200917821.2,
+      "spx": 5827.04
+    },
+    {
+      "date": "2025-01-13",
+      "balance_sheet": 6853554000.0,
+      "tga": 652636.0,
+      "rrp": 183.669,
+      "net_liquidity": 6200917816.331,
+      "spx": 5836.22
+    },
+    {
+      "date": "2025-01-14",
+      "balance_sheet": 6853554000.0,
+      "tga": 652636.0,
+      "rrp": 160.219,
+      "net_liquidity": 6200917839.781,
+      "spx": 5842.91
+    },
+    {
+      "date": "2025-01-15",
+      "balance_sheet": 6834070000.0,
+      "tga": 641225.0,
+      "rrp": 119.977,
+      "net_liquidity": 6192844880.023,
+      "spx": 5949.91
+    },
+    {
+      "date": "2025-01-16",
+      "balance_sheet": 6834070000.0,
+      "tga": 641225.0,
+      "rrp": 94.489,
+      "net_liquidity": 6192844905.511,
+      "spx": 5937.34
+    },
+    {
+      "date": "2025-01-17",
+      "balance_sheet": 6834070000.0,
+      "tga": 641225.0,
+      "rrp": 118.327,
+      "net_liquidity": 6192844881.673,
+      "spx": 5996.66
+    },
+    {
+      "date": "2025-01-21",
+      "balance_sheet": 6834070000.0,
+      "tga": 641225.0,
+      "rrp": 96.015,
+      "net_liquidity": 6192844903.985,
+      "spx": 6049.24
+    },
+    {
+      "date": "2025-01-22",
+      "balance_sheet": 6831760000.0,
+      "tga": 677282.0,
+      "rrp": 123.981,
+      "net_liquidity": 6154477876.019,
+      "spx": 6086.37
+    },
+    {
+      "date": "2025-01-23",
+      "balance_sheet": 6831760000.0,
+      "tga": 677282.0,
+      "rrp": 132.031,
+      "net_liquidity": 6154477867.969,
+      "spx": 6118.71
+    },
+    {
+      "date": "2025-01-24",
+      "balance_sheet": 6831760000.0,
+      "tga": 677282.0,
+      "rrp": 104.972,
+      "net_liquidity": 6154477895.028,
+      "spx": 6101.24
+    },
+    {
+      "date": "2025-01-27",
+      "balance_sheet": 6831760000.0,
+      "tga": 677282.0,
+      "rrp": 92.863,
+      "net_liquidity": 6154477907.137,
+      "spx": 6012.28
+    },
+    {
+      "date": "2025-01-28",
+      "balance_sheet": 6831760000.0,
+      "tga": 677282.0,
+      "rrp": 112.76,
+      "net_liquidity": 6154477887.24,
+      "spx": 6067.7
+    },
+    {
+      "date": "2025-01-29",
+      "balance_sheet": 6818186000.0,
+      "tga": 784206.0,
+      "rrp": 121.842,
+      "net_liquidity": 6033979878.158,
+      "spx": 6039.31
+    },
+    {
+      "date": "2025-01-30",
+      "balance_sheet": 6818186000.0,
+      "tga": 784206.0,
+      "rrp": 125.965,
+      "net_liquidity": 6033979874.035,
+      "spx": 6071.17
+    },
+    {
+      "date": "2025-01-31",
+      "balance_sheet": 6818186000.0,
+      "tga": 784206.0,
+      "rrp": 187.913,
+      "net_liquidity": 6033979812.087,
+      "spx": 6040.53
+    },
+    {
+      "date": "2025-02-03",
+      "balance_sheet": 6818186000.0,
+      "tga": 784206.0,
+      "rrp": 97.781,
+      "net_liquidity": 6033979902.219,
+      "spx": 5994.57
+    },
+    {
+      "date": "2025-02-04",
+      "balance_sheet": 6818186000.0,
+      "tga": 784206.0,
+      "rrp": 85.654,
+      "net_liquidity": 6033979914.346,
+      "spx": 6037.88
+    },
+    {
+      "date": "2025-02-05",
+      "balance_sheet": 6810935000.0,
+      "tga": 805593.0,
+      "rrp": 78.788,
+      "net_liquidity": 6005341921.212,
+      "spx": 6061.48,
+      "ar1": null,
+      "variance": 434308.1093407997
+    },
+    {
+      "date": "2025-02-06",
+      "balance_sheet": 6810935000.0,
+      "tga": 805593.0,
+      "rrp": 79.983,
+      "net_liquidity": 6005341920.017,
+      "spx": 6083.57,
+      "ar1": null,
+      "variance": 436357.4358259608
+    },
+    {
+      "date": "2025-02-07",
+      "balance_sheet": 6810935000.0,
+      "tga": 805593.0,
+      "rrp": 95.248,
+      "net_liquidity": 6005341904.752,
+      "spx": 6025.99,
+      "ar1": null,
+      "variance": 438234.6643484044
+    },
+    {
+      "date": "2025-02-10",
+      "balance_sheet": 6810935000.0,
+      "tga": 805593.0,
+      "rrp": 99.653,
+      "net_liquidity": 6005341900.347,
+      "spx": 6066.44,
+      "ar1": null,
+      "variance": 439073.09103840886
+    },
+    {
+      "date": "2025-02-11",
+      "balance_sheet": 6810935000.0,
+      "tga": 805593.0,
+      "rrp": 76.446,
+      "net_liquidity": 6005341923.554,
+      "spx": 6068.5,
+      "ar1": null,
+      "variance": 441569.884000415
+    },
+    {
+      "date": "2025-02-12",
+      "balance_sheet": 6813513000.0,
+      "tga": 828102.0,
+      "rrp": 67.67,
+      "net_liquidity": 5985410932.33,
+      "spx": 6051.97,
+      "ar1": null,
+      "variance": 443577.5124999875
+    },
+    {
+      "date": "2025-02-13",
+      "balance_sheet": 6813513000.0,
+      "tga": 828102.0,
+      "rrp": 67.82,
+      "net_liquidity": 5985410932.18,
+      "spx": 6115.07,
+      "ar1": null,
+      "variance": 444954.5451454998
+    },
+    {
+      "date": "2025-02-14",
+      "balance_sheet": 6813513000.0,
+      "tga": 828102.0,
+      "rrp": 58.77,
+      "net_liquidity": 5985410941.23,
+      "spx": 6114.63,
+      "ar1": null,
+      "variance": 447743.96866903815
+    },
+    {
+      "date": "2025-02-18",
+      "balance_sheet": 6813513000.0,
+      "tga": 828102.0,
+      "rrp": 77.817,
+      "net_liquidity": 5985410922.183,
+      "spx": 6129.58,
+      "ar1": null,
+      "variance": 450906.30909788137
+    },
+    {
+      "date": "2025-02-19",
+      "balance_sheet": 6782332000.0,
+      "tga": 790062.0,
+      "rrp": 73.196,
+      "net_liquidity": 5992269926.804,
+      "spx": 6144.15,
+      "ar1": null,
+      "variance": 454169.7312915943
+    },
+    {
+      "date": "2025-02-20",
+      "balance_sheet": 6782332000.0,
+      "tga": 790062.0,
+      "rrp": 63.207,
+      "net_liquidity": 5992269936.793,
+      "spx": 6117.52,
+      "ar1": null,
+      "variance": 456117.1389194456
+    },
+    {
+      "date": "2025-02-21",
+      "balance_sheet": 6782332000.0,
+      "tga": 790062.0,
+      "rrp": 68.983,
+      "net_liquidity": 5992269931.017,
+      "spx": 6013.13,
+      "ar1": null,
+      "variance": 457426.37497608445
+    },
+    {
+      "date": "2025-02-24",
+      "balance_sheet": 6782332000.0,
+      "tga": 790062.0,
+      "rrp": 76.818,
+      "net_liquidity": 5992269923.182,
+      "spx": 5983.25,
+      "ar1": null,
+      "variance": 457256.04809489404
+    },
+    {
+      "date": "2025-02-25",
+      "balance_sheet": 6782332000.0,
+      "tga": 790062.0,
+      "rrp": 96.0,
+      "net_liquidity": 5992269904.0,
+      "spx": 5955.25,
+      "ar1": null,
+      "variance": 456576.3646345251
+    },
+    {
+      "date": "2025-02-26",
+      "balance_sheet": 6766101000.0,
+      "tga": 681161.0,
+      "rrp": 126.058,
+      "net_liquidity": 6084939873.942,
+      "spx": 5956.06,
+      "ar1": null,
+      "variance": 455690.1791256388
+    },
+    {
+      "date": "2025-02-27",
+      "balance_sheet": 6766101000.0,
+      "tga": 681161.0,
+      "rrp": 182.148,
+      "net_liquidity": 6084939817.852,
+      "spx": 5861.57,
+      "ar1": null,
+      "variance": 454677.0310001141
+    },
+    {
+      "date": "2025-02-28",
+      "balance_sheet": 6766101000.0,
+      "tga": 681161.0,
+      "rrp": 234.422,
+      "net_liquidity": 6084939765.578,
+      "spx": 5954.5,
+      "ar1": null,
+      "variance": 451946.10221526143
+    },
+    {
+      "date": "2025-03-03",
+      "balance_sheet": 6766101000.0,
+      "tga": 681161.0,
+      "rrp": 119.987,
+      "net_liquidity": 6084939880.013,
+      "spx": 5849.72,
+      "ar1": null,
+      "variance": 451101.408753031
+    },
+    {
+      "date": "2025-03-04",
+      "balance_sheet": 6766101000.0,
+      "tga": 681161.0,
+      "rrp": 135.257,
+      "net_liquidity": 6084939864.743,
+      "spx": 5778.15,
+      "ar1": null,
+      "variance": 449695.48065607273
+    },
+    {
+      "date": "2025-03-05",
+      "balance_sheet": 6756764000.0,
+      "tga": 548331.0,
+      "rrp": 139.493,
+      "net_liquidity": 6208432860.507,
+      "spx": 5842.63,
+      "ar1": null,
+      "variance": 447198.73889409745
+    },
+    {
+      "date": "2025-03-06",
+      "balance_sheet": 6756764000.0,
+      "tga": 548331.0,
+      "rrp": 129.269,
+      "net_liquidity": 6208432870.731,
+      "spx": 5738.52,
+      "ar1": null,
+      "variance": 445196.7592375071
+    },
+    {
+      "date": "2025-03-07",
+      "balance_sheet": 6756764000.0,
+      "tga": 548331.0,
+      "rrp": 136.305,
+      "net_liquidity": 6208432863.695,
+      "spx": 5770.2,
+      "ar1": null,
+      "variance": 442322.66083209123
+    },
+    {
+      "date": "2025-03-10",
+      "balance_sheet": 6756764000.0,
+      "tga": 548331.0,
+      "rrp": 129.054,
+      "net_liquidity": 6208432870.946,
+      "spx": 5614.56,
+      "ar1": null,
+      "variance": 440215.8048441943
+    },
+    {
+      "date": "2025-03-11",
+      "balance_sheet": 6756764000.0,
+      "tga": 548331.0,
+      "rrp": 137.31,
+      "net_liquidity": 6208432862.69,
+      "spx": 5572.07,
+      "ar1": null,
+      "variance": 435278.168142422
+    },
+    {
+      "date": "2025-03-12",
+      "balance_sheet": 6759571000.0,
+      "tga": 512581.0,
+      "rrp": 131.055,
+      "net_liquidity": 6246989868.945,
+      "spx": 5599.3,
+      "ar1": null,
+      "variance": 430086.4733896803
+    },
+    {
+      "date": "2025-03-13",
+      "balance_sheet": 6759571000.0,
+      "tga": 512581.0,
+      "rrp": 113.435,
+      "net_liquidity": 6246989886.565,
+      "spx": 5521.52,
+      "ar1": null,
+      "variance": 425648.58565089083
+    },
+    {
+      "date": "2025-03-14",
+      "balance_sheet": 6759571000.0,
+      "tga": 512581.0,
+      "rrp": 126.234,
+      "net_liquidity": 6246989873.766,
+      "spx": 5638.94,
+      "ar1": null,
+      "variance": 420895.8567751594
+    },
+    {
+      "date": "2025-03-17",
+      "balance_sheet": 6759571000.0,
+      "tga": 512581.0,
+      "rrp": 89.496,
+      "net_liquidity": 6246989910.504,
+      "spx": 5675.12,
+      "ar1": null,
+      "variance": 417626.92657013785
+    },
+    {
+      "date": "2025-03-18",
+      "balance_sheet": 6759571000.0,
+      "tga": 512581.0,
+      "rrp": 149.503,
+      "net_liquidity": 6246989850.497,
+      "spx": 5614.66,
+      "ar1": null,
+      "variance": 414680.2846188091
+    },
+    {
+      "date": "2025-03-19",
+      "balance_sheet": 6755982000.0,
+      "tga": 435936.0,
+      "rrp": 193.378,
+      "net_liquidity": 6320045806.622,
+      "spx": 5675.29,
+      "ar1": null,
+      "variance": 410355.6036677164
+    },
+    {
+      "date": "2025-03-20",
+      "balance_sheet": 6755982000.0,
+      "tga": 435936.0,
+      "rrp": 192.64,
+      "net_liquidity": 6320045807.36,
+      "spx": 5662.89,
+      "ar1": null,
+      "variance": 406870.1251710881
+    },
+    {
+      "date": "2025-03-21",
+      "balance_sheet": 6755982000.0,
+      "tga": 435936.0,
+      "rrp": 200.85,
+      "net_liquidity": 6320045799.15,
+      "spx": 5667.56,
+      "ar1": null,
+      "variance": 403516.4580648302
+    },
+    {
+      "date": "2025-03-24",
+      "balance_sheet": 6755982000.0,
+      "tga": 435936.0,
+      "rrp": 196.565,
+      "net_liquidity": 6320045803.435,
+      "spx": 5767.57,
+      "ar1": null,
+      "variance": 400679.20582707133
+    },
+    {
+      "date": "2025-03-25",
+      "balance_sheet": 6755982000.0,
+      "tga": 435936.0,
+      "rrp": 214.786,
+      "net_liquidity": 6320045785.214,
+      "spx": 5776.65,
+      "ar1": null,
+      "variance": 399764.691877093
+    },
+    {
+      "date": "2025-03-26",
+      "balance_sheet": 6740253000.0,
+      "tga": 360177.0,
+      "rrp": 241.371,
+      "net_liquidity": 6380075758.629,
+      "spx": 5712.2,
+      "ar1": null,
+      "variance": 398430.05439436215
+    },
+    {
+      "date": "2025-03-27",
+      "balance_sheet": 6740253000.0,
+      "tga": 360177.0,
+      "rrp": 291.785,
+      "net_liquidity": 6380075708.215,
+      "spx": 5693.31,
+      "ar1": null,
+      "variance": 396183.8275706967
+    },
+    {
+      "date": "2025-03-28",
+      "balance_sheet": 6740253000.0,
+      "tga": 360177.0,
+      "rrp": 286.575,
+      "net_liquidity": 6380075713.425,
+      "spx": 5580.94,
+      "ar1": null,
+      "variance": 394090.4167059048
+    },
+    {
+      "date": "2025-03-31",
+      "balance_sheet": 6740253000.0,
+      "tga": 360177.0,
+      "rrp": 399.167,
+      "net_liquidity": 6380075600.833,
+      "spx": 5611.85,
+      "ar1": null,
+      "variance": 391134.2727300106
+    },
+    {
+      "date": "2025-04-01",
+      "balance_sheet": 6740253000.0,
+      "tga": 360177.0,
+      "rrp": 230.063,
+      "net_liquidity": 6380075769.937,
+      "spx": 5633.07,
+      "ar1": null,
+      "variance": 388795.7442838905
+    },
+    {
+      "date": "2025-04-02",
+      "balance_sheet": 6723452000.0,
+      "tga": 313326.0,
+      "rrp": 233.488,
+      "net_liquidity": 6410125766.512,
+      "spx": 5670.97,
+      "ar1": null,
+      "variance": 387986.5823358369
+    },
+    {
+      "date": "2025-04-03",
+      "balance_sheet": 6723452000.0,
+      "tga": 313326.0,
+      "rrp": 196.265,
+      "net_liquidity": 6410125803.735,
+      "spx": 5396.52,
+      "ar1": null,
+      "variance": 387110.858214616
+    },
+    {
+      "date": "2025-04-04",
+      "balance_sheet": 6723452000.0,
+      "tga": 313326.0,
+      "rrp": 184.499,
+      "net_liquidity": 6410125815.501,
+      "spx": 5074.08,
+      "ar1": null,
+      "variance": 382394.469616591
+    },
+    {
+      "date": "2025-04-07",
+      "balance_sheet": 6723452000.0,
+      "tga": 313326.0,
+      "rrp": 148.146,
+      "net_liquidity": 6410125851.854,
+      "spx": 5062.25,
+      "ar1": null,
+      "variance": 373977.46660220466
+    },
+    {
+      "date": "2025-04-08",
+      "balance_sheet": 6723452000.0,
+      "tga": 313326.0,
+      "rrp": 156.911,
+      "net_liquidity": 6410125843.089,
+      "spx": 4982.77,
+      "ar1": null,
+      "variance": 366752.6578591338
+    },
+    {
+      "date": "2025-04-09",
+      "balance_sheet": 6727416000.0,
+      "tga": 306049.0,
+      "rrp": 168.115,
+      "net_liquidity": 6421366831.885,
+      "spx": 5456.9,
+      "ar1": null,
+      "variance": 358582.2842812955
+    },
+    {
+      "date": "2025-04-10",
+      "balance_sheet": 6727416000.0,
+      "tga": 306049.0,
+      "rrp": 129.95,
+      "net_liquidity": 6421366870.05,
+      "spx": 5268.05,
+      "ar1": null,
+      "variance": 358144.28892625606
+    },
+    {
+      "date": "2025-04-11",
+      "balance_sheet": 6727416000.0,
+      "tga": 306049.0,
+      "rrp": 98.531,
+      "net_liquidity": 6421366901.469,
+      "spx": 5363.36,
+      "ar1": null,
+      "variance": 356281.9862999079
+    },
+    {
+      "date": "2025-04-14",
+      "balance_sheet": 6727416000.0,
+      "tga": 306049.0,
+      "rrp": 102.838,
+      "net_liquidity": 6421366897.162,
+      "spx": 5405.97,
+      "ar1": null,
+      "variance": 356316.26837812265
+    },
+    {
+      "date": "2025-04-15",
+      "balance_sheet": 6727416000.0,
+      "tga": 306049.0,
+      "rrp": 88.878,
+      "net_liquidity": 6421366911.122,
+      "spx": 5396.63,
+      "ar1": null,
+      "variance": 357638.9695538736
+    },
+    {
+      "date": "2025-04-16",
+      "balance_sheet": 6727113000.0,
+      "tga": 422983.0,
+      "rrp": 54.772,
+      "net_liquidity": 6304129945.228,
+      "spx": 5275.7,
+      "ar1": null,
+      "variance": 359113.6727652004
+    },
+    {
+      "date": "2025-04-17",
+      "balance_sheet": 6727113000.0,
+      "tga": 422983.0,
+      "rrp": 58.6,
+      "net_liquidity": 6304129941.4,
+      "spx": 5282.7,
+      "ar1": null,
+      "variance": 359696.70837861736
+    },
+    {
+      "date": "2025-04-21",
+      "balance_sheet": 6727113000.0,
+      "tga": 422983.0,
+      "rrp": 114.114,
+      "net_liquidity": 6304129885.886,
+      "spx": 5158.2,
+      "ar1": null,
+      "variance": 360037.04660500574
+    },
+    {
+      "date": "2025-04-22",
+      "balance_sheet": 6727113000.0,
+      "tga": 422983.0,
+      "rrp": 137.951,
+      "net_liquidity": 6304129862.049,
+      "spx": 5287.76,
+      "ar1": null,
+      "variance": 358187.76027868874
+    },
+    {
+      "date": "2025-04-23",
+      "balance_sheet": 6726930000.0,
+      "tga": 606632.0,
+      "rrp": 171.78,
+      "net_liquidity": 6120297828.22,
+      "spx": 5375.86,
+      "ar1": null,
+      "variance": 358369.191278826
+    },
+    {
+      "date": "2025-04-24",
+      "balance_sheet": 6726930000.0,
+      "tga": 606632.0,
+      "rrp": 130.004,
+      "net_liquidity": 6120297869.996,
+      "spx": 5484.77,
+      "ar1": null,
+      "variance": 360358.84781971265
+    },
+    {
+      "date": "2025-04-25",
+      "balance_sheet": 6726930000.0,
+      "tga": 606632.0,
+      "rrp": 94.021,
+      "net_liquidity": 6120297905.979,
+      "spx": 5525.21,
+      "ar1": null,
+      "variance": 363477.435248932
+    },
+    {
+      "date": "2025-04-28",
+      "balance_sheet": 6726930000.0,
+      "tga": 606632.0,
+      "rrp": 148.649,
+      "net_liquidity": 6120297851.351,
+      "spx": 5528.75,
+      "ar1": null,
+      "variance": 367134.0008568792
+    },
+    {
+      "date": "2025-04-29",
+      "balance_sheet": 6726930000.0,
+      "tga": 606632.0,
+      "rrp": 157.537,
+      "net_liquidity": 6120297842.463,
+      "spx": 5560.83,
+      "ar1": null,
+      "variance": 372144.2044815278
+    },
+    {
+      "date": "2025-04-30",
+      "balance_sheet": 6709277000.0,
+      "tga": 595741.0,
+      "rrp": 250.601,
+      "net_liquidity": 6113535749.399,
+      "spx": 5569.06,
+      "ar1": null,
+      "variance": 378224.8319397642
+    },
+    {
+      "date": "2025-05-01",
+      "balance_sheet": 6709277000.0,
+      "tga": 595741.0,
+      "rrp": 157.353,
+      "net_liquidity": 6113535842.647,
+      "spx": 5604.14,
+      "ar1": null,
+      "variance": 384165.40595221805
+    },
+    {
+      "date": "2025-05-02",
+      "balance_sheet": 6709277000.0,
+      "tga": 595741.0,
+      "rrp": 147.882,
+      "net_liquidity": 6113535852.118,
+      "spx": 5686.67,
+      "ar1": null,
+      "variance": 390052.25242702593
+    },
+    {
+      "date": "2025-05-05",
+      "balance_sheet": 6709277000.0,
+      "tga": 595741.0,
+      "rrp": 124.69,
+      "net_liquidity": 6113535875.31,
+      "spx": 5650.38,
+      "ar1": null,
+      "variance": 396721.39393101586
+    },
+    {
+      "date": "2025-05-06",
+      "balance_sheet": 6709277000.0,
+      "tga": 595741.0,
+      "rrp": 129.858,
+      "net_liquidity": 6113535870.142,
+      "spx": 5606.91,
+      "ar1": null,
+      "variance": 402681.3091502489
+    },
+    {
+      "date": "2025-05-07",
+      "balance_sheet": 6710889000.0,
+      "tga": 583727.0,
+      "rrp": 154.859,
+      "net_liquidity": 6127161845.141,
+      "spx": 5631.28,
+      "ar1": null,
+      "variance": 407969.4644337337
+    },
+    {
+      "date": "2025-05-08",
+      "balance_sheet": 6710889000.0,
+      "tga": 583727.0,
+      "rrp": 139.768,
+      "net_liquidity": 6127161860.232,
+      "spx": 5663.94,
+      "ar1": null,
+      "variance": 413390.19248107885
+    },
+    {
+      "date": "2025-05-09",
+      "balance_sheet": 6710889000.0,
+      "tga": 583727.0,
+      "rrp": 142.272,
+      "net_liquidity": 6127161857.728,
+      "spx": 5659.91,
+      "ar1": null,
+      "variance": 419389.03794126655
+    },
+    {
+      "date": "2025-05-12",
+      "balance_sheet": 6710889000.0,
+      "tga": 583727.0,
+      "rrp": 147.505,
+      "net_liquidity": 6127161852.495,
+      "spx": 5844.19,
+      "ar1": null,
+      "variance": 425265.300437298
+    },
+    {
+      "date": "2025-05-13",
+      "balance_sheet": 6710889000.0,
+      "tga": 583727.0,
+      "rrp": 144.214,
+      "net_liquidity": 6127161855.786,
+      "spx": 5886.55,
+      "ar1": null,
+      "variance": 433478.20550144254
+    },
+    {
+      "date": "2025-05-14",
+      "balance_sheet": 6713270000.0,
+      "tga": 575846.0,
+      "rrp": 165.024,
+      "net_liquidity": 6137423834.976,
+      "spx": 5892.58,
+      "ar1": null,
+      "variance": 440683.1806056074
+    },
+    {
+      "date": "2025-05-15",
+      "balance_sheet": 6713270000.0,
+      "tga": 575846.0,
+      "rrp": 109.436,
+      "net_liquidity": 6137423890.564,
+      "spx": 5916.93,
+      "ar1": null,
+      "variance": 447162.70104686246
+    },
+    {
+      "date": "2025-05-16",
+      "balance_sheet": 6713270000.0,
+      "tga": 575846.0,
+      "rrp": 136.799,
+      "net_liquidity": 6137423863.201,
+      "spx": 5958.38,
+      "ar1": null,
+      "variance": 453388.95036092197
+    },
+    {
+      "date": "2025-05-19",
+      "balance_sheet": 6713270000.0,
+      "tga": 575846.0,
+      "rrp": 180.417,
+      "net_liquidity": 6137423819.583,
+      "spx": 5963.6,
+      "ar1": null,
+      "variance": 459718.2621744435
+    },
+    {
+      "date": "2025-05-20",
+      "balance_sheet": 6713270000.0,
+      "tga": 575846.0,
+      "rrp": 136.033,
+      "net_liquidity": 6137423863.967,
+      "spx": 5940.46,
+      "ar1": null,
+      "variance": 465353.02474698494
+    },
+    {
+      "date": "2025-05-21",
+      "balance_sheet": 6688726000.0,
+      "tga": 503055.0,
+      "rrp": 162.802,
+      "net_liquidity": 6185670837.198,
+      "spx": 5844.61,
+      "ar1": null,
+      "variance": 470302.8611819123
+    },
+    {
+      "date": "2025-05-22",
+      "balance_sheet": 6688726000.0,
+      "tga": 503055.0,
+      "rrp": 173.018,
+      "net_liquidity": 6185670826.982,
+      "spx": 5842.01,
+      "ar1": null,
+      "variance": 473750.4704944364
+    },
+    {
+      "date": "2025-05-23",
+      "balance_sheet": 6688726000.0,
+      "tga": 503055.0,
+      "rrp": 154.841,
+      "net_liquidity": 6185670845.159,
+      "spx": 5802.82,
+      "ar1": null,
+      "variance": 476167.52241666935
+    },
+    {
+      "date": "2025-05-27",
+      "balance_sheet": 6688726000.0,
+      "tga": 503055.0,
+      "rrp": 138.066,
+      "net_liquidity": 6185670861.934,
+      "spx": 5921.54,
+      "ar1": null,
+      "variance": 477469.48592745536
+    },
+    {
+      "date": "2025-05-28",
+      "balance_sheet": 6673244000.0,
+      "tga": 467204.0,
+      "rrp": 173.641,
+      "net_liquidity": 6206039826.359,
+      "spx": 5888.55,
+      "ar1": null,
+      "variance": 480805.62303871586
+    },
+    {
+      "date": "2025-05-29",
+      "balance_sheet": 6673244000.0,
+      "tga": 467204.0,
+      "rrp": 165.66,
+      "net_liquidity": 6206039834.34,
+      "spx": 5912.17,
+      "ar1": null,
+      "variance": 483585.1689272067
+    },
+    {
+      "date": "2025-05-30",
+      "balance_sheet": 6673244000.0,
+      "tga": 467204.0,
+      "rrp": 315.657,
+      "net_liquidity": 6206039684.343,
+      "spx": 5911.69,
+      "ar1": null,
+      "variance": 485896.8826049998
+    },
+    {
+      "date": "2025-06-02",
+      "balance_sheet": 6673244000.0,
+      "tga": 467204.0,
+      "rrp": 135.841,
+      "net_liquidity": 6206039864.159,
+      "spx": 5935.94,
+      "ar1": null,
+      "variance": 487973.3595803582
+    },
+    {
+      "date": "2025-06-03",
+      "balance_sheet": 6673244000.0,
+      "tga": 467204.0,
+      "rrp": 153.177,
+      "net_liquidity": 6206039846.823,
+      "spx": 5970.37,
+      "ar1": null,
+      "variance": 490325.65126615285
+    },
+    {
+      "date": "2025-06-04",
+      "balance_sheet": 6672885000.0,
+      "tga": 378947.0,
+      "rrp": 168.882,
+      "net_liquidity": 6293937831.118,
+      "spx": 5970.81,
+      "ar1": null,
+      "variance": 492290.24903906643
+    },
+    {
+      "date": "2025-06-05",
+      "balance_sheet": 6672885000.0,
+      "tga": 378947.0,
+      "rrp": 152.727,
+      "net_liquidity": 6293937847.273,
+      "spx": 5939.3,
+      "ar1": null,
+      "variance": 494215.7183625997
+    },
+    {
+      "date": "2025-06-06",
+      "balance_sheet": 6672885000.0,
+      "tga": 378947.0,
+      "rrp": 149.284,
+      "net_liquidity": 6293937850.716,
+      "spx": 6000.36,
+      "ar1": null,
+      "variance": 495709.3841966128
+    },
+    {
+      "date": "2025-06-09",
+      "balance_sheet": 6672885000.0,
+      "tga": 378947.0,
+      "rrp": 179.315,
+      "net_liquidity": 6293937820.685,
+      "spx": 6005.88,
+      "ar1": null,
+      "variance": 498096.82487523305
+    },
+    {
+      "date": "2025-06-10",
+      "balance_sheet": 6672885000.0,
+      "tga": 378947.0,
+      "rrp": 182.725,
+      "net_liquidity": 6293937817.275,
+      "spx": 6038.81,
+      "ar1": null,
+      "variance": 500437.88660895324
+    },
+    {
+      "date": "2025-06-11",
+      "balance_sheet": 6677155000.0,
+      "tga": 332907.0,
+      "rrp": 204.625,
+      "net_liquidity": 6344247795.375,
+      "spx": 6022.24,
+      "ar1": null,
+      "variance": 502634.72664947214
+    },
+    {
+      "date": "2025-06-12",
+      "balance_sheet": 6677155000.0,
+      "tga": 332907.0,
+      "rrp": 181.417,
+      "net_liquidity": 6344247818.583,
+      "spx": 6045.26,
+      "ar1": null,
+      "variance": 504183.29169636057
+    },
+    {
+      "date": "2025-06-13",
+      "balance_sheet": 6677155000.0,
+      "tga": 332907.0,
+      "rrp": 168.645,
+      "net_liquidity": 6344247831.355,
+      "spx": 5976.97,
+      "ar1": null,
+      "variance": 506007.74980168237
+    },
+    {
+      "date": "2025-06-16",
+      "balance_sheet": 6677155000.0,
+      "tga": 332907.0,
+      "rrp": 140.759,
+      "net_liquidity": 6344247859.241,
+      "spx": 6033.11,
+      "ar1": null,
+      "variance": 505987.2334264289
+    },
+    {
+      "date": "2025-06-17",
+      "balance_sheet": 6677155000.0,
+      "tga": 332907.0,
+      "rrp": 168.939,
+      "net_liquidity": 6344247831.061,
+      "spx": 5982.72,
+      "ar1": null,
+      "variance": 506485.1933004928
+    },
+    {
+      "date": "2025-06-18",
+      "balance_sheet": 6681056000.0,
+      "tga": 337762.0,
+      "rrp": 205.05,
+      "net_liquidity": 6343293794.95,
+      "spx": 5980.87,
+      "ar1": null,
+      "variance": 506029.3752994523
+    },
+    {
+      "date": "2025-06-20",
+      "balance_sheet": 6681056000.0,
+      "tga": 337762.0,
+      "rrp": 138.283,
+      "net_liquidity": 6343293861.717,
+      "spx": 5967.84,
+      "ar1": null,
+      "variance": 505809.8894101777
+    },
+    {
+      "date": "2025-06-23",
+      "balance_sheet": 6681056000.0,
+      "tga": 337762.0,
+      "rrp": 165.319,
+      "net_liquidity": 6343293834.681,
+      "spx": 6025.17,
+      "ar1": null,
+      "variance": 505611.81961974007
+    },
+    {
+      "date": "2025-06-24",
+      "balance_sheet": 6681056000.0,
+      "tga": 337762.0,
+      "rrp": 187.367,
+      "net_liquidity": 6343293812.633,
+      "spx": 6092.18,
+      "ar1": null,
+      "variance": 506689.6641009091
+    },
+    {
+      "date": "2025-06-25",
+      "balance_sheet": 6662200000.0,
+      "tga": 364375.0,
+      "rrp": 210.879,
+      "net_liquidity": 6297824789.121,
+      "spx": 6092.16,
+      "ar1": null,
+      "variance": 508709.51844701474
+    },
+    {
+      "date": "2025-06-26",
+      "balance_sheet": 6662200000.0,
+      "tga": 364375.0,
+      "rrp": 252.432,
+      "net_liquidity": 6297824747.568,
+      "spx": 6141.02,
+      "ar1": null,
+      "variance": 510659.2187492391
+    },
+    {
+      "date": "2025-06-27",
+      "balance_sheet": 6662200000.0,
+      "tga": 364375.0,
+      "rrp": 285.742,
+      "net_liquidity": 6297824714.258,
+      "spx": 6173.07,
+      "ar1": null,
+      "variance": 513268.18860159913
+    },
+    {
+      "date": "2025-06-30",
+      "balance_sheet": 6662200000.0,
+      "tga": 364375.0,
+      "rrp": 460.731,
+      "net_liquidity": 6297824539.269,
+      "spx": 6204.95,
+      "ar1": null,
+      "variance": 516339.45068777667
+    },
+    {
+      "date": "2025-07-01",
+      "balance_sheet": 6662200000.0,
+      "tga": 364375.0,
+      "rrp": 245.53,
+      "net_liquidity": 6297824754.47,
+      "spx": 6198.01,
+      "ar1": null,
+      "variance": 519209.6387301027
+    },
+    {
+      "date": "2025-07-02",
+      "balance_sheet": 6659598000.0,
+      "tga": 359516.0,
+      "rrp": 237.307,
+      "net_liquidity": 6300081762.693,
+      "spx": 6227.42,
+      "ar1": null,
+      "variance": 520773.50091050414
+    },
+    {
+      "date": "2025-07-03",
+      "balance_sheet": 6659598000.0,
+      "tga": 359516.0,
+      "rrp": 214.665,
+      "net_liquidity": 6300081785.335,
+      "spx": 6279.35,
+      "ar1": null,
+      "variance": 521898.2904393195
+    },
+    {
+      "date": "2025-07-07",
+      "balance_sheet": 6659598000.0,
+      "tga": 359516.0,
+      "rrp": 218.03,
+      "net_liquidity": 6300081781.97,
+      "spx": 6229.98,
+      "ar1": null,
+      "variance": 522961.81259194703
+    },
+    {
+      "date": "2025-07-08",
+      "balance_sheet": 6659598000.0,
+      "tga": 359516.0,
+      "rrp": 219.415,
+      "net_liquidity": 6300081780.585,
+      "spx": 6225.52,
+      "ar1": null,
+      "variance": 522499.1437834189
+    },
+    {
+      "date": "2025-07-09",
+      "balance_sheet": 6661912000.0,
+      "tga": 319889.0,
+      "rrp": 227.273,
+      "net_liquidity": 6342022772.727,
+      "spx": 6263.26,
+      "ar1": null,
+      "variance": 521450.40210993437
+    },
+    {
+      "date": "2025-07-10",
+      "balance_sheet": 6661912000.0,
+      "tga": 319889.0,
+      "rrp": 183.339,
+      "net_liquidity": 6342022816.661,
+      "spx": 6280.46,
+      "ar1": null,
+      "variance": 519710.5645955337
+    },
+    {
+      "date": "2025-07-11",
+      "balance_sheet": 6661912000.0,
+      "tga": 319889.0,
+      "rrp": 181.637,
+      "net_liquidity": 6342022818.363,
+      "spx": 6259.75,
+      "ar1": null,
+      "variance": 518785.3945581063
+    },
+    {
+      "date": "2025-07-14",
+      "balance_sheet": 6661912000.0,
+      "tga": 319889.0,
+      "rrp": 217.841,
+      "net_liquidity": 6342022782.159,
+      "spx": 6268.56,
+      "ar1": null,
+      "variance": 516705.80211621284
+    },
+    {
+      "date": "2025-07-15",
+      "balance_sheet": 6661912000.0,
+      "tga": 319889.0,
+      "rrp": 198.277,
+      "net_liquidity": 6342022801.723,
+      "spx": 6243.76,
+      "ar1": null,
+      "variance": 514246.4890050408
+    },
+    {
+      "date": "2025-07-16",
+      "balance_sheet": 6659273000.0,
+      "tga": 296247.0,
+      "rrp": 197.086,
+      "net_liquidity": 6363025802.914,
+      "spx": 6263.7,
+      "ar1": null,
+      "variance": 510494.630527199
+    },
+    {
+      "date": "2025-07-17",
+      "balance_sheet": 6659273000.0,
+      "tga": 296247.0,
+      "rrp": 193.66,
+      "net_liquidity": 6363025806.34,
+      "spx": 6297.36,
+      "ar1": null,
+      "variance": 508267.3881182233
+    },
+    {
+      "date": "2025-07-18",
+      "balance_sheet": 6659273000.0,
+      "tga": 296247.0,
+      "rrp": 199.298,
+      "net_liquidity": 6363025800.702,
+      "spx": 6296.79,
+      "ar1": null,
+      "variance": 507209.84414230764
+    },
+    {
+      "date": "2025-07-21",
+      "balance_sheet": 6659273000.0,
+      "tga": 296247.0,
+      "rrp": 213.666,
+      "net_liquidity": 6363025786.334,
+      "spx": 6305.6,
+      "ar1": null,
+      "variance": 506671.0879764143
+    },
+    {
+      "date": "2025-07-22",
+      "balance_sheet": 6659273000.0,
+      "tga": 296247.0,
+      "rrp": 196.374,
+      "net_liquidity": 6363025803.626,
+      "spx": 6309.62,
+      "ar1": null,
+      "variance": 505217.27754820534
+    },
+    {
+      "date": "2025-07-23",
+      "balance_sheet": 6657715000.0,
+      "tga": 323176.0,
+      "rrp": 189.632,
+      "net_liquidity": 6334538810.368,
+      "spx": 6358.91,
+      "ar1": null,
+      "variance": 503774.4588284279
+    },
+    {
+      "date": "2025-07-24",
+      "balance_sheet": 6657715000.0,
+      "tga": 323176.0,
+      "rrp": 132.186,
+      "net_liquidity": 6334538867.814,
+      "spx": 6363.35,
+      "ar1": null,
+      "variance": 505077.02439567255
+    },
+    {
+      "date": "2025-07-25",
+      "balance_sheet": 6657715000.0,
+      "tga": 323176.0,
+      "rrp": 150.509,
+      "net_liquidity": 6334538849.491,
+      "spx": 6388.64,
+      "ar1": null,
+      "variance": 506686.70363285457
+    },
+    {
+      "date": "2025-07-28",
+      "balance_sheet": 6657715000.0,
+      "tga": 323176.0,
+      "rrp": 170.463,
+      "net_liquidity": 6334538829.537,
+      "spx": 6389.77,
+      "ar1": null,
+      "variance": 507635.2162526528
+    },
+    {
+      "date": "2025-07-29",
+      "balance_sheet": 6657715000.0,
+      "tga": 323176.0,
+      "rrp": 171.018,
+      "net_liquidity": 6334538828.982,
+      "spx": 6370.86,
+      "ar1": null,
+      "variance": 508189.05988970934
+    },
+    {
+      "date": "2025-07-30",
+      "balance_sheet": 6642578000.0,
+      "tga": 370507.0,
+      "rrp": 155.481,
+      "net_liquidity": 6272070844.519,
+      "spx": 6362.9,
+      "ar1": null,
+      "variance": 508483.3224789777
+    },
+    {
+      "date": "2025-07-31",
+      "balance_sheet": 6642578000.0,
+      "tga": 370507.0,
+      "rrp": 214.445,
+      "net_liquidity": 6272070785.555,
+      "spx": 6339.39,
+      "ar1": null,
+      "variance": 507021.0662790552
+    },
+    {
+      "date": "2025-08-01",
+      "balance_sheet": 6642578000.0,
+      "tga": 370507.0,
+      "rrp": 97.426,
+      "net_liquidity": 6272070902.574,
+      "spx": 6238.01,
+      "ar1": null,
+      "variance": 506000.28629874287
+    },
+    {
+      "date": "2025-08-04",
+      "balance_sheet": 6642578000.0,
+      "tga": 370507.0,
+      "rrp": 125.73,
+      "net_liquidity": 6272070874.27,
+      "spx": 6329.94,
+      "ar1": null,
+      "variance": 504605.5376596724
+    },
+    {
+      "date": "2025-08-05",
+      "balance_sheet": 6642578000.0,
+      "tga": 370507.0,
+      "rrp": 84.356,
+      "net_liquidity": 6272070915.644,
+      "spx": 6299.19,
+      "ar1": null,
+      "variance": 507077.9393618663
+    },
+    {
+      "date": "2025-08-06",
+      "balance_sheet": 6640843000.0,
+      "tga": 421043.0,
+      "rrp": 91.966,
+      "net_liquidity": 6219799908.034,
+      "spx": 6345.06,
+      "ar1": null,
+      "variance": 508457.04254551005
+    },
+    {
+      "date": "2025-08-07",
+      "balance_sheet": 6640843000.0,
+      "tga": 421043.0,
+      "rrp": 77.961,
+      "net_liquidity": 6219799922.039,
+      "spx": 6340.0,
+      "ar1": null,
+      "variance": 511379.05094568466
+    },
+    {
+      "date": "2025-08-08",
+      "balance_sheet": 6640843000.0,
+      "tga": 421043.0,
+      "rrp": 80.303,
+      "net_liquidity": 6219799919.697,
+      "spx": 6389.45,
+      "ar1": null,
+      "variance": 512780.354518729
+    },
+    {
+      "date": "2025-08-11",
+      "balance_sheet": 6640843000.0,
+      "tga": 421043.0,
+      "rrp": 82.214,
+      "net_liquidity": 6219799917.786,
+      "spx": 6373.45,
+      "ar1": null,
+      "variance": 514910.6680970243
+    },
+    {
+      "date": "2025-08-12",
+      "balance_sheet": 6640843000.0,
+      "tga": 421043.0,
+      "rrp": 57.492,
+      "net_liquidity": 6219799942.508,
+      "spx": 6445.76,
+      "ar1": null,
+      "variance": 516899.17967794585
+    },
+    {
+      "date": "2025-08-13",
+      "balance_sheet": 6643615000.0,
+      "tga": 504304.0,
+      "rrp": 57.202,
+      "net_liquidity": 6139310942.798,
+      "spx": 6466.58,
+      "ar1": null,
+      "variance": 518916.18996703665
+    },
+    {
+      "date": "2025-08-14",
+      "balance_sheet": 6643615000.0,
+      "tga": 504304.0,
+      "rrp": 28.818,
+      "net_liquidity": 6139310971.182,
+      "spx": 6468.54,
+      "ar1": null,
+      "variance": 521052.7227888718
+    },
+    {
+      "date": "2025-08-15",
+      "balance_sheet": 6643615000.0,
+      "tga": 504304.0,
+      "rrp": 33.757,
+      "net_liquidity": 6139310966.243,
+      "spx": 6449.8,
+      "ar1": null,
+      "variance": 521925.419792024
+    },
+    {
+      "date": "2025-08-18",
+      "balance_sheet": 6643615000.0,
+      "tga": 504304.0,
+      "rrp": 38.24,
+      "net_liquidity": 6139310961.76,
+      "spx": 6449.15,
+      "ar1": null,
+      "variance": 522287.8807992591
+    },
+    {
+      "date": "2025-08-19",
+      "balance_sheet": 6643615000.0,
+      "tga": 504304.0,
+      "rrp": 22.344,
+      "net_liquidity": 6139310977.656,
+      "spx": 6411.37,
+      "ar1": null,
+      "variance": 521779.7794606519
+    },
+    {
+      "date": "2025-08-20",
+      "balance_sheet": 6618415000.0,
+      "tga": 519534.0,
+      "rrp": 34.999,
+      "net_liquidity": 6098880965.001,
+      "spx": 6395.78,
+      "ar1": null,
+      "variance": 520738.3354408005
+    },
+    {
+      "date": "2025-08-21",
+      "balance_sheet": 6618415000.0,
+      "tga": 519534.0,
+      "rrp": 25.358,
+      "net_liquidity": 6098880974.642,
+      "spx": 6370.17,
+      "ar1": null,
+      "variance": 519049.64259090915
+    },
+    {
+      "date": "2025-08-22",
+      "balance_sheet": 6618415000.0,
+      "tga": 519534.0,
+      "rrp": 36.275,
+      "net_liquidity": 6098880963.725,
+      "spx": 6466.91,
+      "ar1": null,
+      "variance": 517794.5738416146
+    },
+    {
+      "date": "2025-08-25",
+      "balance_sheet": 6618415000.0,
+      "tga": 519534.0,
+      "rrp": 47.567,
+      "net_liquidity": 6098880952.433,
+      "spx": 6439.32,
+      "ar1": null,
+      "variance": 517318.1014934438
+    },
+    {
+      "date": "2025-08-26",
+      "balance_sheet": 6618415000.0,
+      "tga": 519534.0,
+      "rrp": 28.574,
+      "net_liquidity": 6098880971.426,
+      "spx": 6465.94,
+      "ar1": null,
+      "variance": 516610.9165342177
+    },
+    {
+      "date": "2025-08-27",
+      "balance_sheet": 6603384000.0,
+      "tga": 589998.0,
+      "rrp": 34.744,
+      "net_liquidity": 6013385965.256,
+      "spx": 6481.4,
+      "ar1": null,
+      "variance": 516205.93088258593
+    },
+    {
+      "date": "2025-08-28",
+      "balance_sheet": 6603384000.0,
+      "tga": 589998.0,
+      "rrp": 31.966,
+      "net_liquidity": 6013385968.034,
+      "spx": 6501.86,
+      "ar1": null,
+      "variance": 516605.429935544
+    },
+    {
+      "date": "2025-08-29",
+      "balance_sheet": 6603384000.0,
+      "tga": 589998.0,
+      "rrp": 77.898,
+      "net_liquidity": 6013385922.102,
+      "spx": 6460.26,
+      "ar1": null,
+      "variance": 517424.275154001
+    },
+    {
+      "date": "2025-09-02",
+      "balance_sheet": 6603384000.0,
+      "tga": 589998.0,
+      "rrp": 21.066,
+      "net_liquidity": 6013385978.934,
+      "spx": 6415.54,
+      "ar1": null,
+      "variance": 516596.95221792185
+    },
+    {
+      "date": "2025-09-03",
+      "balance_sheet": 6602071000.0,
+      "tga": 597513.0,
+      "rrp": 17.923,
+      "net_liquidity": 6004557982.077,
+      "spx": 6448.26,
+      "ar1": null,
+      "variance": 516958.74110051716
+    },
+    {
+      "date": "2025-09-04",
+      "balance_sheet": 6602071000.0,
+      "tga": 597513.0,
+      "rrp": 20.128,
+      "net_liquidity": 6004557979.872,
+      "spx": 6502.08,
+      "ar1": null,
+      "variance": 518233.59866588947
+    },
+    {
+      "date": "2025-09-05",
+      "balance_sheet": 6602071000.0,
+      "tga": 597513.0,
+      "rrp": 20.997,
+      "net_liquidity": 6004557979.003,
+      "spx": 6481.5,
+      "ar1": null,
+      "variance": 520877.27421965817
+    },
+    {
+      "date": "2025-09-08",
+      "balance_sheet": 6602071000.0,
+      "tga": 597513.0,
+      "rrp": 19.416,
+      "net_liquidity": 6004557980.584,
+      "spx": 6495.15,
+      "ar1": null,
+      "variance": 524675.8741515072
+    },
+    {
+      "date": "2025-09-09",
+      "balance_sheet": 6602071000.0,
+      "tga": 597513.0,
+      "rrp": 22.915,
+      "net_liquidity": 6004557977.085,
+      "spx": 6512.61,
+      "ar1": null,
+      "variance": 527888.7805378974
+    },
+    {
+      "date": "2025-09-10",
+      "balance_sheet": 6605962000.0,
+      "tga": 672274.0,
+      "rrp": 29.4,
+      "net_liquidity": 5933687970.6,
+      "spx": 6532.04,
+      "ar1": null,
+      "variance": 531144.1327600321
+    },
+    {
+      "date": "2025-09-11",
+      "balance_sheet": 6605962000.0,
+      "tga": 672274.0,
+      "rrp": 26.897,
+      "net_liquidity": 5933687973.103,
+      "spx": 6587.47,
+      "ar1": null,
+      "variance": 533934.6867765033
+    },
+    {
+      "date": "2025-09-12",
+      "balance_sheet": 6605962000.0,
+      "tga": 672274.0,
+      "rrp": 17.331,
+      "net_liquidity": 5933687982.669,
+      "spx": 6584.29,
+      "ar1": null,
+      "variance": 537144.8166863322
+    },
+    {
+      "date": "2025-09-15",
+      "balance_sheet": 6605962000.0,
+      "tga": 672274.0,
+      "rrp": 16.954,
+      "net_liquidity": 5933687983.046,
+      "spx": 6615.28,
+      "ar1": null,
+      "variance": 539802.765397548
+    },
+    {
+      "date": "2025-09-16",
+      "balance_sheet": 6605962000.0,
+      "tga": 672274.0,
+      "rrp": 18.817,
+      "net_liquidity": 5933687981.183,
+      "spx": 6606.76,
+      "ar1": null,
+      "variance": 542915.2320770648
+    },
+    {
+      "date": "2025-09-17",
+      "balance_sheet": 6608597000.0,
+      "tga": 756376.0,
+      "rrp": 13.963,
+      "net_liquidity": 5852220986.037,
+      "spx": 6600.35,
+      "ar1": null,
+      "variance": 545761.22924632
+    },
+    {
+      "date": "2025-09-18",
+      "balance_sheet": 6608597000.0,
+      "tga": 756376.0,
+      "rrp": 13.707,
+      "net_liquidity": 5852220986.293,
+      "spx": 6631.96,
+      "ar1": null,
+      "variance": 548719.770141908
+    },
+    {
+      "date": "2025-09-19",
+      "balance_sheet": 6608597000.0,
+      "tga": 756376.0,
+      "rrp": 11.363,
+      "net_liquidity": 5852220988.637,
+      "spx": 6664.36,
+      "ar1": null,
+      "variance": 550774.1876596331
+    },
+    {
+      "date": "2025-09-22",
+      "balance_sheet": 6608597000.0,
+      "tga": 756376.0,
+      "rrp": 14.173,
+      "net_liquidity": 5852220985.827,
+      "spx": 6693.75,
+      "ar1": null,
+      "variance": 553560.0774424431
+    },
+    {
+      "date": "2025-09-23",
+      "balance_sheet": 6608597000.0,
+      "tga": 756376.0,
+      "rrp": 14.402,
+      "net_liquidity": 5852220985.598,
+      "spx": 6656.92,
+      "ar1": null,
+      "variance": 556546.4399579777
+    },
+    {
+      "date": "2025-09-24",
+      "balance_sheet": 6608395000.0,
+      "tga": 804856.0,
+      "rrp": 29.172,
+      "net_liquidity": 5803538970.828,
+      "spx": 6637.97,
+      "ar1": null,
+      "variance": 558444.5452779908
+    },
+    {
+      "date": "2025-09-25",
+      "balance_sheet": 6608395000.0,
+      "tga": 804856.0,
+      "rrp": 25.369,
+      "net_liquidity": 5803538974.631,
+      "spx": 6604.72,
+      "ar1": null,
+      "variance": 559875.8977056592
+    },
+    {
+      "date": "2025-09-26",
+      "balance_sheet": 6608395000.0,
+      "tga": 804856.0,
+      "rrp": 48.073,
+      "net_liquidity": 5803538951.927,
+      "spx": 6643.7,
+      "ar1": null,
+      "variance": 559990.8491100316
+    },
+    {
+      "date": "2025-09-29",
+      "balance_sheet": 6608395000.0,
+      "tga": 804856.0,
+      "rrp": 56.22,
+      "net_liquidity": 5803538943.78,
+      "spx": 6661.21,
+      "ar1": null,
+      "variance": 560565.8058528486
+    },
+    {
+      "date": "2025-09-30",
+      "balance_sheet": 6608395000.0,
+      "tga": 804856.0,
+      "rrp": 49.071,
+      "net_liquidity": 5803538950.929,
+      "spx": 6688.46,
+      "ar1": null,
+      "variance": 560793.6778975709
+    },
+    {
+      "date": "2025-10-01",
+      "balance_sheet": 6587119000.0,
+      "tga": 805139.0,
+      "rrp": 10.179,
+      "net_liquidity": 5781979989.821,
+      "spx": 6711.2,
+      "ar1": null,
+      "variance": 562285.9961853462
+    },
+    {
+      "date": "2025-10-02",
+      "balance_sheet": 6587119000.0,
+      "tga": 805139.0,
+      "rrp": 8.436,
+      "net_liquidity": 5781979991.564,
+      "spx": 6715.35,
+      "ar1": null,
+      "variance": 564184.018551873
+    },
+    {
+      "date": "2025-10-03",
+      "balance_sheet": 6587119000.0,
+      "tga": 805139.0,
+      "rrp": 25.392,
+      "net_liquidity": 5781979974.608,
+      "spx": 6715.79,
+      "ar1": null,
+      "variance": 566349.3936548893
+    },
+    {
+      "date": "2025-10-06",
+      "balance_sheet": 6587119000.0,
+      "tga": 805139.0,
+      "rrp": 21.776,
+      "net_liquidity": 5781979978.224,
+      "spx": 6740.28,
+      "ar1": null,
+      "variance": 567751.3561484732
+    },
+    {
+      "date": "2025-10-07",
+      "balance_sheet": 6587119000.0,
+      "tga": 805139.0,
+      "rrp": 4.622,
+      "net_liquidity": 5781979995.378,
+      "spx": 6714.59,
+      "ar1": null,
+      "variance": 570485.6994063361
+    },
+    {
+      "date": "2025-10-08",
+      "balance_sheet": 6590815000.0,
+      "tga": 807428.0,
+      "rrp": 5.231,
+      "net_liquidity": 5783386994.769,
+      "spx": 6753.72,
+      "ar1": null,
+      "variance": 571750.1528808236
+    },
+    {
+      "date": "2025-10-09",
+      "balance_sheet": 6590815000.0,
+      "tga": 807428.0,
+      "rrp": 4.496,
+      "net_liquidity": 5783386995.504,
+      "spx": 6735.11,
+      "ar1": null,
+      "variance": 572870.8380634801
+    },
+    {
+      "date": "2025-10-10",
+      "balance_sheet": 6590815000.0,
+      "tga": 807428.0,
+      "rrp": 4.124,
+      "net_liquidity": 5783386995.876,
+      "spx": 6552.51,
+      "ar1": null,
+      "variance": 573637.5152832225
+    },
+    {
+      "date": "2025-10-14",
+      "balance_sheet": 6590815000.0,
+      "tga": 807428.0,
+      "rrp": 3.516,
+      "net_liquidity": 5783386996.484,
+      "spx": 6644.31,
+      "ar1": null,
+      "variance": 570442.0232879274
+    },
+    {
+      "date": "2025-10-15",
+      "balance_sheet": 6596454000.0,
+      "tga": 809593.0,
+      "rrp": 5.484,
+      "net_liquidity": 5786860994.516,
+      "spx": 6671.06,
+      "ar1": null,
+      "variance": 568855.1190098729
+    },
+    {
+      "date": "2025-10-16",
+      "balance_sheet": 6596454000.0,
+      "tga": 809593.0,
+      "rrp": 6.96,
+      "net_liquidity": 5786860993.04,
+      "spx": 6629.07,
+      "ar1": null,
+      "variance": 567257.3260241017
+    },
+    {
+      "date": "2025-10-17",
+      "balance_sheet": 6596454000.0,
+      "tga": 809593.0,
+      "rrp": 4.102,
+      "net_liquidity": 5786860995.898,
+      "spx": 6664.01,
+      "ar1": null,
+      "variance": 564915.3029320815
+    },
+    {
+      "date": "2025-10-20",
+      "balance_sheet": 6596454000.0,
+      "tga": 809593.0,
+      "rrp": 5.931,
+      "net_liquidity": 5786860994.069,
+      "spx": 6735.13,
+      "ar1": null,
+      "variance": 562908.1105455162
+    },
+    {
+      "date": "2025-10-21",
+      "balance_sheet": 6596454000.0,
+      "tga": 809593.0,
+      "rrp": 4.699,
+      "net_liquidity": 5786860995.301,
+      "spx": 6735.35,
+      "ar1": null,
+      "variance": 562485.5515915842
+    },
+    {
+      "date": "2025-10-22",
+      "balance_sheet": 6589533000.0,
+      "tga": 908001.0,
+      "rrp": 4.005,
+      "net_liquidity": 5681531995.995,
+      "spx": 6699.4,
+      "ar1": null,
+      "variance": 562190.2890387474
+    },
+    {
+      "date": "2025-10-23",
+      "balance_sheet": 6589533000.0,
+      "tga": 908001.0,
+      "rrp": 6.941,
+      "net_liquidity": 5681531993.059,
+      "spx": 6738.44,
+      "ar1": null,
+      "variance": 562246.4462476933
+    },
+    {
+      "date": "2025-10-24",
+      "balance_sheet": 6589533000.0,
+      "tga": 908001.0,
+      "rrp": 2.435,
+      "net_liquidity": 5681531997.565,
+      "spx": 6791.69,
+      "ar1": null,
+      "variance": 563004.0314821101
+    },
+    {
+      "date": "2025-10-27",
+      "balance_sheet": 6589533000.0,
+      "tga": 908001.0,
+      "rrp": 10.642,
+      "net_liquidity": 5681531989.358,
+      "spx": 6875.16,
+      "ar1": null,
+      "variance": 564958.8312427347
+    },
+    {
+      "date": "2025-10-28",
+      "balance_sheet": 6589533000.0,
+      "tga": 908001.0,
+      "rrp": 14.096,
+      "net_liquidity": 5681531985.904,
+      "spx": 6890.89,
+      "ar1": null,
+      "variance": 568458.7360655832
+    },
+    {
+      "date": "2025-10-29",
+      "balance_sheet": 6587034000.0,
+      "tga": 957990.0,
+      "rrp": 19.504,
+      "net_liquidity": 5629043980.496,
+      "spx": 6890.59,
+      "ar1": null,
+      "variance": 572271.0650682884
+    },
+    {
+      "date": "2025-10-30",
+      "balance_sheet": 6587034000.0,
+      "tga": 957990.0,
+      "rrp": 19.166,
+      "net_liquidity": 5629043980.834,
+      "spx": 6822.34,
+      "ar1": null,
+      "variance": 576512.9518277381
+    },
+    {
+      "date": "2025-10-31",
+      "balance_sheet": 6587034000.0,
+      "tga": 957990.0,
+      "rrp": 51.802,
+      "net_liquidity": 5629043948.198,
+      "spx": 6840.2,
+      "ar1": null,
+      "variance": 581231.4952371916
+    },
+    {
+      "date": "2025-11-03",
+      "balance_sheet": 6587034000.0,
+      "tga": 957990.0,
+      "rrp": 23.792,
+      "net_liquidity": 5629043976.208,
+      "spx": 6851.97,
+      "ar1": null,
+      "variance": 586075.2623546617
+    },
+    {
+      "date": "2025-11-04",
+      "balance_sheet": 6587034000.0,
+      "tga": 957990.0,
+      "rrp": 16.983,
+      "net_liquidity": 5629043983.017,
+      "spx": 6771.55,
+      "ar1": null,
+      "variance": 591560.443550195
+    },
+    {
+      "date": "2025-11-05",
+      "balance_sheet": 6572732000.0,
+      "tga": 940979.0,
+      "rrp": 12.814,
+      "net_liquidity": 5631752987.186,
+      "spx": 6796.29,
+      "ar1": null,
+      "variance": 594671.4352207534
+    },
+    {
+      "date": "2025-11-06",
+      "balance_sheet": 6572732000.0,
+      "tga": 940979.0,
+      "rrp": 10.754,
+      "net_liquidity": 5631752989.246,
+      "spx": 6720.32,
+      "ar1": null,
+      "variance": 596115.6343245725
+    },
+    {
+      "date": "2025-11-07",
+      "balance_sheet": 6572732000.0,
+      "tga": 940979.0,
+      "rrp": 4.903,
+      "net_liquidity": 5631752995.097,
+      "spx": 6728.8,
+      "ar1": null,
+      "variance": 595600.0072010278
+    },
+    {
+      "date": "2025-11-10",
+      "balance_sheet": 6572732000.0,
+      "tga": 940979.0,
+      "rrp": 7.152,
+      "net_liquidity": 5631752992.848,
+      "spx": 6832.43,
+      "ar1": null,
+      "variance": 595051.2526360102
+    },
+    {
+      "date": "2025-11-12",
+      "balance_sheet": 6580462000.0,
+      "tga": 953816.0,
+      "rrp": 5.886,
+      "net_liquidity": 5626645994.114,
+      "spx": 6850.92,
+      "ar1": null,
+      "variance": 596586.3011673823
+    },
+    {
+      "date": "2025-11-13",
+      "balance_sheet": 6580462000.0,
+      "tga": 953816.0,
+      "rrp": 3.761,
+      "net_liquidity": 5626645996.239,
+      "spx": 6737.49,
+      "ar1": null,
+      "variance": 598272.2031704938
+    },
+    {
+      "date": "2025-11-14",
+      "balance_sheet": 6580462000.0,
+      "tga": 953816.0,
+      "rrp": 1.559,
+      "net_liquidity": 5626645998.441,
+      "spx": 6734.11,
+      "ar1": null,
+      "variance": 598335.1156881242
+    },
+    {
+      "date": "2025-11-17",
+      "balance_sheet": 6580462000.0,
+      "tga": 953816.0,
+      "rrp": 3.172,
+      "net_liquidity": 5626645996.828,
+      "spx": 6672.41,
+      "ar1": null,
+      "variance": 599726.9626505125
+    },
+    {
+      "date": "2025-11-18",
+      "balance_sheet": 6580462000.0,
+      "tga": 953816.0,
+      "rrp": 0.905,
+      "net_liquidity": 5626645999.095,
+      "spx": 6617.32,
+      "ar1": null,
+      "variance": 599875.0583834593
+    },
+    {
+      "date": "2025-11-19",
+      "balance_sheet": 6555283000.0,
+      "tga": 941926.0,
+      "rrp": 1.129,
+      "net_liquidity": 5613356998.871,
+      "spx": 6642.16,
+      "ar1": null,
+      "variance": 598772.6470527365
+    },
+    {
+      "date": "2025-11-20",
+      "balance_sheet": 6555283000.0,
+      "tga": 941926.0,
+      "rrp": 6.52,
+      "net_liquidity": 5613356993.48,
+      "spx": 6538.76,
+      "ar1": null,
+      "variance": 598219.7832470231
+    },
+    {
+      "date": "2025-11-21",
+      "balance_sheet": 6555283000.0,
+      "tga": 941926.0,
+      "rrp": 2.503,
+      "net_liquidity": 5613356997.497,
+      "spx": 6602.99,
+      "ar1": null,
+      "variance": 595508.8781646923
+    },
+    {
+      "date": "2025-11-24",
+      "balance_sheet": 6555283000.0,
+      "tga": 941926.0,
+      "rrp": 1.077,
+      "net_liquidity": 5613356998.923,
+      "spx": 6705.12,
+      "ar1": null,
+      "variance": 593573.9718635383
+    },
+    {
+      "date": "2025-11-25",
+      "balance_sheet": 6555283000.0,
+      "tga": 941926.0,
+      "rrp": 2.314,
+      "net_liquidity": 5613356997.686,
+      "spx": 6765.88,
+      "ar1": null,
+      "variance": 593035.3823225751
+    },
+    {
+      "date": "2025-11-26",
+      "balance_sheet": 6552419000.0,
+      "tga": 903394.0,
+      "rrp": 2.217,
+      "net_liquidity": 5649024997.783,
+      "spx": 6812.61,
+      "ar1": null,
+      "variance": 592886.2937287836
+    },
+    {
+      "date": "2025-11-28",
+      "balance_sheet": 6552419000.0,
+      "tga": 903394.0,
+      "rrp": 7.561,
+      "net_liquidity": 5649024992.439,
+      "spx": 6849.09,
+      "ar1": null,
+      "variance": 593808.8237039294
+    },
+    {
+      "date": "2025-12-01",
+      "balance_sheet": 6552419000.0,
+      "tga": 903394.0,
+      "rrp": 3.24,
+      "net_liquidity": 5649024996.76,
+      "spx": 6812.63,
+      "ar1": null,
+      "variance": 594630.1514950636
+    },
+    {
+      "date": "2025-12-02",
+      "balance_sheet": 6552419000.0,
+      "tga": 903394.0,
+      "rrp": 5.62,
+      "net_liquidity": 5649024994.38,
+      "spx": 6829.37,
+      "ar1": null,
+      "variance": 594329.9141079094
+    },
+    {
+      "date": "2025-12-03",
+      "balance_sheet": 6535781000.0,
+      "tga": 937167.0,
+      "rrp": 2.514,
+      "net_liquidity": 5598613997.486,
+      "spx": 6849.72,
+      "ar1": null,
+      "variance": 594160.0858009694
+    },
+    {
+      "date": "2025-12-04",
+      "balance_sheet": 6535781000.0,
+      "tga": 937167.0,
+      "rrp": 2.233,
+      "net_liquidity": 5598613997.767,
+      "spx": 6857.12,
+      "ar1": null,
+      "variance": 593650.0464465957
+    },
+    {
+      "date": "2025-12-05",
+      "balance_sheet": 6535781000.0,
+      "tga": 937167.0,
+      "rrp": 1.485,
+      "net_liquidity": 5598613998.515,
+      "spx": 6870.4,
+      "ar1": null,
+      "variance": 593424.4475418668
+    },
+    {
+      "date": "2025-12-08",
+      "balance_sheet": 6535781000.0,
+      "tga": 937167.0,
+      "rrp": 1.703,
+      "net_liquidity": 5598613998.297,
+      "spx": 6846.51,
+      "ar1": null,
+      "variance": 593025.4624667161
+    },
+    {
+      "date": "2025-12-09",
+      "balance_sheet": 6535781000.0,
+      "tga": 937167.0,
+      "rrp": 3.211,
+      "net_liquidity": 5598613996.789,
+      "spx": 6840.51,
+      "ar1": null,
+      "variance": 592563.1601601557
+    },
+    {
+      "date": "2025-12-10",
+      "balance_sheet": 6539303000.0,
+      "tga": 858946.0,
+      "rrp": 5.045,
+      "net_liquidity": 5680356994.955,
+      "spx": 6886.68,
+      "ar1": null,
+      "variance": 592066.0095253658
+    },
+    {
+      "date": "2025-12-11",
+      "balance_sheet": 6539303000.0,
+      "tga": 858946.0,
+      "rrp": 2.874,
+      "net_liquidity": 5680356997.126,
+      "spx": 6901.0,
+      "ar1": null,
+      "variance": 591438.8588403447
+    },
+    {
+      "date": "2025-12-12",
+      "balance_sheet": 6539303000.0,
+      "tga": 858946.0,
+      "rrp": 0.838,
+      "net_liquidity": 5680356999.162,
+      "spx": 6827.41,
+      "ar1": null,
+      "variance": 591437.4394113538
+    },
+    {
+      "date": "2025-12-15",
+      "balance_sheet": 6539303000.0,
+      "tga": 858946.0,
+      "rrp": 2.601,
+      "net_liquidity": 5680356997.399,
+      "spx": 6816.51,
+      "ar1": null,
+      "variance": 589840.9474414905
+    },
+    {
+      "date": "2025-12-16",
+      "balance_sheet": 6539303000.0,
+      "tga": 858946.0,
+      "rrp": 1.554,
+      "net_liquidity": 5680356998.446,
+      "spx": 6800.26,
+      "ar1": null,
+      "variance": 587498.9600838001
+    },
+    {
+      "date": "2025-12-17",
+      "balance_sheet": 6556861000.0,
+      "tga": 833093.0,
+      "rrp": 10.361,
+      "net_liquidity": 5723767989.639,
+      "spx": 6721.43,
+      "ar1": null,
+      "variance": 585190.769136873
+    },
+    {
+      "date": "2025-12-18",
+      "balance_sheet": 6556861000.0,
+      "tga": 833093.0,
+      "rrp": 11.708,
+      "net_liquidity": 5723767988.292,
+      "spx": 6774.76,
+      "ar1": null,
+      "variance": 584695.595443965
+    },
+    {
+      "date": "2025-12-19",
+      "balance_sheet": 6556861000.0,
+      "tga": 833093.0,
+      "rrp": 3.047,
+      "net_liquidity": 5723767996.953,
+      "spx": 6834.5,
+      "ar1": null,
+      "variance": 585660.1358503278
+    },
+    {
+      "date": "2025-12-22",
+      "balance_sheet": 6556861000.0,
+      "tga": 833093.0,
+      "rrp": 1.523,
+      "net_liquidity": 5723767998.477,
+      "spx": 6878.49,
+      "ar1": null,
+      "variance": 586811.6481827006
+    },
+    {
+      "date": "2025-12-23",
+      "balance_sheet": 6556861000.0,
+      "tga": 833093.0,
+      "rrp": 5.893,
+      "net_liquidity": 5723767994.107,
+      "spx": 6909.79,
+      "ar1": null,
+      "variance": 588047.5920255935
+    },
+    {
+      "date": "2025-12-24",
+      "balance_sheet": 6581231000.0,
+      "tga": 837120.0,
+      "rrp": 4.803,
+      "net_liquidity": 5744110995.197,
+      "spx": 6932.05,
+      "ar1": null,
+      "variance": 588560.0658121223
+    },
+    {
+      "date": "2025-12-26",
+      "balance_sheet": 6581231000.0,
+      "tga": 837120.0,
+      "rrp": 20.339,
+      "net_liquidity": 5744110979.661,
+      "spx": 6929.94,
+      "ar1": null,
+      "variance": 589189.664330059
+    },
+    {
+      "date": "2025-12-29",
+      "balance_sheet": 6581231000.0,
+      "tga": 837120.0,
+      "rrp": 10.551,
+      "net_liquidity": 5744110989.449,
+      "spx": 6905.74,
+      "ar1": null,
+      "variance": 589474.3320434302
+    },
+    {
+      "date": "2025-12-30",
+      "balance_sheet": 6581231000.0,
+      "tga": 837120.0,
+      "rrp": 12.605,
+      "net_liquidity": 5744110987.395,
+      "spx": 6896.24,
+      "ar1": null,
+      "variance": 589985.6741391186
+    },
+    {
+      "date": "2025-12-31",
+      "balance_sheet": 6640618000.0,
+      "tga": 837306.0,
+      "rrp": 105.993,
+      "net_liquidity": 5803311894.007,
+      "spx": 6845.5,
+      "ar1": null,
+      "variance": 591059.6832670595
+    },
+    {
+      "date": "2026-01-02",
+      "balance_sheet": 6640618000.0,
+      "tga": 837306.0,
+      "rrp": 5.667,
+      "net_liquidity": 5803311994.333,
+      "spx": 6858.47,
+      "ar1": null,
+      "variance": 591524.6480192255
+    },
+    {
+      "date": "2026-01-05",
+      "balance_sheet": 6640618000.0,
+      "tga": 837306.0,
+      "rrp": 6.485,
+      "net_liquidity": 5803311993.515,
+      "spx": 6902.05,
+      "ar1": null,
+      "variance": 592368.589125113
+    },
+    {
+      "date": "2026-01-06",
+      "balance_sheet": 6640618000.0,
+      "tga": 837306.0,
+      "rrp": 2.582,
+      "net_liquidity": 5803311997.418,
+      "spx": 6944.82,
+      "ar1": null,
+      "variance": 594407.2796428802
+    },
+    {
+      "date": "2026-01-07",
+      "balance_sheet": 6640618000.0,
+      "tga": 837306.0,
+      "rrp": 4.582,
+      "net_liquidity": 5803311995.418,
+      "spx": 6944.82,
+      "ar1": null,
+      "variance": 596239.0787970826
+    }
   ],
-  "record_count": 50
+  "record_count": 480
 }
