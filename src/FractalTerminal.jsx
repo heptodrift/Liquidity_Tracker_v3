@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useMemo, useRef, useCallback } from 'react';
 import ReactDOM from 'react-dom';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Area, ComposedChart, ReferenceLine, ReferenceArea, Brush, Legend } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Area, AreaChart, ComposedChart, ReferenceLine, ReferenceArea, Brush, Legend } from 'recharts';
 import { Activity, DollarSign, Shield, Database, AlertCircle, Layers, X, HelpCircle, TrendingUp, TrendingDown, ZoomIn, FileText, Clock, Info, Sliders, Download, Terminal, AlertTriangle, Sun, Globe, Coins, Command, Layout, GripVertical, ArrowUp, ArrowDown, Minus, ChevronUp, ChevronDown } from 'lucide-react';
 
 /**
- * FRACTAL TERMINAL V8.0 - INSTITUTIONAL EDITION
+ * FRACTAL TERMINAL V8.0 - BETA
  * =============================================
  * 
  * V8.0 Architecture:
@@ -552,7 +552,7 @@ const MetricCard = ({
 const RRPCountdownWidget = ({ countdown }) => {
   if (!countdown) return null;
   
-  const { status, current_billion, drain_rate_per_day, days_to_exhaustion, projected_zero_date } = countdown;
+  const { status, current_billion, drain_rate_per_day, days_to_exhaustion, projected_zero_date, history } = countdown;
   
   const getStatusColor = () => {
     if (status === 'CRITICAL' || current_billion < 50) return 'rose';
@@ -564,57 +564,124 @@ const RRPCountdownWidget = ({ countdown }) => {
   const color = getStatusColor();
   const isExhausted = current_billion < 10;
   
+  // Calculate percentage drained from peak
+  const peakRRP = history && history.length > 0 ? Math.max(...history.map(h => h.rrp)) : 2500;
+  const percentDrained = ((peakRRP - current_billion) / peakRRP * 100).toFixed(1);
+  
   return (
-    <div className={`relative rounded-xl border ${isExhausted ? 'border-rose-500/60 bg-rose-950/30' : `border-${color}-500/40 bg-black/80`} backdrop-blur-sm overflow-hidden shadow-lg p-4`}>
+    <div className={`relative rounded-xl border ${isExhausted ? 'border-rose-500/60 bg-rose-950/30' : `border-${color}-500/40 bg-black/80`} backdrop-blur-sm overflow-hidden shadow-lg`}>
       {/* Corner accents */}
       <div className={`absolute top-0 left-0 w-5 h-5 border-t-2 border-l-2 border-${color}-500/50`} />
       <div className={`absolute top-0 right-0 w-5 h-5 border-t-2 border-r-2 border-${color}-500/50`} />
       <div className={`absolute bottom-0 left-0 w-5 h-5 border-b-2 border-l-2 border-${color}-500/50`} />
       <div className={`absolute bottom-0 right-0 w-5 h-5 border-b-2 border-r-2 border-${color}-500/50`} />
       
-      <div className="flex items-center gap-2 mb-3">
-        <AlertTriangle className={`w-4 h-4 text-${color}-400`} />
-        <InfoTooltip id="rrpCountdown">
-          <span className={`text-sm font-mono font-bold text-${color}-400 tracking-wider uppercase`}>RRP COUNTDOWN</span>
-        </InfoTooltip>
-      </div>
-      
-      {isExhausted ? (
-        <div className="text-center py-4">
-          <div className="text-4xl font-mono font-bold text-rose-400 animate-pulse">⚠️ EXHAUSTED</div>
-          <p className="text-rose-300 text-sm mt-2">RRP Buffer Depleted</p>
-          <p className="text-rose-400/70 text-xs mt-1">QT now draining reserves directly</p>
-        </div>
-      ) : (
-        <div className="space-y-4">
-          <div className="text-center">
-            <div className={`text-5xl font-mono font-bold text-${color}-400`}>
-              {days_to_exhaustion || '∞'}
-            </div>
-            <p className="text-slate-400 text-sm">Days to Zero</p>
+      <div className="p-4">
+        <div className="flex items-center justify-between mb-3">
+          <div className="flex items-center gap-2">
+            <AlertTriangle className={`w-5 h-5 text-${color}-400`} />
+            <InfoTooltip id="rrpCountdown">
+              <span className={`text-sm font-mono font-bold text-${color}-400 tracking-wider uppercase`}>RRP LIQUIDITY CLIFF</span>
+            </InfoTooltip>
           </div>
-          
-          <div className="grid grid-cols-2 gap-3 text-center">
-            <div className="bg-black/40 rounded-lg p-2">
-              <p className="text-xs text-slate-500">Current</p>
-              <p className={`font-mono text-lg text-${color}-400`}>${current_billion?.toFixed(1)}B</p>
-            </div>
-            <div className="bg-black/40 rounded-lg p-2">
-              <p className="text-xs text-slate-500">Drain Rate</p>
-              <p className="font-mono text-lg text-rose-400">
-                ${Math.abs(drain_rate_per_day || 0).toFixed(1)}B/day
+          <span className={`px-2 py-0.5 text-xs font-mono rounded ${
+            status === 'CRITICAL' ? 'bg-rose-500/20 text-rose-400' :
+            status === 'WARNING' ? 'bg-amber-500/20 text-amber-400' :
+            'bg-yellow-500/20 text-yellow-400'
+          }`}>{status}</span>
+        </div>
+        
+        {isExhausted ? (
+          <div className="text-center py-4">
+            <div className="text-4xl font-mono font-bold text-rose-400 animate-pulse">⚠️ EXHAUSTED</div>
+            <p className="text-rose-300 text-sm mt-2">RRP Buffer Depleted - QT now draining reserves directly</p>
+            <div className="mt-4 p-3 bg-rose-950/50 rounded-lg border border-rose-500/30">
+              <p className="text-xs text-rose-300">
+                <strong>WHAT THIS MEANS:</strong> The $2.5T buffer that protected bank reserves from QT is gone. 
+                Every dollar of ongoing QT (~$60B/month) now reduces bank reserves directly. 
+                Watch for signs of reserve scarcity (repo rate spikes, ERR usage).
               </p>
             </div>
           </div>
-          
-          {projected_zero_date && (
-            <div className="text-center pt-2 border-t border-slate-800">
-              <p className="text-xs text-slate-500">Projected Zero Date</p>
-              <p className={`font-mono text-${color}-400`}>{projected_zero_date}</p>
+        ) : (
+          <div className="grid grid-cols-2 gap-4">
+            {/* Left: Key Metrics */}
+            <div className="space-y-3">
+              <div className="text-center p-3 bg-black/40 rounded-lg">
+                <p className="text-xs text-slate-500 mb-1">Days to Zero</p>
+                <div className={`text-4xl font-mono font-bold text-${color}-400`}>
+                  {days_to_exhaustion !== null ? days_to_exhaustion : '< 1'}
+                </div>
+              </div>
+              
+              <div className="grid grid-cols-2 gap-2">
+                <div className="p-2 bg-black/40 rounded-lg text-center">
+                  <p className="text-[10px] text-slate-500">Current</p>
+                  <p className={`font-mono text-sm text-${color}-400`}>${current_billion?.toFixed(1)}B</p>
+                </div>
+                <div className="p-2 bg-black/40 rounded-lg text-center">
+                  <p className="text-[10px] text-slate-500">Drain Rate</p>
+                  <p className="font-mono text-sm text-rose-400">-${Math.abs(drain_rate_per_day || 0).toFixed(1)}B/d</p>
+                </div>
+              </div>
+              
+              <div className="p-2 bg-black/40 rounded-lg text-center">
+                <p className="text-[10px] text-slate-500">{percentDrained}% Drained from Peak</p>
+                <div className="w-full h-2 bg-slate-800 rounded-full mt-1 overflow-hidden">
+                  <div 
+                    className="h-full bg-gradient-to-r from-rose-500 to-rose-400 rounded-full transition-all"
+                    style={{ width: `${percentDrained}%` }}
+                  />
+                </div>
+              </div>
             </div>
-          )}
+            
+            {/* Right: Mini Chart */}
+            <div>
+              <p className="text-[10px] text-slate-500 mb-1 text-center">RRP DRAIN TRAJECTORY →</p>
+              {history && history.length > 0 ? (
+                <div className="h-32">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <AreaChart data={history} margin={{ top: 5, right: 5, bottom: 5, left: 5 }}>
+                      <defs>
+                        <linearGradient id="rrpDrainGrad" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stopColor="#f43f5e" stopOpacity={0.6} />
+                          <stop offset="100%" stopColor="#f43f5e" stopOpacity={0} />
+                        </linearGradient>
+                      </defs>
+                      <XAxis dataKey="date" tick={false} axisLine={false} />
+                      <YAxis tick={{ fill: '#64748b', fontSize: 8 }} width={35} tickFormatter={v => `$${v}B`} axisLine={false} />
+                      <Area 
+                        type="monotone" 
+                        dataKey="rrp" 
+                        stroke="#f43f5e" 
+                        strokeWidth={2}
+                        fill="url(#rrpDrainGrad)" 
+                      />
+                      <ReferenceLine y={0} stroke="#64748b" strokeDasharray="3 3" />
+                    </AreaChart>
+                  </ResponsiveContainer>
+                </div>
+              ) : (
+                <div className="h-32 flex items-center justify-center text-slate-600 text-xs">
+                  No historical data
+                </div>
+              )}
+              <p className="text-[10px] text-slate-600 text-center mt-1">
+                Peak: ${peakRRP?.toFixed(0)}B → Now: ${current_billion?.toFixed(1)}B
+              </p>
+            </div>
+          </div>
+        )}
+        
+        {/* Explanation footer */}
+        <div className="mt-3 pt-3 border-t border-slate-800">
+          <p className="text-[10px] text-slate-500">
+            <strong className={`text-${color}-400`}>↓ DRAINING TO ZERO:</strong> RRP acts as a liquidity buffer. 
+            As it empties, QT directly reduces bank reserves. Once reserves hit ~$2.5T, repo stress begins.
+          </p>
         </div>
-      )}
+      </div>
     </div>
   );
 };
@@ -1238,7 +1305,7 @@ const FractalTerminal = () => {
               <ComposedChart data={scenarioData} margin={{ top: 10, right: 50, bottom: 10, left: 10 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
                 <XAxis dataKey="date" tick={{ fill: '#64748b', fontSize: 10 }} tickFormatter={d => d?.slice(5)} />
-                <YAxis yAxisId="left" tick={{ fill: '#64748b', fontSize: 10 }} tickFormatter={v => (v/1000).toFixed(1)+'T'} width={45} />
+                <YAxis yAxisId="left" tick={{ fill: '#64748b', fontSize: 10 }} tickFormatter={v => `$${(v/1000000).toFixed(1)}T`} width={55} />
                 <YAxis yAxisId="right" orientation="right" tick={{ fill: '#64748b', fontSize: 10 }} tickFormatter={v => (v/1000).toFixed(0)+'k'} width={45} />
                 <Tooltip content={<CustomChartTooltip />} />
                 <Legend />
