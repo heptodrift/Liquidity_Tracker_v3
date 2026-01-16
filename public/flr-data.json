@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-01-15T04:29:30.745150",
+    "generated_at": "2026-01-16T04:27:09.167546",
     "version": "8.0.0",
     "data_integrity": "COMPLETE",
     "sources": {
@@ -14,19 +14,19 @@
     }
   },
   "latest": {
-    "date": "2026-01-15",
-    "balance_sheet": 6573602000.0,
-    "tga": 796148000.0,
+    "date": "2026-01-16",
+    "balance_sheet": 6581700000.0,
+    "tga": 779175000.0,
     "tga_source": "FRED WTREGEN (Weekly)",
-    "rrp": 3223000000.0,
+    "rrp": 2003000000.0,
     "rrp_source": "NY Fed (Same-day)",
-    "reserves": 2996379000.0,
-    "net_liquidity": -792797398000.0,
-    "spx": 6926.6,
+    "reserves": 3049630000.0,
+    "net_liquidity": -774596300000.0,
+    "spx": 6944.47,
     "ssn": 121.8,
-    "vix": 15.98,
-    "yield_curve": 0.64,
-    "hy_spread": 2.75
+    "vix": 16.75,
+    "yield_curve": 0.61,
+    "hy_spread": 2.76
   },
   "regime": {
     "composite": 55.0,
@@ -34,8 +34,8 @@
     "signal": "REDUCE RISK"
   },
   "csd": {
-    "current_ar1": 0.9931,
-    "current_variance": 368253.0807,
+    "current_ar1": 0.9932,
+    "current_variance": 368346.6294,
     "kendall_tau": null,
     "status": "CRITICAL"
   },
@@ -44,23 +44,23 @@
     "confidence": 87,
     "status": "BUBBLE DETECTED",
     "tc_days": 20,
-    "tc_date": "2026-02-04",
-    "r2": 0.8745877876451877,
+    "tc_date": "2026-02-05",
+    "r2": 0.8753737015978371,
     "omega": 9.5,
     "m": 0.7999999999999998
   },
   "credit_stress": {
     "status": "NORMAL",
     "score": 0,
-    "vix": 15.98,
-    "yield_curve": 0.64,
-    "hy_spread": 2.75,
+    "vix": 16.75,
+    "yield_curve": 0.61,
+    "hy_spread": 2.76,
     "cp_tbill_spread": -1.0
   },
   "rrp_countdown": {
     "status": "CRITICAL",
-    "current_billion": 3.22,
-    "drain_rate_per_day": -0.03,
+    "current_billion": 2.0,
+    "drain_rate_per_day": -0.02,
     "days_to_exhaustion": null,
     "projected_zero_date": null
   },
@@ -69,30 +69,22 @@
     "roc_30d": null
   },
   "stablecoins": {
-    "total_mcap": 308.64,
+    "total_mcap": 309.63,
     "breakdown": {
-      "USDT": 186.7,
-      "USDC": 75.7,
-      "USDS": 6.6,
-      "USDe": 6.4,
+      "USDT": 186.6,
+      "USDC": 76.6,
+      "USDS": 6.5,
+      "USDe": 6.5,
       "DAI": 4.7,
-      "PYUSD": 3.6,
+      "PYUSD": 3.7,
       "USD1": 3.5,
-      "USDf": 2.1,
+      "USDf": 2.0,
       "USYC": 1.5,
       "USDG": 1.4
     },
     "count": 327
   },
   "timeseries": [
-    {
-      "date": "2024-02-15",
-      "balance_sheet": 7633874000.0,
-      "tga": 838005.0,
-      "rrp": 493.065,
-      "net_liquidity": 6795868506.935,
-      "spx": 5029.73
-    },
     {
       "date": "2024-02-16",
       "balance_sheet": 7633874000.0,
@@ -2091,9 +2083,7 @@
       "tga": 828102.0,
       "rrp": 67.67,
       "net_liquidity": 5985410932.33,
-      "spx": 6051.97,
-      "ar1": null,
-      "variance": 443577.5124999875
+      "spx": 6051.97
     },
     {
       "date": "2025-02-13",
@@ -4377,13 +4367,23 @@
     },
     {
       "date": "2026-01-14",
-      "balance_sheet": 6573602000.0,
-      "tga": 796148.0,
+      "balance_sheet": 6581700000.0,
+      "tga": 779175.0,
       "rrp": 3.223,
-      "net_liquidity": 5777453996.777,
+      "net_liquidity": 5802524996.777,
       "spx": 6926.6,
       "ar1": null,
       "variance": 611045.5123996086
+    },
+    {
+      "date": "2026-01-15",
+      "balance_sheet": 6581700000.0,
+      "tga": 779175.0,
+      "rrp": 2.003,
+      "net_liquidity": 5802524997.997,
+      "spx": 6944.47,
+      "ar1": null,
+      "variance": 615608.5396097595
     }
   ],
   "record_count": 480
