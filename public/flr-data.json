@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-01-25T04:57:25.077886",
+    "generated_at": "2026-01-26T05:01:53.148467",
     "version": "8.0.0",
     "data_integrity": "COMPLETE",
     "sources": {
@@ -14,7 +14,7 @@
     }
   },
   "latest": {
-    "date": "2026-01-25",
+    "date": "2026-01-26",
     "balance_sheet": 6584580000.0,
     "tga": 869261000.0,
     "tga_source": "FRED WTREGEN (Weekly)",
@@ -44,7 +44,7 @@
     "confidence": 86,
     "status": "BUBBLE DETECTED",
     "tc_days": 20,
-    "tc_date": "2026-02-14",
+    "tc_date": "2026-02-15",
     "r2": 0.8683874960407354,
     "omega": 9.5,
     "m": 0.7999999999999998
@@ -62,24 +62,24 @@
     "current_billion": 0.93,
     "drain_rate_per_day": 0.25,
     "days_to_exhaustion": 3,
-    "projected_zero_date": "2026-01-28"
+    "projected_zero_date": "2026-01-29"
   },
   "global_m2": {
     "current": null,
     "roc_30d": null
   },
   "stablecoins": {
-    "total_mcap": 307.86,
+    "total_mcap": 307.24,
     "breakdown": {
-      "USDT": 186.6,
-      "USDC": 72.5,
+      "USDT": 186.3,
+      "USDC": 72.3,
       "USDe": 6.6,
       "USDS": 6.5,
-      "USD1": 4.8,
+      "USD1": 4.9,
       "DAI": 4.6,
       "PYUSD": 3.7,
       "USDf": 2.1,
-      "USYC": 1.7,
+      "USYC": 1.6,
       "USDG": 1.5
     },
     "count": 327
