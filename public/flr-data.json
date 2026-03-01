@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-02-28T03:45:01.922916",
+    "generated_at": "2026-03-01T04:11:33.508580",
     "version": "8.0.0",
     "data_integrity": "COMPLETE",
     "sources": {
@@ -14,7 +14,7 @@
     }
   },
   "latest": {
-    "date": "2026-02-28",
+    "date": "2026-03-01",
     "balance_sheet": 6613797000.0,
     "tga": 887612000.0,
     "tga_source": "FRED WTREGEN (Weekly)",
@@ -23,7 +23,7 @@
     "reserves": 2965765000.0,
     "net_liquidity": -897316203000.0,
     "spx": 6878.88,
-    "ssn": 120.2,
+    "ssn": 120.3,
     "vix": 18.63,
     "yield_curve": 0.59,
     "hy_spread": 2.98
@@ -44,7 +44,7 @@
     "confidence": 91,
     "status": "BUBBLE DETECTED",
     "tc_days": 110,
-    "tc_date": "2026-06-18",
+    "tc_date": "2026-06-19",
     "r2": 0.9103782485414416,
     "omega": 6.5,
     "m": 0.7999999999999998
@@ -69,12 +69,12 @@
     "roc_30d": null
   },
   "stablecoins": {
-    "total_mcap": 308.21,
+    "total_mcap": 308.96,
     "breakdown": {
-      "USDT": 183.6,
-      "USDC": 75.3,
-      "USDS": 7.2,
-      "USDe": 6.1,
+      "USDT": 183.7,
+      "USDC": 75.2,
+      "USDS": 7.4,
+      "USDe": 6.0,
       "USD1": 4.7,
       "DAI": 4.4,
       "PYUSD": 4.2,
@@ -82,7 +82,7 @@
       "USYC": 1.8,
       "USDG": 1.7
     },
-    "count": 341
+    "count": 342
   },
   "timeseries": [
     {
