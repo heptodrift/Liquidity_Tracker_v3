@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-05-04T05:22:39.546124",
+    "generated_at": "2026-05-05T04:51:55.025753",
     "version": "8.0.0",
     "data_integrity": "COMPLETE",
     "sources": {
@@ -14,19 +14,19 @@
     }
   },
   "latest": {
-    "date": "2026-05-04",
+    "date": "2026-05-05",
     "balance_sheet": 6699950000.0,
     "tga": 981929000.0,
     "tga_source": "FRED WTREGEN (Weekly)",
-    "rrp": 607000000.0,
+    "rrp": 618000000.0,
     "rrp_source": "NY Fed (Same-day)",
     "reserves": 2918599000.0,
-    "net_liquidity": -975836050000.0,
-    "spx": 7230.12,
+    "net_liquidity": -975847050000.0,
+    "spx": 7200.75,
     "ssn": 103.8,
-    "vix": 16.89,
-    "yield_curve": 0.51,
-    "hy_spread": 2.83
+    "vix": 16.99,
+    "yield_curve": 0.5,
+    "hy_spread": 2.77
   },
   "regime": {
     "composite": 55.0,
@@ -35,7 +35,7 @@
   },
   "csd": {
     "current_ar1": 0.9954,
-    "current_variance": 420864.6127,
+    "current_variance": 424621.2635,
     "kendall_tau": null,
     "status": "CRITICAL"
   },
@@ -44,23 +44,23 @@
     "confidence": 88,
     "status": "BUBBLE DETECTED",
     "tc_days": 90,
-    "tc_date": "2026-08-02",
-    "r2": 0.8848063248394186,
+    "tc_date": "2026-08-03",
+    "r2": 0.8870503448268452,
     "omega": 6.5,
     "m": 0.7999999999999998
   },
   "credit_stress": {
     "status": "NORMAL",
     "score": 0,
-    "vix": 16.89,
-    "yield_curve": 0.51,
-    "hy_spread": 2.83,
-    "cp_tbill_spread": 20.0
+    "vix": 16.99,
+    "yield_curve": 0.5,
+    "hy_spread": 2.77,
+    "cp_tbill_spread": 14.0
   },
   "rrp_countdown": {
     "status": "CRITICAL",
-    "current_billion": 0.61,
-    "drain_rate_per_day": -0.01,
+    "current_billion": 0.62,
+    "drain_rate_per_day": -0.02,
     "days_to_exhaustion": null,
     "projected_zero_date": null
   },
@@ -69,30 +69,22 @@
     "roc_30d": null
   },
   "stablecoins": {
-    "total_mcap": 319.1,
+    "total_mcap": 320.53,
     "breakdown": {
       "USDT": 189.5,
-      "USDC": 77.4,
-      "USDS": 8.8,
+      "USDC": 77.9,
+      "USDS": 8.7,
       "DAI": 4.6,
       "USD1": 4.5,
       "USDe": 3.9,
       "PYUSD": 3.4,
+      "USYC": 2.9,
       "BUIDL": 2.8,
-      "USYC": 2.6,
       "USDG": 2.4
     },
-    "count": 371
+    "count": 374
   },
   "timeseries": [
-    {
-      "date": "2024-06-03",
-      "balance_sheet": 7284319000.0,
-      "tga": 704335.0,
-      "rrp": 387.069,
-      "net_liquidity": 6579983612.931,
-      "spx": 5283.4
-    },
     {
       "date": "2024-06-04",
       "balance_sheet": 7284319000.0,
@@ -2091,9 +2083,7 @@
       "tga": 467204.0,
       "rrp": 315.657,
       "net_liquidity": 6206039684.343,
-      "spx": 5911.69,
-      "ar1": null,
-      "variance": 485896.8826049998
+      "spx": 5911.69
     },
     {
       "date": "2025-06-02",
@@ -4384,6 +4374,16 @@
       "spx": 7230.12,
       "ar1": null,
       "variance": 616376.2665058522
+    },
+    {
+      "date": "2026-05-04",
+      "balance_sheet": 6699950000.0,
+      "tga": 981929.0,
+      "rrp": 0.618,
+      "net_liquidity": 5718020999.382,
+      "spx": 7200.75,
+      "ar1": null,
+      "variance": 624465.9041541987
     }
   ],
   "record_count": 480
