@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-06-01T06:43:28.931430",
+    "generated_at": "2026-06-02T06:26:04.057544",
     "version": "8.0.0",
     "data_integrity": "COMPLETE",
     "sources": {
@@ -14,18 +14,18 @@
     }
   },
   "latest": {
-    "date": "2026-06-01",
+    "date": "2026-06-02",
     "balance_sheet": 6704383000.0,
     "tga": 830296000.0,
     "tga_source": "FRED WTREGEN (Weekly)",
-    "rrp": 11677000000.0,
+    "rrp": 1302000000.0,
     "rrp_source": "NY Fed (Same-day)",
-    "reserves": null,
-    "net_liquidity": -835268617000.0,
-    "spx": null,
-    "ssn": 104.3,
-    "vix": 15.74,
-    "yield_curve": 0.47,
+    "reserves": 3066560000.0,
+    "net_liquidity": -824893617000.0,
+    "spx": 7599.96,
+    "ssn": 101.3,
+    "vix": null,
+    "yield_curve": null,
     "hy_spread": null
   },
   "regime": {
@@ -52,8 +52,8 @@
   "credit_stress": {
     "status": "NORMAL",
     "score": 0,
-    "vix": 15.74,
-    "yield_curve": 0.47,
+    "vix": null,
+    "yield_curve": null,
     "hy_spread": null,
     "cp_tbill_spread": null
   },
@@ -69,7 +69,7 @@
     "roc_30d": null
   },
   "stablecoins": {
-    "total_mcap": 318.81,
+    "total_mcap": 318.71,
     "breakdown": {
       "USDT": 187.9,
       "USDC": 76.0,
@@ -80,7 +80,7 @@
       "PYUSD": 3.0,
       "BUIDL": 3.0,
       "USYC": 3.0,
-      "USDG": 2.5
+      "USDG": 2.6
     },
     "count": 380
   },
