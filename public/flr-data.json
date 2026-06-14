@@ -1,12 +1,12 @@
 {
   "meta": {
-    "generated_at": "2026-06-13T06:06:09.223446",
+    "generated_at": "2026-06-14T06:23:41.281984",
     "version": "8.0.0",
     "data_integrity": "COMPLETE",
     "sources": {
       "walcl": "FRED WALCL",
       "tga": "FRED WTREGEN (Weekly)",
-      "rrp": "FRED RRPONTSYD",
+      "rrp": "NY Fed (Same-day)",
       "reserves": "FRED WRESBAL",
       "spx": "FRED SP500",
       "stablecoins": "DefiLlama",
@@ -14,14 +14,14 @@
     }
   },
   "latest": {
-    "date": "2026-06-13",
+    "date": "2026-06-14",
     "balance_sheet": 6725397000.0,
     "tga": 828122000.0,
     "tga_source": "FRED WTREGEN (Weekly)",
-    "rrp": 0.454,
-    "rrp_source": "FRED RRPONTSYD",
+    "rrp": 454000000.0,
+    "rrp_source": "NY Fed (Same-day)",
     "reserves": 3080723000.0,
-    "net_liquidity": -821396603000.454,
+    "net_liquidity": -821850603000.0,
     "spx": 7431.46,
     "ssn": 101.3,
     "vix": 19.44,
@@ -29,9 +29,9 @@
     "hy_spread": 2.78
   },
   "regime": {
-    "composite": 80.0,
-    "status": "CRITICAL",
-    "signal": "STRONG SELL"
+    "composite": 55.0,
+    "status": "ELEVATED",
+    "signal": "REDUCE RISK"
   },
   "csd": {
     "current_ar1": 0.9961,
@@ -44,7 +44,7 @@
     "confidence": 90,
     "status": "BUBBLE DETECTED",
     "tc_days": 70,
-    "tc_date": "2026-08-22",
+    "tc_date": "2026-08-23",
     "r2": 0.9051782156222129,
     "omega": 6.5,
     "m": 0.2
@@ -62,27 +62,27 @@
     "current_billion": 0.45,
     "drain_rate_per_day": 0.08,
     "days_to_exhaustion": 5,
-    "projected_zero_date": "2026-06-18"
+    "projected_zero_date": "2026-06-19"
   },
   "global_m2": {
     "current": null,
     "roc_30d": null
   },
   "stablecoins": {
-    "total_mcap": 314.27,
+    "total_mcap": 314.37,
     "breakdown": {
       "USDT": 186.5,
-      "USDC": 74.9,
-      "USDS": 8.5,
+      "USDC": 75.0,
+      "USDS": 8.4,
       "USDe": 4.5,
       "DAI": 4.4,
-      "USD1": 4.3,
+      "USD1": 4.4,
       "BUIDL": 3.0,
       "USYC": 3.0,
       "PYUSD": 2.8,
       "USDG": 2.6
     },
-    "count": 380
+    "count": 379
   },
   "timeseries": [
     {
