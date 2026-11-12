@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-11-11T08:32:40.278078",
+    "generated_at": "2026-11-12T08:55:08.119872",
     "version": "8.0.0",
     "data_integrity": "COMPLETE",
     "sources": {
@@ -14,7 +14,7 @@
     }
   },
   "latest": {
-    "date": "2026-11-11",
+    "date": "2026-11-12",
     "balance_sheet": 6748145000.0,
     "tga": 957175000.0,
     "tga_source": "FRED WTREGEN (Weekly)",
@@ -24,7 +24,7 @@
     "net_liquidity": -950578855000.0,
     "spx": 7520.93,
     "ssn": 83.2,
-    "vix": 19.92,
+    "vix": 19.46,
     "yield_curve": 0.25,
     "hy_spread": 3.34
   },
@@ -44,7 +44,7 @@
     "confidence": 86,
     "status": "BUBBLE DETECTED",
     "tc_days": 20,
-    "tc_date": "2026-12-01",
+    "tc_date": "2026-12-02",
     "r2": 0.8601561037965805,
     "omega": 11.5,
     "m": 0.7999999999999998
@@ -52,7 +52,7 @@
   "credit_stress": {
     "status": "NORMAL",
     "score": 0,
-    "vix": 19.92,
+    "vix": 19.46,
     "yield_curve": 0.25,
     "hy_spread": 3.34,
     "cp_tbill_spread": -2.0
@@ -62,27 +62,27 @@
     "current_billion": 0.15,
     "drain_rate_per_day": 0.01,
     "days_to_exhaustion": 24,
-    "projected_zero_date": "2026-12-05"
+    "projected_zero_date": "2026-12-06"
   },
   "global_m2": {
     "current": null,
     "roc_30d": null
   },
   "stablecoins": {
-    "total_mcap": 291.71,
+    "total_mcap": 289.96,
     "breakdown": {
-      "USDT": 175.7,
-      "USDC": 70.1,
-      "USDS": 5.3,
+      "USDT": 175.6,
+      "USDC": 69.8,
+      "USDS": 5.4,
       "USDe": 4.9,
-      "DAI": 4.6,
-      "USD1": 3.3,
-      "PYUSD": 2.8,
+      "DAI": 4.7,
+      "USD1": 3.2,
       "RLUSD": 2.7,
       "USDG": 2.7,
+      "PYUSD": 2.7,
       "USDf": 1.7
     },
-    "count": 453
+    "count": 452
   },
   "timeseries": [
     {
