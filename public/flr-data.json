@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-11-17T09:50:52.142141",
+    "generated_at": "2026-11-18T09:23:04.220785",
     "version": "8.0.0",
     "data_integrity": "COMPLETE",
     "sources": {
@@ -14,22 +14,22 @@
     }
   },
   "latest": {
-    "date": "2026-11-17",
+    "date": "2026-11-18",
     "balance_sheet": 6758867000.0,
     "tga": 914370000.0,
     "tga_source": "FRED WTREGEN (Weekly)",
-    "rrp": 182000000.0,
+    "rrp": 351000000.0,
     "rrp_source": "NY Fed (Same-day)",
     "reserves": 2960603000.0,
-    "net_liquidity": -907793133000.0,
+    "net_liquidity": -907962133000.0,
     "spx": 7416.59,
     "ssn": 83.2,
-    "vix": 19.3,
-    "yield_curve": 0.29,
-    "hy_spread": 3.23
+    "vix": 22.91,
+    "yield_curve": 0.3,
+    "hy_spread": 3.34
   },
   "regime": {
-    "composite": 40.0,
+    "composite": 42.5,
     "status": "CAUTION",
     "signal": "HOLD"
   },
@@ -41,58 +41,50 @@
   },
   "lppl": {
     "is_bubble": true,
-    "confidence": 84,
+    "confidence": 83,
     "status": "BUBBLE DETECTED",
     "tc_days": 20,
-    "tc_date": "2026-12-07",
-    "r2": 0.8428079992639583,
+    "tc_date": "2026-12-08",
+    "r2": 0.8332733626570762,
     "omega": 11.5,
     "m": 0.7999999999999998
   },
   "credit_stress": {
     "status": "NORMAL",
-    "score": 0,
-    "vix": 19.3,
-    "yield_curve": 0.29,
-    "hy_spread": 3.23,
-    "cp_tbill_spread": 5.0
+    "score": 10,
+    "vix": 22.91,
+    "yield_curve": 0.3,
+    "hy_spread": 3.34,
+    "cp_tbill_spread": 15.0
   },
   "rrp_countdown": {
     "status": "CRITICAL",
-    "current_billion": 0.18,
-    "drain_rate_per_day": 0.01,
-    "days_to_exhaustion": 24,
-    "projected_zero_date": "2026-12-11"
+    "current_billion": 0.35,
+    "drain_rate_per_day": -0.01,
+    "days_to_exhaustion": null,
+    "projected_zero_date": null
   },
   "global_m2": {
     "current": null,
     "roc_30d": null
   },
   "stablecoins": {
-    "total_mcap": 287.12,
+    "total_mcap": 287.3,
     "breakdown": {
       "USDT": 175.2,
-      "USDC": 69.4,
+      "USDC": 69.2,
       "USDS": 5.3,
-      "USDe": 4.9,
+      "USDe": 4.8,
       "DAI": 4.6,
-      "USD1": 3.0,
+      "USD1": 2.9,
       "RLUSD": 2.8,
       "USDG": 2.6,
-      "PYUSD": 2.4,
+      "PYUSD": 2.5,
       "U": 1.6
     },
     "count": 452
   },
   "timeseries": [
-    {
-      "date": "2024-12-17",
-      "balance_sheet": 6897485000.0,
-      "tga": 775067.0,
-      "rrp": 118.093,
-      "net_liquidity": 6122417881.907,
-      "spx": null
-    },
     {
       "date": "2024-12-18",
       "balance_sheet": 6889332000.0,
@@ -3923,6 +3915,14 @@
       "tga": 914370.0,
       "rrp": 0.182,
       "net_liquidity": 5844496999.818,
+      "spx": 7416.59
+    },
+    {
+      "date": "2026-11-17",
+      "balance_sheet": 6758867000.0,
+      "tga": 914370.0,
+      "rrp": 0.351,
+      "net_liquidity": 5844496999.649,
       "spx": 7416.59
     }
   ],
