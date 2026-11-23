@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-11-22T08:57:22.522461",
+    "generated_at": "2026-11-23T09:56:23.363801",
     "version": "8.0.0",
     "data_integrity": "COMPLETE",
     "sources": {
@@ -14,7 +14,7 @@
     }
   },
   "latest": {
-    "date": "2026-11-22",
+    "date": "2026-11-23",
     "balance_sheet": 6741452000.0,
     "tga": 916613000.0,
     "tga_source": "FRED WTREGEN (Weekly)",
@@ -44,7 +44,7 @@
     "confidence": 78,
     "status": "BUBBLE DETECTED",
     "tc_days": 70,
-    "tc_date": "2027-01-31",
+    "tc_date": "2027-02-01",
     "r2": 0.7899267774803904,
     "omega": 11.5,
     "m": 0.7999999999999998
@@ -69,15 +69,15 @@
     "roc_30d": null
   },
   "stablecoins": {
-    "total_mcap": 283.63,
+    "total_mcap": 284.55,
     "breakdown": {
-      "USDT": 174.5,
+      "USDT": 174.6,
       "USDC": 68.7,
       "USDe": 4.9,
       "DAI": 4.5,
-      "USDS": 3.1,
+      "USDS": 3.3,
       "RLUSD": 2.9,
-      "USD1": 2.9,
+      "USD1": 2.8,
       "USDG": 2.6,
       "PYUSD": 2.3,
       "U": 1.6
